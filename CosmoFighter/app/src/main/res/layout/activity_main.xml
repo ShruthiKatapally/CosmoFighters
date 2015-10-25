@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textSize="50dp"
         android:textColor="#eaa52d"
-        android:id="@+id/applicationName"
+        android:id="@+id/appName"
         android:layout_marginTop="112dp"
         android:textStyle="bold"
         android:singleLine="false"
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:text="@string/start_playing"
         android:id="@+id/play_btn"
-        android:layout_marginTop="125dp"
         android:textSize="30dp"
-        android:layout_below="@+id/applicationName"
+        android:background="@drawable/roundedbutton"
+        android:layout_below="@+id/appName"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/roundedbutton" />
+        android:layout_marginTop="94dp" />
 
 </RelativeLayout>
