@@ -4,5 +4,7 @@
     <string name="app_name">Cosmo Fighter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_audio_settings">AudioSettings</string>
+    <string name="title_activity_fb_share">FbShare</string>
 
 </resources>
