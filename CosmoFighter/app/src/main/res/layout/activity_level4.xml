@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@drawable/mainbackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="  COSMO FIGTHER"
+        android:id="@+id/textname"
+        android:textColor="#eaa52d"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="48dp"
+        android:textSize="40dp"
+        android:textIsSelectable="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select Level"
+        android:id="@+id/textLevel"
+        android:textColor="#eaa52d"
+        android:layout_below="@+id/textname"
+        android:layout_marginTop="70dp"
+        android:capitalize="characters"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_alignLeft="@+id/textname"
+        android:layout_alignStart="@+id/textname"
+        android:layout_alignRight="@+id/textname"
+        android:layout_alignEnd="@+id/textname"
+        android:fontFamily="@string/abc_searchview_description_voice"
+        android:textSize="30dp"
+        android:textIsSelectable="true" />
+
+    <Button
+        android:drawableRight="@drawable/ic_launcher"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="  Easy"
+        android:id="@+id/easy_button"
+        android:textColor="#f3dd4e"
+        android:background="@drawable/roundedbutton"
+        android:textSize="20dp"
+
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/medium_button"
+        android:layout_alignEnd="@+id/medium_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:drawableRight="@drawable/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium"
+        android:id="@+id/medium_button"
+        android:textColor="#f3dd4e"
+        android:background="@drawable/roundedbutton"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/easy_button"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false" />
+
+    <Button
+        android:drawableRight="@drawable/ic_launcher"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:text="Hard"
+        android:id="@+id/hard_button"
+        android:textColor="#f3dd4e"
+        android:background="@drawable/roundedbutton"
+        android:layout_below="@+id/medium_button"
+        android:layout_alignLeft="@+id/medium_button"
+        android:layout_alignStart="@+id/medium_button"
+        android:layout_marginTop="25dp"
+        android:layout_alignRight="@+id/medium_button"
+        android:layout_alignEnd="@+id/medium_button"
+        android:textSize="15dp" />
+
+</RelativeLayout>
