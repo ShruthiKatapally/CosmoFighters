@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/audio_textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
@@ -18,45 +18,51 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BACK"
-        android:id="@+id/button"
+        android:text="@string/back_music"
+        android:id="@+id/backinmusic_bt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/roundedbutton" />
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MUSIC"
-        android:id="@+id/switch1"
+        android:text="@string/music_settings"
+        android:id="@+id/music_switch"
         android:checked="false"
-        android:textColor="#f9ec5f"
+        android:textColor="#eaa52d"
         android:textStyle="bold"
         android:maxHeight="1500dp"
+        android:textSize="40dp"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/switch2"
-        android:layout_alignStart="@+id/switch2" />
+        android:layout_alignLeft="@+id/COSMOFIGHTER"
+        android:layout_alignStart="@+id/COSMOFIGHTER" />
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AUDIO"
-        android:id="@+id/switch2"
-        android:layout_below="@+id/switch1"
-        android:layout_centerHorizontal="true"
+        android:text="@string/audio_settings"
+        android:id="@+id/audio_switch"
         android:checked="false"
         android:textStyle="bold"
-        android:textColor="#f8e324" />
+        android:textColor="#eaa52d"
+        android:textSize="40dp"
+        android:layout_below="@+id/music_switch"
+        android:layout_alignRight="@+id/music_switch"
+        android:layout_alignEnd="@+id/music_switch" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="COSMO FIGHTER"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/switch1"
+        android:text="@string/app_name"
+        android:id="@+id/audio_view"
+        android:textColor="#eaa52d"
+        android:textSize="50dp"
+        android:layout_below="@+id/audio_textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp"
-        android:textColor="#f41919" />
+        android:layout_marginTop="31dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
