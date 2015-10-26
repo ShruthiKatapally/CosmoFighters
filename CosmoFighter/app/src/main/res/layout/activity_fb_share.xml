@@ -11,23 +11,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="COSMO FIGTHER"
-        android:id="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"
-        android:textColor="#e2db11" />
+
+        android:text="@string/app_name"
+        android:id="@+id/audio_view"
+        android:textColor="#eaa52d"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="78dp"
+        android:layout_above="@+id/fbshare_bt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FB SHARE"
-        android:id="@+id/button2"
-        android:layout_centerVertical="true"
+
+        android:text="@string/fbshare_login"
+        android:id="@+id/fbshare_bt"
         android:textColor="#f3dd4e"
-        android:background="#038787"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:background="@drawable/roundedbutton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

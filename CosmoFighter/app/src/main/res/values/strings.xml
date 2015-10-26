@@ -9,8 +9,11 @@
     <string name="exit">"   Exit   "</string>
     <string name="title_activity_audio_settings">AudioSettings</string>
     <string name="title_activity_fb_share">FbShare</string>
-    <string name="title_activity_level4">Level4Activity</string>
-   <string name="title_activity_home_screen">Cosmo Fighter</string>
-
+    <string name="title_activity_level4">LevelsScreen</string>
+    <string name="back_music">Back</string>
+    <string name="music_settings">Music</string>
+    <string name="audio_settings">Audio</string>
+    <string name="fbshare_login">Facebook Login</string>
+    <string name="title_activity_home_screen">Cosmo Fighter</string>
 
 </resources>
