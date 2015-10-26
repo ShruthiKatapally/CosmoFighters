@@ -15,5 +15,9 @@
     <string name="audio_settings">Audio</string>
     <string name="fbshare_login">Facebook Login</string>
     <string name="title_activity_home_screen">Cosmo Fighter</string>
+    <string name = "easy_button">Easy</string>
+    <string name = "medium_button">Medium</string>
+    <string name = "hard_button">Hard</string>
+
 
 </resources>

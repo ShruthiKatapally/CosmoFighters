@@ -26,7 +26,7 @@
         android:id="@+id/play_game_btn"
         android:textSize="30dp"
         android:background="@drawable/roundedbutton"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/appName"
         android:layout_centerHorizontal="true" />
 
@@ -38,8 +38,11 @@
         android:textSize="30dp"
         android:background="@drawable/roundedbutton"
         android:layout_below="@+id/play_game_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/play_game_btn"
+        android:layout_alignEnd="@+id/play_game_btn"
+        android:layout_alignLeft="@+id/play_game_btn"
+        android:layout_alignStart="@+id/play_game_btn" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,8 +52,11 @@
         android:textSize="30dp"
         android:background="@drawable/roundedbutton"
         android:layout_below="@+id/settings_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/settings_btn"
+        android:layout_alignEnd="@+id/settings_btn"
+        android:layout_alignLeft="@+id/settings_btn"
+        android:layout_alignStart="@+id/settings_btn" />
 
     <Button
         android:layout_width="wrap_content"
@@ -60,7 +66,10 @@
         android:textSize="30dp"
         android:background="@drawable/roundedbutton"
         android:layout_below="@+id/share_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/share_btn"
+        android:layout_alignEnd="@+id/share_btn"
+        android:layout_alignLeft="@+id/share_btn"
+        android:layout_alignStart="@+id/share_btn" />
 
 </RelativeLayout>

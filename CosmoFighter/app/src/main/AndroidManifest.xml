@@ -35,7 +35,7 @@
 <<<<<<< HEAD
         </activity>
         <activity
-            android:name=".Level4Activity"
+            android:name=".LevelsActivity"
             android:label="@string/title_activity_level4"
             android:theme="@style/AppTheme.NoActionBar" >
 =======
