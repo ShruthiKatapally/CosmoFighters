@@ -12,11 +12,7 @@ public class FbShare extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-        setContentView(R.layout.activity_fb_share);
-=======
->>>>>>> origin/master
 
-    }
+}
 
 }
