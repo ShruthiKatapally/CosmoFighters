@@ -11,22 +11,24 @@
         android:textSize="50sp"
         android:textColor="#eaa52d"
         android:id="@+id/app_name"
-        android:layout_marginTop="112dp"
         android:textStyle="bold"
         android:singleLine="false"
         android:gravity="center"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_start_playing"
-        android:id="@+id/play_btn"
+        android:text="@string/title_select_package"
+        android:id="@+id/textLevel"
+        android:textColor="#eaa52d"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:textSize="30sp"
-        android:background="@drawable/roundedbutton"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/app_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

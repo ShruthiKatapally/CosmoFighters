@@ -18,7 +18,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back_music"
+        android:text="@string/title_back_music"
         android:id="@+id/backinmusic_bt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -28,13 +28,13 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/music_settings"
+        android:text="@string/title_music_settings"
         android:id="@+id/music_switch"
         android:checked="false"
         android:textColor="#eaa52d"
         android:textStyle="bold"
         android:maxHeight="1500dp"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/COSMOFIGHTER"
         android:layout_alignStart="@+id/COSMOFIGHTER" />
@@ -42,12 +42,12 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/audio_settings"
+        android:text="@string/title_audio_settings"
         android:id="@+id/audio_switch"
         android:checked="false"
         android:textStyle="bold"
         android:textColor="#eaa52d"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_below="@+id/music_switch"
         android:layout_alignRight="@+id/music_switch"
         android:layout_alignEnd="@+id/music_switch" />
@@ -59,7 +59,7 @@
         android:text="@string/app_name"
         android:id="@+id/audio_view"
         android:textColor="#eaa52d"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:layout_below="@+id/audio_textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"

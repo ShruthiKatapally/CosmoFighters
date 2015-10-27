@@ -19,28 +19,27 @@
         <activity
             android:name=".AudioSettings"
             android:label="@string/title_activity_audio_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FbShare"
             android:label="@string/title_activity_fb_share"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.asmart.cosmofighter.MainActivity" />
-<<<<<<< HEAD
         </activity>
         <activity
             android:name=".LevelsActivity"
             android:label="@string/title_activity_level4"
-            android:theme="@style/AppTheme.NoActionBar" >
-=======
->>>>>>> origin/master
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SelectPackageActivity"
+            android:label="@string/title_activity_select_package"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

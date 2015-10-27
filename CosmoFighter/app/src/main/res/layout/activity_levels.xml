@@ -8,43 +8,39 @@
 
     <TextView android:text="@string/app_name" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textColor="#eaa52d"
-        android:id="@+id/appName"
+        android:id="@+id/app_name"
         android:textStyle="bold"
         android:singleLine="false"
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="      Select Level      "
+        android:text="@string/title_select_level"
         android:id="@+id/textLevel"
         android:textColor="#eaa52d"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textSize="30sp"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/appName"
+        android:layout_below="@+id/app_name"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:drawableRight="@drawable/ic_launcher"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="easy"
+        android:text="@string/title_easy"
         android:id="@+id/easy_button"
-
         android:background="@drawable/roundedbutton"
         android:textSize="30sp"
-
         android:layout_alignLeft="@+id/textLevel"
         android:layout_alignRight="@+id/textLevel"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
         android:layout_centerInParent="true"
         android:paddingEnd="0dp"
         android:paddingStart="0dp"
@@ -54,9 +50,8 @@
         android:drawableRight="@drawable/ic_launcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium"
+        android:text="@string/title_medium"
         android:id="@+id/medium_button"
-
         android:background="@drawable/roundedbutton"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/easy_button"
@@ -70,9 +65,8 @@
         android:drawableRight="@drawable/ic_launcher"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
-        android:text="Hard"
+        android:text="@string/title_hard"
         android:id="@+id/hard_button"
-
         android:background="@drawable/roundedbutton"
         android:layout_below="@+id/medium_button"
         android:layout_alignLeft="@+id/medium_button"

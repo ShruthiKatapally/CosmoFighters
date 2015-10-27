@@ -3,7 +3,7 @@ package com.asmart.cosmofighter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class HomeScreenActivity extends AppCompatActivity {
+public class SelectPackageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
