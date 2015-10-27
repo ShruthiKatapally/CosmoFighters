@@ -39,7 +39,8 @@
         android:src="@drawable/ic_package"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/app_name"
-        android:layout_alignStart="@+id/app_name" />
+        android:layout_alignStart="@+id/app_name"
+        android:onClick="selectPackageActivity" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
         android:id="@+id/pack2_btn"
         android:src="@drawable/ic_package"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="selectPackageActivity" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +82,8 @@
         android:src="@drawable/ic_package"
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/pack3_text"
-        android:layout_alignEnd="@+id/pack3_text" />
+        android:layout_alignEnd="@+id/pack3_text"
+        android:onClick="selectPackageActivity" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -14,7 +14,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void playGame(View view) {
-        Intent intent = new Intent(this, LevelsActivity.class);
+        Intent intent = new Intent(this, SelectPackageActivity.class);
         startActivity(intent);
     }
 
