@@ -28,7 +28,8 @@
         android:background="@drawable/roundedbutton"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/app_name"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="playGame" />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,7 +43,8 @@
         android:layout_alignRight="@+id/play_game_btn"
         android:layout_alignEnd="@+id/play_game_btn"
         android:layout_alignLeft="@+id/play_game_btn"
-        android:layout_alignStart="@+id/play_game_btn" />
+        android:layout_alignStart="@+id/play_game_btn"
+        android:onClick="viewSettings" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,7 +58,8 @@
         android:layout_alignRight="@+id/settings_btn"
         android:layout_alignEnd="@+id/settings_btn"
         android:layout_alignLeft="@+id/settings_btn"
-        android:layout_alignStart="@+id/settings_btn" />
+        android:layout_alignStart="@+id/settings_btn"
+        android:onClick="fbShare" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,6 +73,7 @@
         android:layout_alignRight="@+id/share_btn"
         android:layout_alignEnd="@+id/share_btn"
         android:layout_alignLeft="@+id/share_btn"
-        android:layout_alignStart="@+id/share_btn" />
+        android:layout_alignStart="@+id/share_btn"
+        android:onClick="exitGame" />
 
 </RelativeLayout>
