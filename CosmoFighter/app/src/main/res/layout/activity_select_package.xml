@@ -31,4 +31,66 @@
         android:layout_below="@+id/app_name"
         android:layout_centerHorizontal="true" />
 
+    <ImageButton
+        android:contentDescription="@string/title_package1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pack1_btn"
+        android:src="@drawable/ic_package"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/app_name"
+        android:layout_alignStart="@+id/app_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/title_package1"
+        android:textColor="#eaa52d"
+        android:id="@+id/pack1_text"
+        android:layout_below="@+id/pack1_btn"
+        android:layout_alignRight="@+id/pack1_btn"
+        android:layout_alignEnd="@+id/pack1_btn" />
+
+    <ImageButton
+        android:contentDescription="@string/title_package2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pack2_btn"
+        android:src="@drawable/ic_package"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/title_package2"
+        android:textColor="#eaa52d"
+        android:id="@+id/pack2_text"
+        android:layout_below="@+id/pack2_btn"
+        android:layout_alignRight="@+id/pack2_btn"
+        android:layout_alignEnd="@+id/pack2_btn" />
+
+    <ImageButton
+        android:contentDescription="@string/title_package3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pack3_btn"
+        android:src="@drawable/ic_package"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/pack3_text"
+        android:layout_alignEnd="@+id/pack3_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/title_package3"
+        android:textColor="#eaa52d"
+        android:id="@+id/pack3_text"
+        android:layout_alignTop="@+id/pack2_text"
+        android:layout_alignRight="@+id/app_name"
+        android:layout_alignEnd="@+id/app_name" />
+
 </RelativeLayout>

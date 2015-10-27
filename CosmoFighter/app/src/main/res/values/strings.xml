@@ -10,6 +10,10 @@
     <string name="title_exit">"   Exit   "</string>
 
     <string name="title_select_package">Select Package</string>
+    <string name="title_package1">Package 1</string>
+    <string name="title_package2">Package 2</string>
+    <string name="title_package3">Package 3</string>
+
     <string name="title_select_level">"  Select Level  "</string>
 
     <string name="title_activity_audio_settings">AudioSettings</string>
