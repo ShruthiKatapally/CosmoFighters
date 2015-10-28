@@ -25,8 +25,9 @@
         android:textStyle="bold"
         android:maxHeight="1500dp"
         android:textSize="40sp"
+        tools:ignore="NewApi"
         android:layout_centerVertical="true"
-        tools:ignore="NewApi"/>
+        android:layout_centerHorizontal="true" />
 
     <Switch
         android:layout_width="wrap_content"
