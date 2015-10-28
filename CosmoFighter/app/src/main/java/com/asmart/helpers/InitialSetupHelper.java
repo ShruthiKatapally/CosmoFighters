@@ -13,14 +13,12 @@ public class InitialSetupHelper {
 
     private Context context;
 
-    private SharedPreferences.Editor edit;
-
     public InitialSetupHelper(Context context) {
         this.context = context;
     }
 
     public void setupApplication(SharedPreferences settings) {
-        edit = settings.edit();
+        SharedPreferences.Editor edit = settings.edit();
         edit.putBoolean(MUSICON, true);
         edit.putBoolean(SOUNDON, true);
         edit.putBoolean(FIRSTRUN, false);
@@ -31,9 +29,9 @@ public class InitialSetupHelper {
 
     //Inserts the packages and their corresponding values to the database in initial run
     public void addDefaultPackages() {
-        Packages pack1 = new Packages("Package1", true, 0, 0);
-        Packages pack2 = new Packages("Package2", false, 0, 0);
-        Packages pack3 = new Packages("Package3", false, 0, 0);
+        Packages pack1 = new Packages(1, "pack1", true, 0, 0);
+        Packages pack2 = new Packages(2, "pack2", false, 0, 0);
+        Packages pack3 = new Packages(3, "pack3", false, 0, 0);
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.addPackage(pack1);
