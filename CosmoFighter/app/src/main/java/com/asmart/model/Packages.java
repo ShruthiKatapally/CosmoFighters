@@ -1,6 +1,7 @@
 package com.asmart.model;
 
 public class Packages {
+    private int packageId;
     private String packageName;
     private boolean packageUnlocked;
     private int starsCount;
@@ -8,11 +9,20 @@ public class Packages {
 
     public Packages(){}
 
-    public Packages(String packageName, boolean packageUnlocked, int starsCount, int levelsUnlocked){
+    public Packages(int packageId, String packageName, boolean packageUnlocked, int starsCount, int levelsUnlocked){
+        this.packageId = packageId;
         this.packageName = packageName;
         this.packageUnlocked = packageUnlocked;
         this.starsCount = starsCount;
         this.levelsUnlocked = levelsUnlocked;
+    }
+
+    public int getPackageId() {
+        return packageId;
+    }
+
+    public void setPackageId(int packageId) {
+        this.packageId = packageId;
     }
 
     public String getPackageName() {

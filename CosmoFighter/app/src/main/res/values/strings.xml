@@ -14,7 +14,7 @@
     <string name="title_package2">Package 2</string>
     <string name="title_package3">Package 3</string>
 
-    <string name="title_select_level">"  Select Level  "</string>
+    <string name="title_select_level">"     Select Level      "</string>
 
     <string name="title_activity_audio_settings">AudioSettings</string>
     <string name="title_activity_fb_share">FbShare</string>
@@ -30,6 +30,7 @@
     <string name="title_medium">Medium</string>
     <string name="title_hard">Hard</string>
     <string name="title_activity_high_scores">HighScoresActivity</string>
+    <string name="title_activity_game_screen">GameScreenActivity</string>
 
 
 </resources>

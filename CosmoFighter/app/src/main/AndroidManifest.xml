@@ -45,6 +45,11 @@
             android:label="@string/title_activity_high_scores"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".GameScreenActivity"
+            android:label="@string/title_activity_game_screen"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

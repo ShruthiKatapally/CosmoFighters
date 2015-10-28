@@ -36,7 +36,9 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:drawableRight="@drawable/ic_launcher"
+        android:drawableEnd="@drawable/ic_star3"
+        android:drawableRight="@drawable/ic_star3"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_easy"
@@ -48,11 +50,15 @@
         android:layout_centerInParent="true"
         android:paddingEnd="0dp"
         android:paddingStart="0dp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:contextClickable="true" />
 
     <Button
-        android:drawableRight="@drawable/ic_launcher"
-        android:layout_width="wrap_content"
+        android:drawableEnd="@drawable/ic_star3"
+        android:drawableRight="@drawable/ic_star3"
+
+        android:drawablePadding="@dimen/activity_horizontal_margin"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:text="@string/title_medium"
         android:id="@+id/medium_button"
@@ -66,7 +72,9 @@
         android:layout_alignStart="@+id/easy_button" />
 
     <Button
-        android:drawableRight="@drawable/ic_launcher"
+        android:drawableEnd="@drawable/ic_star3"
+        android:drawableRight="@drawable/ic_star3"
+
         android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:text="@string/title_hard"

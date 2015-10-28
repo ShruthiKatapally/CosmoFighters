@@ -19,7 +19,6 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void viewSettings(View view){
-
         Intent intent = new Intent(this, AudioSettings.class);
         startActivity(intent);
     }
@@ -30,6 +29,9 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void exitGame(View view){
-        // code to exit the game goes in here
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
