@@ -18,7 +18,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_music_settings"
+        android:text=" "
         android:id="@+id/music_switch"
         android:checked="false"
         android:textColor="#eaa52d"
@@ -32,7 +32,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_audio_settings"
+        android:text=" "
         android:id="@+id/audio_switch"
         android:checked="false"
         android:textStyle="bold"

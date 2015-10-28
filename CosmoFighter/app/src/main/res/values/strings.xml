@@ -21,8 +21,8 @@
     <string name="title_activity_levels">LevelsActivity</string>
     <string name="title_activity_select_package">SelectPackageActivity</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
-    <string name="title_music_settings">"   Music   "</string>
-    <string name="title_audio_settings">"   Audio   "</string>
+    <string name="title_musiclbl">"   Music   "</string>
+    <string name="title_audiolbl">"   Audio   "</string>
 
     <string name="title_fbshare_login">"  Facebook Login  "</string>
 

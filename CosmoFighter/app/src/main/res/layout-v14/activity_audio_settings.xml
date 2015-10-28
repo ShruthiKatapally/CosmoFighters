@@ -18,8 +18,8 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_music_settings"
         android:id="@+id/music_switch"
+        android:text="@string/title_musiclbl"
         android:checked="false"
         android:textColor="#eaa52d"
         android:textStyle="bold"
@@ -31,15 +31,15 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_audio_settings"
         android:id="@+id/audio_switch"
+        android:text="@string/title_audiolbl"
         android:checked="false"
         android:textStyle="bold"
         android:textColor="#eaa52d"
         android:textSize="40sp"
         android:layout_below="@+id/music_switch"
-        android:layout_alignRight="@+id/music_switch"
-        android:layout_alignEnd="@+id/music_switch" />
+        android:layout_alignLeft="@+id/music_switch"
+        android:layout_alignStart="@+id/music_switch" />
 
     <TextView
         android:layout_width="wrap_content"
