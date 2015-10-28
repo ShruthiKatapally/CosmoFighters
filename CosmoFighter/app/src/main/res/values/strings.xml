@@ -31,6 +31,7 @@
     <string name="title_medium">Medium</string>
     <string name="title_hard">Hard</string>
     <string name="title_activity_high_scores">HighScoresActivity</string>
+    <string name="title_activity_game_screen">GameScreenActivity</string>
 
 
 </resources>
