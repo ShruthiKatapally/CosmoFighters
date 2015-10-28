@@ -26,7 +26,7 @@
         android:maxHeight="1500dp"
         android:textSize="40sp"
         android:layout_centerVertical="true"
-        tools:ignore="NewApi"/>
+         />
 
     <Switch
         android:layout_width="wrap_content"
@@ -39,8 +39,7 @@
         android:textSize="40sp"
         android:layout_below="@+id/music_switch"
         android:layout_alignRight="@+id/music_switch"
-        android:layout_alignEnd="@+id/music_switch"
-        tools:ignore="NewApi"/>
+        android:layout_alignEnd="@+id/music_switch" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,8 +53,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:textStyle="bold" />
-
-
-
 
 </RelativeLayout>
