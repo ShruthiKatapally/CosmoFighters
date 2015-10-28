@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -20,8 +21,8 @@ public class AudioSettings extends AppCompatActivity {
     public static final String SOUNDON = "isSoundOn";
     public static final String FIRSTRUN = "isFirstRun";
     public MediaPlayer bgm;
-    public Switch musicswitch;
-    public Switch audioswitch;
+    public Switch musicswitch = null;
+    public Switch audioswitch = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,6 @@ public class AudioSettings extends AppCompatActivity {
 
         musicswitch = (Switch) findViewById(R.id.music_switch);
         audioswitch = (Switch) findViewById(R.id.audio_switch);
-        //Making switches on by default
-        musicswitch.setChecked(true);
-        audioswitch.setChecked(true);
 
         //listeners for switches
         musicswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -42,8 +40,8 @@ public class AudioSettings extends AppCompatActivity {
                     // adding background music
                     addbackgroundmusic();
                 } else {
-                    // remove background music
-                    //removebackgroundmusic();
+                    //remove background music
+                    removebackgroundmusic();
                 }
             }
         });
@@ -54,6 +52,10 @@ public class AudioSettings extends AppCompatActivity {
     }
 
     public void removebackgroundmusic() {
-         bgm.stop();
+         if(bgm!=null) {
+             bgm.stop();
+             bgm.release();
+             bgm = null;
+         }
     }
 }
