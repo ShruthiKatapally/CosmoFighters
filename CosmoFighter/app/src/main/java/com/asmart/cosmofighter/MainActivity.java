@@ -1,20 +1,29 @@
 package com.asmart.cosmofighter;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+
+import com.asmart.helpers.InitialSetupHelper;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String PREFERENCE = "AppPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences settings = getSharedPreferences(PREFERENCE, 0);
+        if (settings.getBoolean("isFirstRun", true)) {
+            InitialSetupHelper init = new InitialSetupHelper(this);
+            init.setupApplication(settings);
+        }
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.asmart.helpers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.asmart.model.Packages;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "cosmofighter";
@@ -41,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String CREATE_PACKAGES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PACKAGES + "(" +
                 COLUMN_PACKAGENAME + " TEXT NOT NULL," +
-                COLUMN_PACKAGEUNLOCKED + " INTEGER NOT NULL" +
+                COLUMN_PACKAGEUNLOCKED + " INTEGER NOT NULL," +
                 COLUMN_STARSCOUNT + " INTEGER NOT NULL," +
                 COLUMN_LEVELSUNLOCKED + " INTEGER NOT NULL" + ")";
 
@@ -53,5 +56,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void addPackage(Packages pack) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PACKAGENAME, pack.getPackageName());
+        values.put(COLUMN_PACKAGEUNLOCKED, pack.isPackageUnlocked()?1:0);
+        values.put(COLUMN_STARSCOUNT, pack.getStarsCount());
+        values.put(COLUMN_LEVELSUNLOCKED, pack.getLevelsUnlocked());
+
+        db.insert(TABLE_PACKAGES, null, values);
+        db.close();
     }
 }
