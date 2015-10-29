@@ -8,12 +8,12 @@ import android.view.Menu;
 import android.view.View;
 
 import com.asmart.helpers.InitialSetupHelper;
-
+import com.asmart.helpers.MusicHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String PREFERENCE = "AppPreferences";
-
+    public MusicHelper mh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
             InitialSetupHelper init = new InitialSetupHelper(this);
             init.setupApplication(settings);
         }
+
+        if(settings.getBoolean("InitialSetupHelper.MUSICON",true)){
+            mh = new MusicHelper(this);
+            mh.addbackgroundmusic();
+        }
+
     }
 
     @Override
