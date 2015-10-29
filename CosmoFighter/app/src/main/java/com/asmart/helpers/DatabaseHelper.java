@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.asmart.model.Levels;
 import com.asmart.model.Packages;
+import com.asmart.model.PkgLvl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PACKAGEUNLOCKED = "package_unlocked";
     public static final String COLUMN_STARSCOUNT = "stars_count";
     public static final String COLUMN_LEVELSUNLOCKED = "levels_unlocked";
+
+    //Levels Table
+    public static final String TABLE_LEVELS = "levels";
+    public static final String COLUMN_LEVELID = "level_id";
+    public static final String COLUMN_LEVELNAME = "level_name";
+
+    //PkgLvl Table
+    public static final String TABLE_PKGLVL = "pkglvl";
+    public static final String COLUMN_ISUNLOCKED = "isUnlocked";
 
     private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -65,15 +76,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_STARSCOUNT + " INTEGER NOT NULL," +
                 COLUMN_LEVELSUNLOCKED + " INTEGER NOT NULL" + ")";
 
+        String CREATE_LEVEL_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LEVELS + "(" +
+                COLUMN_LEVELID + " INTEGER PRIMARY KEY," +
+                COLUMN_LEVELNAME + " TEXT UNIQUE NOT NULL" + ")";
+
+        String CREATE_PKGLVL_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PKGLVL + "(" +
+                COLUMN_PACKAGEID + " INTEGER NOT NULL," +
+                COLUMN_LEVELID + " INTEGER NOT NULL," +
+                COLUMN_STARSCOUNT + " INTEGER NOT NULL," +
+                COLUMN_ISUNLOCKED + " INTEGER NOT NULL" + ")";
+
         db.execSQL(CREATE_PLAYER_TABLE);
         db.execSQL(CREATE_SCORES_TABLE);
         db.execSQL(CREATE_PACKAGES_TABLE);
+        db.execSQL(CREATE_LEVEL_TABLE);
+        db.execSQL(CREATE_PKGLVL_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    /**** Methods that handle package table   */
 
     public void addPackage(Packages pack) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -115,5 +140,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         csr.close();
 
         return packList;
+    }
+
+    /**** Methods that handle level table   */
+    public void addLevel(Levels level) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_LEVELID, level.getLevelId());
+        values.put(COLUMN_LEVELNAME, level.getLevelName());
+
+        db.insert(TABLE_LEVELS, null, values);
+        db.close();
+    }
+
+    /**** Methods that handle PkgLvl table   */
+    public void addPkgLvl(PkgLvl lvl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PACKAGEID, lvl.getPackageId());
+        values.put(COLUMN_LEVELID, lvl.getLevelId());
+        values.put(COLUMN_STARSCOUNT, lvl.getStarsCount());
+        values.put(COLUMN_ISUNLOCKED, lvl.isUnlocked()?1:0);
+
+        db.insert(TABLE_PKGLVL, null, values);
+        db.close();
     }
 }

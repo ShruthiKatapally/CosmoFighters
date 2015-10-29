@@ -6,7 +6,7 @@ public class PkgLvl {
     private int starsCount;
     private boolean isUnlocked;
 
-    public PkgLvl(int levelId, int packageId, int starsCount, boolean isUnlocked) {
+    public PkgLvl(int packageId, int levelId, int starsCount, boolean isUnlocked) {
         this.levelId = levelId;
         this.packageId = packageId;
         this.starsCount = starsCount;
