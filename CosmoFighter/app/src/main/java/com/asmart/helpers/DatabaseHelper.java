@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static DatabaseHelper dbHelper = null;
+    private Context context;
+
     public static final String DB_NAME = "cosmofighter";
 
     public static final int DB_VERSION = 1;
@@ -22,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PLAYERNAME = "player_name";
 
     //Scores Table
+    //Modify scores tables by referring Scores.java class
     public static final String TABLE_SCORES = "scores";
     public static final String COLUMN_SCORE = "score";
 
@@ -33,8 +37,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STARSCOUNT = "stars_count";
     public static final String COLUMN_LEVELSUNLOCKED = "levels_unlocked";
 
-    public DatabaseHelper(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
+    }
+
+    public static DatabaseHelper getInstance(Context context) {
+        if(dbHelper == null) {
+            dbHelper = new DatabaseHelper(context);
+        }
+        return dbHelper;
     }
 
     @Override

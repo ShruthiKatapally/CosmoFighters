@@ -20,7 +20,7 @@ public class SelectPackageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_package);
 
         //Gets the list of all the packages
-        DatabaseHelper db = new DatabaseHelper(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
         List<Packages> packList = db.getAllPackages();
 
         Log.i("DEBUG", "" + packList.size());

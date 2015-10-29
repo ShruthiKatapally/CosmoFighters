@@ -33,7 +33,7 @@ public class InitialSetupHelper {
         Packages pack2 = new Packages(2, "pack2", false, 0, 0);
         Packages pack3 = new Packages(3, "pack3", false, 0, 0);
 
-        DatabaseHelper db = new DatabaseHelper(context);
+        DatabaseHelper db = DatabaseHelper.getInstance(context);
         db.addPackage(pack1);
         db.addPackage(pack2);
         db.addPackage(pack3);
