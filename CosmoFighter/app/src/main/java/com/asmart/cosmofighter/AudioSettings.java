@@ -16,7 +16,7 @@ public class AudioSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_settings);
-        mh = new MusicHelper(this);
+        mh = MainActivity.mh;
 
         musicswitch = (Switch) findViewById(R.id.music_switch);
         audioswitch = (Switch) findViewById(R.id.audio_switch);
