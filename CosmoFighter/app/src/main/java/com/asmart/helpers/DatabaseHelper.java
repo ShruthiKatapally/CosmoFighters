@@ -25,7 +25,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PLAYERNAME = "player_name";
 
     //Scores Table
-    //Modify scores tables by referring Scores.java class
     public static final String TABLE_SCORES = "scores";
     public static final String COLUMN_SCORE = "score";
 

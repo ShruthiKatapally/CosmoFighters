@@ -14,6 +14,8 @@ import java.util.List;
 
 public class SelectPackageActivity extends AppCompatActivity {
 
+    public static final String PACKAGE_NAME = "Package_Name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +40,20 @@ public class SelectPackageActivity extends AppCompatActivity {
         }
     }
 
-    public void selectPackageActivity(View view){
+    public void selectPackage(View view){
+        String message = "Package 1";
         Intent intent = new Intent(this, LevelsActivity.class);
         switch (view.getId()) {
             case R.id.pack1_btn:
-                // opening package 1
+                message = "Package 1";
                 break;
             case R.id.pack2_btn:
-                // opening package 2
+                message = "Package 2";
                 break;
             case R.id.pack3_btn:
-                //open game relevant to package 3
+                message = "Package 3";
         }
-
+        intent.putExtra(PACKAGE_NAME, message);
         startActivity(intent);
     }
 }

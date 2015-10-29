@@ -3,7 +3,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LevelsActivity"
     android:background="@drawable/mainbackground">
 
     <TextView android:text="@string/app_name" android:layout_width="wrap_content"
@@ -18,9 +18,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40sp" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></TableLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,6 +31,19 @@
         android:layout_marginTop="25dp"
         android:layout_below="@+id/app_name"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_select_level"
+        android:id="@+id/textLevel2"
+        android:textColor="#eaa52d"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textSize="30sp"
+        android:layout_below="@+id/textLevel"
+        android:layout_alignLeft="@+id/textLevel"
+        android:layout_alignStart="@+id/textLevel" />
 
     <Button
         android:drawableEnd="@drawable/ic_star3"
