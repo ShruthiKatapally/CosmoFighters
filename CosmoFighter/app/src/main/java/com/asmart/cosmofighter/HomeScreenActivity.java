@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.asmart.helpers.MusicHelper;
+
 public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
@@ -13,22 +15,28 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
     }
 
+    //Starts the select package activity
     public void playGame(View view) {
         Intent intent = new Intent(this, SelectPackageActivity.class);
         startActivity(intent);
     }
 
+    //Starts the view settings activity
     public void viewSettings(View view){
         Intent intent = new Intent(this, AudioSettings.class);
         startActivity(intent);
     }
 
+    //Starts the facebook share activity
     public void fbShare(View view){
         Intent intent = new Intent(this, FbShare.class);
         startActivity(intent);
     }
 
+    //Exits the game
     public void exitGame(View view){
+        MusicHelper mh = MusicHelper.getInstance(this);
+        mh.pauseMusic();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -6,30 +6,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
-
 import com.asmart.helpers.InitialSetupHelper;
 import com.asmart.helpers.MusicHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String PREFERENCE = "AppPreferences";
-    public static MusicHelper mh;
+    private MusicHelper mh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences settings = getSharedPreferences(PREFERENCE, 0);
-        if (settings.getBoolean("isFirstRun", true)) {
+        //Checks if the app is run first time and performs initial setup
+        SharedPreferences settings = getSharedPreferences(getString(R.string.APP_PREFERENCES), 0);
+        if (settings.getBoolean(getString(R.string.FIRSTRUN), true)) {
             InitialSetupHelper init = new InitialSetupHelper(this);
             init.setupApplication(settings);
         }
 
-        if(settings.getBoolean("InitialSetupHelper.MUSICON",true)){
-            mh = new MusicHelper(this);
-            mh.addbackgroundmusic();
+        //If the preference is to turn on music, plays the background music
+        mh = MusicHelper.getInstance(this);
+        if(settings.getBoolean(getString(R.string.MUSICON),true)){
+            mh.startMusic();
         }
-
     }
 
     @Override
@@ -39,19 +39,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-  /*  @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }    */
-
+    //Opens the home screen to start playing the game
     public void startPlaying(View view) {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);

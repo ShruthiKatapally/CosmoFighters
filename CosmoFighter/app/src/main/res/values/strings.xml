@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Activity Names -->
+    <string name="title_activity_audio_settings">AudioSettings</string>
+    <string name="title_activity_fb_share">FbShare</string>
+    <string name="title_activity_levels">LevelsActivity</string>
+    <string name="title_activity_select_package">SelectPackageActivity</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
+    <string name="title_activity_high_scores">HighScoresActivity</string>
+    <string name="title_activity_game_screen">GameScreenActivity</string>
+
+    <!--Strings used in main activity-->
     <string name="app_name">Cosmo Fighter</string>
-    <string name ="app_id">1635261726728001</string>           // app id to connect ot facebook
 
-
+    <!--Strings used in home screen activity -->
     <string name="title_start_playing">"  Start Playing  "</string>
     <string name="title_play_game">"   Play Game   "</string>
     <string name="title_action_settings">"   Settings   "</string>
     <string name="title_share">"   Share   "</string>
     <string name="title_exit">"   Exit   "</string>
 
+    <!--Strings used in select packages screen-->
     <string name="title_select_package">Select Package</string>
     <string name="title_package1">Package 1</string>
     <string name="title_package2">Package 2</string>
     <string name="title_package3">Package 3</string>
 
+    <!--Strings used in select levels screen-->
     <string name="title_select_level">"     Select Level      "</string>
-
-    <string name="title_activity_audio_settings">AudioSettings</string>
-    <string name="title_activity_fb_share">FbShare</string>
-    <string name="title_activity_levels">LevelsActivity</string>
-    <string name="title_activity_select_package">SelectPackageActivity</string>
-    <string name="title_activity_home_screen">HomeScreenActivity</string>
-    <string name="title_musiclbl">"   Music   "</string>
-    <string name="title_audiolbl">"   Audio   "</string>
-
-    <string name="title_fbshare_login">"  Facebook Login  "</string>
-
     <string name="title_easy">Easy</string>
     <string name="title_medium">Medium</string>
     <string name="title_hard">Hard</string>
-    <string name="title_activity_high_scores">HighScoresActivity</string>
-    <string name="title_activity_game_screen">GameScreenActivity</string>
+
+    <!--Strings used in Audio settings screen -->
+    <string name="title_musiclbl">"   Music   "</string>
+    <string name="title_audiolbl">"   Audio   "</string>
+
+    <!--Strings used for sharing activity-->
+    <string name="title_fbshare_login">"  Facebook Login  "</string>
+    <string name ="app_id">1635261726728001</string>           <!-- app id to connect ot facebook-->
+
+    <!--Strings used as constants across applications-->
+    <string name="APP_PREFERENCES">AppPreferences</string>
+    <string name="MUSICON">isMusicOn</string>
+    <string name="SOUNDON">isSoundOn</string>
+    <string name="FIRSTRUN">isFirstRun</string>
+    <string name="PACKAGE_NAME">Package_Name</string>
+    <string name="DATABASE_NAME">cosmofighter</string>
+
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

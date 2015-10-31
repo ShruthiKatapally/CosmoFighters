@@ -7,14 +7,25 @@ import com.asmart.cosmofighter.R;
 
 public class MusicHelper {
 
+    private static MusicHelper mh;
     public MediaPlayer bgm;
     public Context context;
 
-    public MusicHelper(Context context) {
+    private MusicHelper(Context context)
+    {
         this.context = context;
     }
 
-    public void addbackgroundmusic() {
+    //Returns the instance of MusicHelper class when needed
+    public static MusicHelper getInstance(Context context) {
+        if(mh == null) {
+            mh = new MusicHelper(context);
+        }
+        return mh;
+    }
+
+    //Starts playing the background music
+    public void startMusic() {
         if(bgm==null) {
             bgm = MediaPlayer.create(context, R.raw.backmusic);
             bgm.setLooping(true);
@@ -22,11 +33,19 @@ public class MusicHelper {
         }
     }
 
-    public void removebackgroundmusic() {
+    //Stops playing the background music
+    public void stopMusic() {
         if(bgm!=null) {
             bgm.stop();
             bgm.release();
             bgm = null;
+        }
+    }
+
+    //Pauses the background music
+    public void pauseMusic() {
+        if(bgm!=null) {
+            bgm.pause();
         }
     }
 

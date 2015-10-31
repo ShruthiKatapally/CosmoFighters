@@ -14,8 +14,6 @@ import java.util.List;
 
 public class SelectPackageActivity extends AppCompatActivity {
 
-    public static final String PACKAGE_NAME = "Package_Name";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +23,11 @@ public class SelectPackageActivity extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getInstance(this);
         List<Packages> packList = db.getAllPackages();
 
-        Log.i("DEBUG", "" + packList.size());
+        //Checks if the packages are locked or unlocked and disables the buttons if the packages are locked
         ImageButton img;
         for(Packages pack: packList) {
             if(!pack.isPackageUnlocked()) {
-                if(pack.getPackageName().equals("pack2")) {
+                if(pack.getPackageName().equals(getString(R.string.title_package2))) {
                     img = (ImageButton)findViewById(R.id.pack2_btn);
                 }
                 else {
@@ -40,20 +38,22 @@ public class SelectPackageActivity extends AppCompatActivity {
         }
     }
 
+    //Opens the select levels screen when a package is selected
     public void selectPackage(View view){
-        String message = "Package 1";
+        String message = getString(R.string.title_package1);
         Intent intent = new Intent(this, LevelsActivity.class);
+        //package name is passed to the levels activity
         switch (view.getId()) {
             case R.id.pack1_btn:
-                message = "Package 1";
+                message = getString(R.string.title_package1);
                 break;
             case R.id.pack2_btn:
-                message = "Package 2";
+                message = getString(R.string.title_package2);;
                 break;
             case R.id.pack3_btn:
-                message = "Package 3";
+                message = getString(R.string.title_package3);;
         }
-        intent.putExtra(PACKAGE_NAME, message);
+        intent.putExtra(getString(R.string.PACKAGE_NAME), message);
         startActivity(intent);
     }
 }

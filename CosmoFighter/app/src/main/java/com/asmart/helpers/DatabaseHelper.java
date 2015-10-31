@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.asmart.cosmofighter.R;
 import com.asmart.model.Levels;
 import com.asmart.model.Packages;
 import com.asmart.model.PkgLvl;
@@ -15,9 +16,6 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper dbHelper = null;
-    private Context context;
-
-    public static final String DB_NAME = "cosmofighter";
 
     public static final int DB_VERSION = 1;
 
@@ -48,10 +46,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ISUNLOCKED = "isUnlocked";
 
     private DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
+        super(context, context.getString(R.string.DATABASE_NAME), null, DB_VERSION);
     }
 
+    //Retuns an instance of Database Helper class
     public static DatabaseHelper getInstance(Context context) {
         if(dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
@@ -59,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbHelper;
     }
 
+    //Creates all the tables when the app is initialised
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAYER + "(" +
@@ -100,6 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**** Methods that handle package table   */
 
+    //Adds a package to the database
     public void addPackage(Packages pack) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -113,6 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //Gets the list of all packages from the database
     public List<Packages> getAllPackages() {
         List<Packages> packList = new ArrayList<>();
 
@@ -143,6 +144,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**** Methods that handle level table   */
+
+    //Adds a level to the database
     public void addLevel(Levels level) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -154,6 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**** Methods that handle PkgLvl table   */
+
+    //Adds a level in package to the database
     public void addPkgLvl(PkgLvl lvl) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
