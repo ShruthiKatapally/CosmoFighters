@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".AudioSettings"
+    android:background="@drawable/mainbackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/audio_textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:textColor="#f1d224" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/music_switch"
+        android:text="@string/title_musiclbl"
+        android:checked="false"
+        android:textColor="#eaa52d"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        tools:ignore="NewApi"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/audio_switch"
+        android:text="@string/title_audiolbl"
+        android:checked="false"
+        android:textStyle="bold"
+        android:textColor="#eaa52d"
+        android:textSize="40sp"
+        android:layout_below="@+id/music_switch"
+        android:layout_alignLeft="@+id/music_switch"
+        android:layout_alignStart="@+id/music_switch"
+        tools:ignore="NewApi"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:id="@+id/audio_view"
+        android:textColor="#eaa52d"
+        android:textSize="50sp"
+        android:layout_below="@+id/audio_textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

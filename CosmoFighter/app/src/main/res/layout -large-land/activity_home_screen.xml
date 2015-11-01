@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".HomeScreenActivity"
+    android:background="@drawable/mainbackground">
+
+    <TextView android:text="@string/app_name" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:textColor="#eaa52d"
+        android:id="@+id/app_name"
+        android:textStyle="bold"
+        android:singleLine="false"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_play_game"
+        android:id="@+id/play_game_btn"
+        android:textSize="30sp"
+        android:background="@drawable/roundedbutton"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/app_name"
+        android:layout_centerHorizontal="true"
+        android:onClick="playGame" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_action_settings"
+        android:id="@+id/settings_btn"
+        android:textSize="30sp"
+        android:background="@drawable/roundedbutton"
+        android:layout_below="@+id/play_game_btn"
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/play_game_btn"
+        android:layout_alignEnd="@+id/play_game_btn"
+        android:layout_alignLeft="@+id/play_game_btn"
+        android:layout_alignStart="@+id/play_game_btn"
+        android:onClick="viewSettings" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_share"
+        android:id="@+id/share_btn"
+        android:textSize="30sp"
+        android:background="@drawable/roundedbutton"
+        android:layout_below="@+id/settings_btn"
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/settings_btn"
+        android:layout_alignEnd="@+id/settings_btn"
+        android:layout_alignLeft="@+id/settings_btn"
+        android:layout_alignStart="@+id/settings_btn"
+        android:onClick="fbShare" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_exit"
+        android:id="@+id/exit_btn"
+        android:textSize="30sp"
+        android:background="@drawable/roundedbutton"
+        android:layout_below="@+id/share_btn"
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/share_btn"
+        android:layout_alignEnd="@+id/share_btn"
+        android:layout_alignLeft="@+id/share_btn"
+        android:layout_alignStart="@+id/share_btn"
+        android:onClick="exitGame" />
+
+</RelativeLayout>

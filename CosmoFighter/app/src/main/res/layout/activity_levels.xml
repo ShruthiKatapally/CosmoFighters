@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -6,98 +6,114 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LevelsActivity"
     android:background="@drawable/mainbackground">
 
-    <TextView android:text="@string/app_name" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <TextView android:text="@string/app_name" android:layout_width="match_parent"
+        android:layout_height="85dp"
         android:textSize="50sp"
         android:textColor="#eaa52d"
         android:id="@+id/app_name"
         android:textStyle="bold"
         android:singleLine="false"
         android:gravity="center"
+        android:layout_row="0"
+        android:layout_column="0"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40sp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_select_level"
-        android:id="@+id/textLevel"
-        android:textColor="#eaa52d"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textSize="30sp"
-        android:layout_marginTop="25dp"
+    <RelativeLayout
+        android:layout_width="343dp"
+        android:layout_height="448dp"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/app_name"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/app_name"
+        android:layout_alignStart="@+id/app_name"
+        android:layout_row="1"
+        android:layout_column="0">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_select_level"
-        android:id="@+id/textLevel2"
-        android:textColor="#eaa52d"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textSize="30sp"
-        android:layout_below="@+id/textLevel"
-        android:layout_alignLeft="@+id/textLevel"
-        android:layout_alignStart="@+id/textLevel" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:text="@string/title_select_level"
+            android:id="@+id/textLevel2"
+            android:textColor="#eaa52d"
+            android:focusableInTouchMode="true"
+            android:textSize="35sp"
+            android:layout_row="12"
+            android:layout_column="0"
+            android:layout_above="@+id/easy_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:drawableEnd="@drawable/ic_star3"
-        android:drawableRight="@drawable/ic_star3"
+        <Button
+            android:drawableEnd="@drawable/ic_star3"
+            android:drawableRight="@drawable/ic_star3"
 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_easy"
-        android:id="@+id/easy_button"
-        android:background="@drawable/roundedbutton"
-        android:textSize="30sp"
-        android:layout_alignLeft="@+id/textLevel"
-        android:layout_alignRight="@+id/textLevel"
-        android:layout_centerInParent="true"
-        android:paddingEnd="0dp"
-        android:paddingStart="0dp"
-        android:visibility="visible"
-        android:contextClickable="true" />
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="@string/title_easy"
+            android:id="@+id/easy_button"
+            android:background="@drawable/roundedbutton"
+            android:textSize="30sp"
+            android:paddingEnd="0dp"
+            android:paddingStart="0dp"
+            android:visibility="visible"
+            android:contextClickable="false"
+            android:layout_centerVertical="true"
 
-    <Button
-        android:drawableEnd="@drawable/ic_star3"
-        android:drawableRight="@drawable/ic_star3"
+            android:layout_row="13"
+            android:layout_column="0" />
 
-        android:drawablePadding="@dimen/activity_horizontal_margin"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:text="@string/title_medium"
-        android:id="@+id/medium_button"
-        android:background="@drawable/roundedbutton"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/easy_button"
-        android:textSize="30sp"
-        android:layout_alignRight="@+id/easy_button"
-        android:layout_alignEnd="@+id/easy_button"
-        android:layout_alignLeft="@+id/easy_button"
-        android:layout_alignStart="@+id/easy_button" />
+        <Button
+            android:drawableEnd="@drawable/ic_star3"
+            android:drawableRight="@drawable/ic_star3"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="@string/title_medium"
+            android:id="@+id/medium_button"
+            android:background="@drawable/roundedbutton"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/easy_button"
+            android:textSize="30sp"
+            android:layout_alignRight="@+id/easy_button"
+            android:layout_alignEnd="@+id/easy_button"
+            android:layout_alignLeft="@+id/easy_button"
+            android:layout_alignStart="@+id/easy_button"
+            android:layout_row="14"
+            android:layout_column="0" />
 
-    <Button
-        android:drawableEnd="@drawable/ic_star3"
-        android:drawableRight="@drawable/ic_star3"
+        <Button
+            android:drawableEnd="@drawable/ic_star3"
+            android:drawableRight="@drawable/ic_star3"
 
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:text="@string/title_hard"
-        android:id="@+id/hard_button"
-        android:background="@drawable/roundedbutton"
-        android:layout_below="@+id/medium_button"
-        android:layout_alignLeft="@+id/medium_button"
-        android:layout_alignStart="@+id/medium_button"
-        android:layout_marginTop="25dp"
-        android:layout_alignRight="@+id/medium_button"
-        android:layout_alignEnd="@+id/medium_button"
-        android:textSize="30sp" />
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="@string/title_hard"
+            android:id="@+id/hard_button"
+            android:background="@drawable/roundedbutton"
+            android:layout_alignLeft="@+id/medium_button"
+            android:layout_alignStart="@+id/medium_button"
+            android:textSize="30sp"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_select_level"
+            android:id="@+id/textLevel"
+            android:textColor="#eaa52d"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textSize="30sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</GridLayout>
 
 

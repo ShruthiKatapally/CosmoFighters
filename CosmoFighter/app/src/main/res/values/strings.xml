@@ -37,7 +37,7 @@
     <string name="title_audiolbl">"   Audio   "</string>
 
     <!--Strings used for sharing activity-->
-    <string name="title_fbshare_login">"  Facebook Login  "</string>
+    <string name="title_fbshare_login">"  Back  "</string>
     <string name ="app_id">1635261726728001</string>           <!-- app id to connect ot facebook-->
 
     <!--Strings used as constants across applications-->
@@ -48,9 +48,6 @@
     <string name="PACKAGE_NAME">Package_Name</string>
     <string name="DATABASE_NAME">cosmofighter</string>
 
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
