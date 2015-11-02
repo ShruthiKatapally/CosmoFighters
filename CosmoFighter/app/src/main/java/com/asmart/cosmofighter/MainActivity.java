@@ -30,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
         if(settings.getBoolean(getString(R.string.MUSICON),true)){
             mh.startMusic();
         }
+       /* long startTime = System.nanoTime();
+        while ((startTime - System.nanoTime())/1000000 > -12)
+        {
+          //  setContentView(R.layout.activity_main);
+        }
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);   */
     }
 
     @Override
