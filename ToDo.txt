@@ -1,0 +1,10 @@
+1. Main game logic
+2. Manage scores at the end of the game
+3. Check if levels are unlocked. If not, lock them
+4. Include sounds in the game
+5. Fix music and audio switch based on preferences
+6. Include stars in packages and levels
+7.Include logging
+
+
+

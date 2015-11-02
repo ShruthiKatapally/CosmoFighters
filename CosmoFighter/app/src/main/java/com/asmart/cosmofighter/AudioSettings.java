@@ -29,12 +29,12 @@ public class AudioSettings extends AppCompatActivity {
         edit = settings.edit();
 
         //Turn the music switch on/off based on the App preferences
-       /* if(settings.getBoolean(getString(R.string.MUSICON), true)) {
-            musicswitch.setEnabled(true);
-        }
-        else {
-            musicswitch.setEnabled(false);
-        }*/
+       /*if(settings.getBoolean(getString(R.string.MUSICON), true)) {
+            musicswitch.setChecked(true);
+       }
+       else {
+            musicswitch.setChecked(false);
+       }*/
 
         //Turn the game sounds switch on/off based on the App preferences
         /*if(settings.getBoolean(getString(R.string.SOUNDON), true)) {
