@@ -12,7 +12,9 @@ import com.asmart.model.Packages;
 import com.asmart.model.PkgLvl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper dbHelper = null;
@@ -169,5 +171,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_PKGLVL, null, values);
         db.close();
+    }
+
+    /**** Methods that get the top players, scores from Scores, Player table***/
+    // this method returns the top nno. of players indicated by num
+    public Map<String, Integer> getTopPlayers(int num)
+    {
+        Map<String, Integer> topScores = new HashMap<String, Integer>();
+        String query = "SELECT "+ COLUMN_PLAYERNAME +", "+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY COLUMN_SCORE LIMIT "+Integer.toString(num);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery(query, null);
+        if(csr.moveToNext()) {
+            do {
+                topScores.put(csr.getString(0),Integer.parseInt(csr.getString(1)));
+            }while(csr.moveToNext());
+        }
+        csr.close();
+
+        return topScores;
     }
 }
