@@ -53,6 +53,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
+            android:screenOrientation = "landscape"
             android:name=".GameScreenActivity"
             android:label="@string/title_activity_game_screen"
             android:theme="@style/AppTheme.NoActionBar" >

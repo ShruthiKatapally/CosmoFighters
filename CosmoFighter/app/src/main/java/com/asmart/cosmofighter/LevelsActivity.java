@@ -3,6 +3,7 @@ package com.asmart.cosmofighter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 public class LevelsActivity extends AppCompatActivity {
@@ -18,6 +19,11 @@ public class LevelsActivity extends AppCompatActivity {
         //Gets the name of the package selected and displays it on the screen
         TextView txt = (TextView)findViewById(R.id.textLevel);
         txt.setText(message);
+    }
+
+    public void StartGame(View view) {
+        Intent intent = new Intent(this, GameScreenActivity.class);
+        startActivity(intent);
     }
 }
 
