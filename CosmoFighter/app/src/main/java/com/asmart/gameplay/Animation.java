@@ -11,7 +11,9 @@ public class Animation {
     private long delay;
     private boolean playedOnce;
 
-    public void setFrames(Bitmap[] frames){this.frames = frames;
+    public void setFrames(Bitmap[] frames){
+
+        this.frames = frames;
         curFrame = 0;
         startTime = System.nanoTime();
     }

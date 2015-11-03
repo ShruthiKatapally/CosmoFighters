@@ -13,9 +13,10 @@ import com.asmart.cosmofighter.R;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public static final int WIDTH = 1600;
     public static final int HEIGHT = 960;
+    public static final int MOVESPEED = -5;
     private MainThread thread;
     private GameBackground bg;
-
+    private GamePlayer gamePlayer;
     public GamePanel(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -43,28 +44,49 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
-        bg.setVector(-5);
+        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(),R.drawable.testplayer), 65,25,3);
+
         thread.setRunning(true);
         thread.start();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction()==MotionEvent.ACTION_DOWN) {
+            if (!gamePlayer.getPlaying())
+            {
+                gamePlayer.setPlaying(true);
+            }
+            else{
+                gamePlayer.setUp(true);
+            }
+            return true;
+        }
+        if(event.getAction()==MotionEvent.ACTION_UP)
+        {
+            gamePlayer.setUp(false);
+            return true;
+        }
         return super.onTouchEvent(event);
     }
 
     public void update() {
-        bg.update();
+
+        if(gamePlayer.getPlaying()){
+            bg.update();
+            gamePlayer.update();
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        final float scaleFactorX = getWidth()/WIDTH;
-        final float scaleFactorY = getHeight()/HEIGHT;
+        final float scaleFactorX = getWidth()/WIDTH*1.f;
+        final float scaleFactorY = getHeight()/HEIGHT*1.f;
         if(canvas != null) {
             final int savedState = canvas.save();
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
+            gamePlayer.draw(canvas);
             canvas.restoreToCount(savedState);
         }
     }

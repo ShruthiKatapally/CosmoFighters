@@ -9,6 +9,7 @@ public class GameBackground {
 
     public GameBackground(Bitmap res) {
         img = res;
+        dx = GamePanel.MOVESPEED;
     }
 
     public void update() {
@@ -25,7 +26,5 @@ public class GameBackground {
         }
     }
 
-    public void setVector(int dx) {
-        this.dx = dx;
-    }
+
 }
