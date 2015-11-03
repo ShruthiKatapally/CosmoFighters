@@ -15,7 +15,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public static final int HEIGHT = 960;
     private MainThread thread;
     private GameBackground bg;
-
+    private GamePlayer gamePlayer;
     public GamePanel(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -43,18 +43,39 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
-        bg.setVector(-5);
+        bg.setVector(-5);   // is it necessary???
+        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(),R.drawable.testplayer), 65,25,3);
+
         thread.setRunning(true);
         thread.start();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction()==MotionEvent.ACTION_DOWN) {
+            if (!gamePlayer.getPlaying())
+            {
+                gamePlayer.setPlaying(true);
+            }
+            else{
+                gamePlayer.setUp(true);
+            }
+            return true;
+        }
+        if(event.getAction()==MotionEvent.ACTION_UP)
+        {
+            gamePlayer.setUp(false);
+            return true;
+        }
         return super.onTouchEvent(event);
     }
 
     public void update() {
-        bg.update();
+
+        if(gamePlayer.getPlaying()){
+            bg.update();
+            gamePlayer.update();
+        }
     }
 
     @Override
