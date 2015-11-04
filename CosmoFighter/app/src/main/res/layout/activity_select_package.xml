@@ -96,4 +96,37 @@
         android:layout_alignRight="@+id/app_name"
         android:layout_alignEnd="@+id/app_name" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgPack1Stars"
+        android:src="@drawable/stars0"
+        android:layout_below="@+id/pack1_text"
+        android:layout_alignLeft="@+id/pack1_text"
+        android:layout_alignStart="@+id/pack1_text"
+        android:layout_alignRight="@+id/pack1_text"
+        android:layout_alignEnd="@+id/pack1_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgPack2Stars"
+        android:src="@drawable/stars0"
+        android:layout_below="@+id/pack1_text"
+        android:layout_alignRight="@+id/pack2_btn"
+        android:layout_alignEnd="@+id/pack2_btn"
+        android:layout_alignLeft="@+id/pack2_text"
+        android:layout_alignStart="@+id/pack2_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgPack3Stars"
+        android:src="@drawable/stars0"
+        android:layout_alignTop="@+id/imgPack2Stars"
+        android:layout_alignRight="@+id/pack3_text"
+        android:layout_alignEnd="@+id/pack3_text"
+        android:layout_alignLeft="@+id/pack3_text"
+        android:layout_alignStart="@+id/pack3_text" />
+
 </RelativeLayout>
