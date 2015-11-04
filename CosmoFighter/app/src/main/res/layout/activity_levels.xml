@@ -62,8 +62,8 @@
             </RelativeLayout>
 
             <Button
-                android:drawableEnd="@drawable/ic_star3"
-                android:drawableRight="@drawable/ic_star3"
+                android:drawableEnd="@drawable/stars0"
+                android:drawableRight="@drawable/stars0"
                 android:layout_width="match_parent"
                 android:layout_height="66dp"
                 android:text="@string/title_easy"
@@ -80,8 +80,8 @@
                 android:onClick="StartGame" />
 
             <Button
-                android:drawableEnd="@drawable/ic_star3"
-                android:drawableRight="@drawable/ic_star3"
+                android:drawableEnd="@drawable/stars0"
+                android:drawableRight="@drawable/stars0"
                 android:layout_width="match_parent"
                 android:layout_height="66dp"
                 android:text="@string/title_medium"
@@ -97,8 +97,8 @@
                  />
 
             <Button
-                android:drawableEnd="@drawable/ic_star3"
-                android:drawableRight="@drawable/ic_star3"
+                android:drawableEnd="@drawable/stars0"
+                android:drawableRight="@drawable/stars0"
                 android:layout_width="match_parent"
                 android:layout_height="66dp"
                 android:text="@string/title_hard"

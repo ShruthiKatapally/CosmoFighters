@@ -59,7 +59,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
-        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.helicopter), 65, 25, 3);
+        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
 
         //for missile
         missiles = new ArrayList<Missile>();
