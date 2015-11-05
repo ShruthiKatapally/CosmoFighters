@@ -13,6 +13,7 @@ public class GamePlayer extends GameObject {
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
+    private int lives = 5;
     private Bitmap spritesheet;
 
     public GamePlayer(Bitmap res, int w, int h, int numFrames){
@@ -69,6 +70,18 @@ public class GamePlayer extends GameObject {
     public int getScore(){return score;}
     public boolean getPlaying(){return playing;}
     public void setPlaying(boolean p) { playing = p;}
+    public int getLives(){return this.lives;}
+    public void setLives(int lives){
+        this.lives+= lives;
+    }
+    public void decLives(){
+        if(this.lives>0){
+            this.lives-=1;
+        }
+        else{
+            // call function to exit this activity and go to high scores activity.
+        }
+    }
     public void resetDya(){dya=0;}
     public void resetScore(){score =0;}
 }

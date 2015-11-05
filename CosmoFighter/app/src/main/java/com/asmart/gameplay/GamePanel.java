@@ -22,11 +22,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameBackground bg;
     private GamePlayer gamePlayer;
 
-    // for missile
-    private long missilestartingtime;
+    // for Debris
+    private long missileStartingTime;
     private Random rand = new Random();
     private ArrayList<Missile> missiles;
 
+    // For Health
+    private ArrayList<Health> powerUps;
+    private long healthHelperTime;
 
     public GamePanel(Context context) {
         super(context);
@@ -42,9 +45,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        int maxlooptrial = 0;
-        while (retry && maxlooptrial < 1500) {
-            maxlooptrial++;
+        int maxLoopTrial = 0;
+        while (retry && maxLoopTrial < 1500) {
+            maxLoopTrial++;
             try {
                 thread.setRunning(false);
                 thread.join();
@@ -63,8 +66,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //for missile
         missiles = new ArrayList<Missile>();
-        missilestartingtime = System.nanoTime();
-
+        missileStartingTime = System.nanoTime();
+        // Health objects initiation
+        powerUps = new ArrayList<Health>();
+        healthHelperTime = System.nanoTime();
         thread.setRunning(true);
         thread.start();
     }
@@ -91,9 +96,35 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if (gamePlayer.getPlaying()) {
             bg.update();
             gamePlayer.update();
+            // for Health helpers
+            if ((System.nanoTime() - healthHelperTime)/1000000 > (50000 - gamePlayer.getScore() / 2)) {
 
+                if (powerUps.size() == 0) {
+                    System.out.println("Reaching making health helpers");
+                    powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                } else {
+                    powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                }
+
+                healthHelperTime = System.nanoTime();
+            }
+            for (int i = 0; i < powerUps.size(); i++) {
+                powerUps.get(i).update();
+                // when collison occurs decrement the player life by 1
+                if (collision(powerUps.get(i), gamePlayer)) {
+                    powerUps.remove(i);
+                    gamePlayer.setLives(1);
+                    break;
+                }
+
+                if (powerUps.get(i).getX() < -100) {
+                    powerUps.remove(i);
+                    break;
+                }
+
+            }
             // for missiles
-            long misslelap = (System.nanoTime() - missilestartingtime) / 1000000;
+            long misslelap = (System.nanoTime() - missileStartingTime) / 1000000;
 
             if (misslelap > (2000 - gamePlayer.getScore() / 4)) {
                 System.out.println("Reaching making missile");
@@ -103,15 +134,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
                 }
 
-                missilestartingtime = System.nanoTime();
+                missileStartingTime = System.nanoTime();
             }
             for (int i = 0; i < missiles.size(); i++) {
                 missiles.get(i).update();
-
+                // when collison occurs decrement the player life by 1
                 if (collision(missiles.get(i), gamePlayer)) {
                     missiles.remove(i);
-                    gamePlayer.setPlaying(false);
-                    break;
+
+                    if(gamePlayer.getLives()>0) {
+                        gamePlayer.decLives();
+                    }
+                    if(gamePlayer.getLives()==0)
+                    {
+                        gamePlayer.setPlaying(false);
+                        break;
+                        // need to put the exit logic here in this block
+                    }
                 }
 
                 if (missiles.get(i).getX() < -100) {
@@ -120,9 +159,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
             }
+
         }
     }
-
 
     public boolean collision(GameObject a, GameObject b) {
         
@@ -140,16 +179,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             final int savedState = canvas.save();
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
-
             // for missile
-
             for (Missile m : missiles) {
                 m.draw(canvas);
             }
-
             gamePlayer.draw(canvas);
 
-
+            for(Health h: powerUps){
+                h.draw(canvas);
+            }
             canvas.restoreToCount(savedState);
         }
     }
