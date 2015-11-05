@@ -178,7 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Map<String, Integer> getTopPlayers(int num)
     {
         Map<String, Integer> topScores = new HashMap<String, Integer>();
-        String query = "SELECT "+ COLUMN_PLAYERNAME +", "+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY COLUMN_SCORE LIMIT "+Integer.toString(num);
+        String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY S.COLUMN_SCORE LIMIT "+Integer.toString(num);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
         if(csr.moveToNext()) {

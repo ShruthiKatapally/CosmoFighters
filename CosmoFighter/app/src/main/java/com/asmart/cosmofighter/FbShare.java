@@ -51,4 +51,9 @@ public class FbShare extends FragmentActivity {
         // need to create a back button here instead of fb login........
     }
 
+    public void startPlaying(View view) {
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);
+    }
+
 }

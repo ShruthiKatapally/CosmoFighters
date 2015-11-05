@@ -19,7 +19,7 @@ public class HighScoresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHelper db = DatabaseHelper.getInstance(this);
-        Map<String, Integer> players = db.getTopPlayers(5);
+       // Map<String, Integer> players = db.getTopPlayers(5);
 
         setContentView(R.layout.activity_high_scores);
     }

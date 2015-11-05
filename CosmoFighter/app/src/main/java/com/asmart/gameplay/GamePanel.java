@@ -1,14 +1,19 @@
 package com.asmart.gameplay;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.asmart.cosmofighter.HighScoresActivity;
 import com.asmart.cosmofighter.R;
 
 import java.util.ArrayList;
@@ -21,18 +26,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private GameBackground bg;
     private GamePlayer gamePlayer;
-
+    Paint paintLives;
     // for Debris
     private long missileStartingTime;
     private Random rand = new Random();
     private ArrayList<Missile> missiles;
-
+    private Context context;
     // For Health
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
 
     public GamePanel(Context context) {
         super(context);
+        this.context = context;
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
@@ -63,7 +69,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
-
+        paintLives= new Paint();
         //for missile
         missiles = new ArrayList<Missile>();
         missileStartingTime = System.nanoTime();
@@ -95,6 +101,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (gamePlayer.getPlaying()) {
             bg.update();
+            paintLives.setColor(Color.WHITE);
+            paintLives.setTextSize(15);
+            paintLives.setStyle(Paint.Style.FILL);
+
             gamePlayer.update();
             // for Health helpers
             if ((System.nanoTime() - healthHelperTime)/1000000 > (50000 - gamePlayer.getScore() / 2)) {
@@ -148,8 +158,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     if(gamePlayer.getLives()==0)
                     {
                         gamePlayer.setPlaying(false);
-                        break;
-                        // need to put the exit logic here in this block
+                        Intent intent = new Intent(this.context , HighScoresActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        this.context.startActivity(intent);
+                         break;
+                        // need to put the exit logic here in this block and also the must send the score from here. TODO
                     }
                 }
 
@@ -173,12 +186,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
+       // super.draw(canvas);
         final float scaleFactorX = getWidth() / (WIDTH * 1.f);
         final float scaleFactorY = getHeight() / (HEIGHT * 1.f);
         if (canvas != null) {
             final int savedState = canvas.save();
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
+          //  canvas.drawPaint(paintLives);
+
             // for missile
             for (Missile m : missiles) {
                 m.draw(canvas);
@@ -188,6 +204,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for(Health h: powerUps){
                 h.draw(canvas);
             }
+          //  canvas.drawText("Lives: "+Integer.toString(gamePlayer.getLives()),2,200,paintLives);
             canvas.restoreToCount(savedState);
         }
     }
