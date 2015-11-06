@@ -2,6 +2,7 @@ package com.asmart.gameplay;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.view.Display;
 
 /**
  * Created by Manish kumar on 11/3/2015.
@@ -15,8 +16,11 @@ public class GamePlayer extends GameObject {
     private long startTime;
     private int lives = 5;
     private Bitmap spritesheet;
+    private Display disp;
 
     public GamePlayer(Bitmap res, int w, int h, int numFrames){
+
+
         x = 100;
         y= GamePanel.HEIGHT / 2;
         dy=0;
@@ -42,6 +46,7 @@ public class GamePlayer extends GameObject {
 
     public void update()
     {
+
         long elapsed = (System.nanoTime() - startTime) / 1000000;
         if(elapsed>100)
         {
@@ -50,17 +55,26 @@ public class GamePlayer extends GameObject {
         }
         animation.update();
         if(up){
-            dy = (int)(dya -= 1.1);
+           dy = (int)(dya -= 1.1);
         }
-        else
-            dy = (int)(dya+=1.1);
+        else {
+            dy = (int) (dya += 1.1);
+        }
         if(dy>14)
-        {dy =14;}
+        {
+            dy =14;
+        }
         if(dy<14)
         {
             dy-=14;
         }
         y+= dy*2;
+
+
+        if( y < 0 ) {
+            y = 0;
+        }
+
         dy =0;
     }
 

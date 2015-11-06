@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 
 import java.util.Random;
 
-public class Missile extends GameObject
+public class Debris extends GameObject
 {
     private int speed;
     private int score;
@@ -13,14 +13,14 @@ public class Missile extends GameObject
     private Random rand = new Random();
     private Animation animation = new Animation();
 
-    public Missile(Bitmap res,int x,int y,int w, int h, int s, int numFrames)
+    public Debris(Bitmap res,int x,int y,int w, int h, int s, int numFrames)
     {
         super.x = x;
         super.y = y;
         width = w;
         height = h;
         score = s;
-        // what speed a missile should come in.
+        // what speed a Debris should come in.
         speed = 7 + (int)(rand.nextDouble()*score/30);
 
         if(speed > 40)

@@ -1,17 +1,21 @@
 package com.asmart.gameplay;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import com.asmart.cosmofighter.HighScoresActivity;
 import com.asmart.cosmofighter.R;
@@ -28,19 +32,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GamePlayer gamePlayer;
     Paint paintLives;
     // for Debris
-    private long missileStartingTime;
+    private long debrisStartingTime;
     private Random rand = new Random();
-    private ArrayList<Missile> missiles;
+    private ArrayList<Debris> debris;
     private Context context;
     // For Health
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
 
-    public GamePanel(Context context) {
+    //Collision
+    private Collision col;
+
+   public GamePanel(Context context) {
         super(context);
         this.context = context;
         getHolder().addCallback(this);
-        thread = new MainThread(getHolder(), this);
+
         setFocusable(true);
     }
 
@@ -58,6 +65,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 thread.setRunning(false);
                 thread.join();
                 retry = false;
+                thread = null;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -70,9 +78,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
         paintLives= new Paint();
-        //for missile
-        missiles = new ArrayList<Missile>();
-        missileStartingTime = System.nanoTime();
+        //for Debris
+        debris = new ArrayList<Debris>();
+        debrisStartingTime = System.nanoTime();
+
+        thread = new MainThread(getHolder(), this);
+
         // Health objects initiation
         powerUps = new ArrayList<Health>();
         healthHelperTime = System.nanoTime();
@@ -97,6 +108,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return super.onTouchEvent(event);
     }
 
+
     public void update() {
 
         if (gamePlayer.getPlaying()) {
@@ -120,8 +132,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
             for (int i = 0; i < powerUps.size(); i++) {
                 powerUps.get(i).update();
-                // when collison occurs decrement the player life by 1
-                if (collision(powerUps.get(i), gamePlayer)) {
+                // when collison occurs decrement the player life by 1 and display collision effect
+                if (isCollision(powerUps.get(i), gamePlayer)) {
                     powerUps.remove(i);
                     gamePlayer.setLives(1);
                     break;
@@ -133,31 +145,36 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
             }
-            // for missiles
-            long misslelap = (System.nanoTime() - missileStartingTime) / 1000000;
+            // for Debris
+            long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
 
-            if (misslelap > (2000 - gamePlayer.getScore() / 4)) {
-                System.out.println("Reaching making missile");
-                if (missiles.size() == 0) {
-                    missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
+            if (debrislap > (2000 - gamePlayer.getScore() / 4)) {
+                if (debris.size() == 0) {
+                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
                 } else {
-                    missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
                 }
 
-                missileStartingTime = System.nanoTime();
+                debrisStartingTime = System.nanoTime();
             }
-            for (int i = 0; i < missiles.size(); i++) {
-                missiles.get(i).update();
+            for (int i = 0; i < debris.size(); i++) {
+                debris.get(i).update();
                 // when collison occurs decrement the player life by 1
-                if (collision(missiles.get(i), gamePlayer)) {
-                    missiles.remove(i);
+                if (isCollision(debris.get(i), gamePlayer)) {
+
+                    debris.remove(i);
 
                     if(gamePlayer.getLives()>0) {
+                        col = new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25);
+                        col.update();
+
                         gamePlayer.decLives();
                     }
+
                     if(gamePlayer.getLives()==0)
                     {
                         gamePlayer.setPlaying(false);
+
                         Intent intent = new Intent(this.context , HighScoresActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         this.context.startActivity(intent);
@@ -166,17 +183,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
 
-                if (missiles.get(i).getX() < -100) {
-                    missiles.remove(i);
+                if (debris.get(i).getX() < -100) {
+                    debris.remove(i);
                     break;
                 }
 
             }
 
         }
-    }
 
-    public boolean collision(GameObject a, GameObject b) {
+
+        }
+
+    public boolean isCollision(GameObject a, GameObject b) {
         
         if (Rect.intersects(a.getRect(), b.getRect())) {
             return true;
@@ -186,7 +205,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-       // super.draw(canvas);
+        super.draw(canvas);
         final float scaleFactorX = getWidth() / (WIDTH * 1.f);
         final float scaleFactorY = getHeight() / (HEIGHT * 1.f);
         if (canvas != null) {
@@ -194,18 +213,34 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
           //  canvas.drawPaint(paintLives);
-
-            // for missile
-            for (Missile m : missiles) {
-                m.draw(canvas);
-            }
             gamePlayer.draw(canvas);
 
-            for(Health h: powerUps){
+            // for Debris
+            for (Debris m : debris) {
+                m.draw(canvas);
+            }
+             for(Health h: powerUps){
                 h.draw(canvas);
             }
+
+            col.draw(canvas);
+
+            Paint score = new Paint();
+            score.setColor(Color.WHITE);
+            score.setTextSize(25);
+            canvas.drawPaint(score);
+            score.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            canvas.drawText("Score" , 20, 20, score);
+
+             //writeText(canvas);
+
           //  canvas.drawText("Lives: "+Integer.toString(gamePlayer.getLives()),2,200,paintLives);
             canvas.restoreToCount(savedState);
         }
     }
+
+    public void writeText(Canvas canvas)
+    {
+    }
 }
+

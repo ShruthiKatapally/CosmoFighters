@@ -27,7 +27,7 @@
     <string name="title_package3">Package 3</string>
 
     <!--Strings used in select levels screen-->
-    <string name="title_select_level">"     Select Level      "</string>
+    <string name="title_select_level">"Select Level"</string>
     <string name="title_easy">Easy</string>
     <string name="title_medium">Medium</string>
     <string name="title_hard">Hard</string>
