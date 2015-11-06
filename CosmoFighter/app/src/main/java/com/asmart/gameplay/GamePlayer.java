@@ -8,22 +8,24 @@ import android.graphics.Canvas;
  */
 public class GamePlayer extends GameObject {
     private int score;
-    private double dya;
-    private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
-    private int lives = 5;
+    private int lives;
+    private float userX;
+    private float userY;
     private Bitmap spritesheet;
 
     public GamePlayer(Bitmap res, int w, int h, int numFrames){
         x = 100;
         y= GamePanel.HEIGHT / 2;
-        dy=0;
+
         score=0;
         height = h;
         width = w;
-
+        lives =5;
+        userX = x;
+        userY = y;
         Bitmap [] image = new Bitmap[numFrames];
         spritesheet = res;
         for (int i=0; i<image.length; i++)
@@ -36,9 +38,6 @@ public class GamePlayer extends GameObject {
         startTime = System.nanoTime();
     }
 
-    public void setUp(boolean b){
-        up = b;
-    }
 
     public void update()
     {
@@ -49,19 +48,25 @@ public class GamePlayer extends GameObject {
             startTime = System.nanoTime();
         }
         animation.update();
-        if(up){
-            dy = (int)(dya -= 1.1);
-        }
-        else
-            dy = (int)(dya+=1.1);
-        if(dy>14)
-        {dy =14;}
-        if(dy<14)
+        if (x<userX)
         {
-            dy-=14;
+            x+= (userX-x)/8;
+
         }
-        y+= dy*2;
-        dy =0;
+        if(x>userX)
+        {
+            x-=(x+3 - userX)/8;
+        }
+        if (y<userY)
+        {
+            y+=Math.abs(userY-y)/8;
+
+        }
+        if(y>userY)
+        {
+            y-=(y+6-userY)/8;
+        }
+
     }
 
     public void draw(Canvas canvas){
@@ -82,6 +87,7 @@ public class GamePlayer extends GameObject {
             // call function to exit this activity and go to high scores activity.
         }
     }
-    public void resetDya(){dya=0;}
+    public void setUserX(float x){this.userX =x;}
+    public void setUserY(float y){this.userY =y;}
     public void resetScore(){score =0;}
 }

@@ -15,7 +15,6 @@ public class LevelsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(getString(R.string.PACKAGE_NAME));
-
         //Gets the name of the package selected and displays it on the screen
         TextView txt = (TextView)findViewById(R.id.textLevel);
         txt.setText(message);
