@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.asmart.helpers.DatabaseHelper;
 import com.asmart.model.Player;
@@ -20,10 +21,14 @@ public class HighScoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DatabaseHelper db = DatabaseHelper.getInstance(this);
-       // Map<String, Integer> players = db.getTopPlayers(5);
-
         setContentView(R.layout.activity_high_scores);
+        //DatabaseHelper db = DatabaseHelper.getInstance(this);
+
+        Intent intent = getIntent();
+        int score = intent.getIntExtra(getString(R.string.GAME_SCORE), 0);
+        TextView txt = (TextView)findViewById(R.id.scoreView);
+        System.out.println("Score " + score);
+        txt.setText(String.valueOf(score));
     }
 
     public void submit(View view){

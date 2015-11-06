@@ -45,6 +45,7 @@
     <string name="title_high_scores">"Player High Scores"</string>
     <string name="title_exit1">"Exit"</string>
     <string name="title_submit">"Submit"</string>
+    <string name="title_gameScore">0</string>
 
     <!--Strings used as constants across applications-->
     <string name="APP_PREFERENCES">AppPreferences</string>
@@ -52,6 +53,7 @@
     <string name="SOUNDON">isSoundOn</string>
     <string name="FIRSTRUN">isFirstRun</string>
     <string name="PACKAGE_NAME">Package_Name</string>
+    <string name="GAME_SCORE">Game_Score</string>
     <string name="DATABASE_NAME">cosmofighter</string>
 
 </resources>
