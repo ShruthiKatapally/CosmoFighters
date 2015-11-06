@@ -40,6 +40,12 @@
     <string name="title_fbshare_login">"  Back  "</string>
     <string name ="app_id">1635261726728001</string>           <!-- app id to connect ot facebook-->
 
+    <!--Strings used in high scores screen-->
+    <string name="title_player1">"Player 1"</string>
+    <string name="title_high_scores">"Player High Scores"</string>
+    <string name="title_exit1">"Exit"</string>
+    <string name="title_submit">"Submit"</string>
+
     <!--Strings used as constants across applications-->
     <string name="APP_PREFERENCES">AppPreferences</string>
     <string name="MUSICON">isMusicOn</string>
@@ -47,7 +53,5 @@
     <string name="FIRSTRUN">isFirstRun</string>
     <string name="PACKAGE_NAME">Package_Name</string>
     <string name="DATABASE_NAME">cosmofighter</string>
-
-
 
 </resources>

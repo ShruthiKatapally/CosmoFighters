@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, context.getString(R.string.DATABASE_NAME), null, DB_VERSION);
     }
 
-    //Retuns an instance of Database Helper class
+    //Returns an instance of Database Helper class
     public static DatabaseHelper getInstance(Context context) {
         if(dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_PACKAGEID, pack.getPackageId());
         values.put(COLUMN_PACKAGENAME, pack.getPackageName());
-        values.put(COLUMN_PACKAGEUNLOCKED, pack.isPackageUnlocked()?1:0);
+        values.put(COLUMN_PACKAGEUNLOCKED, pack.isPackageUnlocked() ? 1 : 0);
         values.put(COLUMN_STARSCOUNT, pack.getStarsCount());
         values.put(COLUMN_LEVELSUNLOCKED, pack.getLevelsUnlocked());
 
@@ -174,31 +174,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    /**** Methods that get the top players, scores from Scores, Player table***/
-    // this method returns the top nno. of players indicated by num
-    public void addPlayer(Player p){
-        // need to check if the player is already present in the database
-        //assuming player id is auto incrementing
+    /**** Methods that handle players and score table   */
+
+    // Adds a new player if the player does not exist in player table
+    public int addPlayer(Player player){
+        String query = "SELECT " + COLUMN_PLAYERID + " FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYERNAME + " = " + player.getPlayerName().trim();
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_PLAYERNAME,p.getPlayerName());
-        db.insert(TABLE_PLAYER, null, values);
+        Cursor csr = db.rawQuery(query, null);
+        if(csr.getColumnCount() == 0) {
+            //Add a new player record
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_PLAYERNAME,player.getPlayerName());
+            db.insert(TABLE_PLAYER, null, values);
+            //Get the player id
+            csr = db.rawQuery(query, null);
+        }
+
+        //Get the player id and update the score
+        int player_id = Integer.parseInt(csr.getString(0));
+
         db.close();
+        return player_id;
     }
 
-    public Map<String, Integer> getTopPlayers(int num)
+    //Gets the list of players with high scores
+    public List<Player> getTopPlayers(int num)
     {
-        Map<String, Integer> topScores = new HashMap<String, Integer>();
+        List<Player> players = new ArrayList<>();
         String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY S.COLUMN_SCORE LIMIT "+Integer.toString(num);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
         if(csr.moveToNext()) {
             do {
-                topScores.put(csr.getString(0),Integer.parseInt(csr.getString(1)));
+                Player player = new Player();
+                player.setPlayerName(csr.getString(0));
+                player.setScore(Integer.parseInt(csr.getString(1)));
+                players.add(player);
             }while(csr.moveToNext());
         }
         csr.close();
-
-        return topScores;
+        return players;
     }
 }

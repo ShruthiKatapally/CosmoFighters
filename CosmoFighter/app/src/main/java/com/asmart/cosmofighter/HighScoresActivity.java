@@ -33,12 +33,7 @@ public class HighScoresActivity extends AppCompatActivity {
         Player p = new Player();
         p.setPlayerName(playerName);
         db.addPlayer(p);
-        // Also need to add score corresponding to the player Id.
-
-    }
-    public void startPlaying(View view) {
-        Intent intent = new Intent(this, HomeScreenActivity.class);
-        startActivity(intent);
+        // Also need to add score corresponding to the Player Id.
     }
 
 }

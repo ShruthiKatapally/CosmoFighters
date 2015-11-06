@@ -3,6 +3,7 @@ package com.asmart.model;
 public class Player {
     private int playerId;
     private String playerName;
+    private int score;
 
     public Player() {}
 
@@ -25,5 +26,13 @@ public class Player {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
