@@ -3,9 +3,6 @@ package com.asmart.gameplay;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-/**
- * Created by Manish kumar on 11/3/2015.
- */
 public class GamePlayer extends GameObject {
     private int score;
     private boolean playing;

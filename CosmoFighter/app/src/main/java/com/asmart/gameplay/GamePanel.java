@@ -31,16 +31,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameBackground bg;
     private GamePlayer gamePlayer;
     Paint paintLives;
-    // for Debris
+
+    // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
     private ArrayList<Debris> debris;
     private Context context;
-    // For Health
+
+    //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
 
-    //Collision
+    //Collision related variables
     private Collision col;
 
    public GamePanel(Context context) {
@@ -171,15 +173,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                         gamePlayer.decLives();
                     }
 
-                    if(gamePlayer.getLives()==0)
+                    if(gamePlayer.getLives() == 0)
                     {
                         gamePlayer.setPlaying(false);
-
                         Intent intent = new Intent(this.context , HighScoresActivity.class);
+                        intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         this.context.startActivity(intent);
-                         break;
-                        // need to put the exit logic here in this block and also the must send the score from here. TODO
+                        break;
                     }
                 }
 
@@ -187,12 +188,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     debris.remove(i);
                     break;
                 }
-
             }
-
-        }
-
-
+          }
         }
 
     public boolean isCollision(GameObject a, GameObject b) {
