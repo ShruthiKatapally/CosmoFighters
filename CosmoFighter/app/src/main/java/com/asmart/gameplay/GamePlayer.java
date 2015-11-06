@@ -9,12 +9,12 @@ import android.view.Display;
  */
 public class GamePlayer extends GameObject {
     private int score;
-    private double dya;
-    private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
-    private int lives = 5;
+    private int lives;
+    private float userX;
+    private float userY;
     private Bitmap spritesheet;
     private Display disp;
 
@@ -23,11 +23,13 @@ public class GamePlayer extends GameObject {
 
         x = 100;
         y= GamePanel.HEIGHT / 2;
-        dy=0;
+
         score=0;
         height = h;
         width = w;
-
+        lives =5;
+        userX = x;
+        userY = y;
         Bitmap [] image = new Bitmap[numFrames];
         spritesheet = res;
         for (int i=0; i<image.length; i++)
@@ -40,9 +42,6 @@ public class GamePlayer extends GameObject {
         startTime = System.nanoTime();
     }
 
-    public void setUp(boolean b){
-        up = b;
-    }
 
     public void update()
     {
@@ -54,6 +53,7 @@ public class GamePlayer extends GameObject {
             startTime = System.nanoTime();
         }
         animation.update();
+<<<<<<< HEAD
         if(up){
            dy = (int)(dya -= 1.1);
         }
@@ -65,9 +65,18 @@ public class GamePlayer extends GameObject {
             dy =14;
         }
         if(dy<14)
+=======
+        if (x<userX)
         {
-            dy-=14;
+            x+= (userX-x)/8;
+
         }
+        if(x>userX)
+>>>>>>> 56c76dad03abb5c099f4acf446c25d9028652fe5
+        {
+            x-=(x+3 - userX)/8;
+        }
+<<<<<<< HEAD
         y+= dy*2;
 
 
@@ -76,6 +85,18 @@ public class GamePlayer extends GameObject {
         }
 
         dy =0;
+=======
+        if (y<userY)
+        {
+            y+=Math.abs(userY-y)/8;
+
+        }
+        if(y>userY)
+        {
+            y-=(y+6-userY)/8;
+        }
+
+>>>>>>> 56c76dad03abb5c099f4acf446c25d9028652fe5
     }
 
     public void draw(Canvas canvas){
@@ -96,6 +117,7 @@ public class GamePlayer extends GameObject {
             // call function to exit this activity and go to high scores activity.
         }
     }
-    public void resetDya(){dya=0;}
+    public void setUserX(float x){this.userX =x;}
+    public void setUserY(float y){this.userY =y;}
     public void resetScore(){score =0;}
 }

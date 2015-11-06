@@ -10,6 +10,7 @@ import com.asmart.cosmofighter.R;
 import com.asmart.model.Levels;
 import com.asmart.model.Packages;
 import com.asmart.model.PkgLvl;
+import com.asmart.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -175,6 +176,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**** Methods that get the top players, scores from Scores, Player table***/
     // this method returns the top nno. of players indicated by num
+    public void addPlayer(Player p){
+        // need to check if the player is already present in the database
+        //assuming player id is auto incrementing
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PLAYERNAME,p.getPlayerName());
+        db.insert(TABLE_PLAYER, null, values);
+        db.close();
+    }
+
     public Map<String, Integer> getTopPlayers(int num)
     {
         Map<String, Integer> topScores = new HashMap<String, Integer>();

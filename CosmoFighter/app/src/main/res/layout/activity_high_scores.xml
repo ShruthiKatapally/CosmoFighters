@@ -31,30 +31,54 @@
         android:layout_marginTop="25dp">
 
         <LinearLayout
+<<<<<<< HEAD
             android:orientation="horizontal"
             android:layout_width="match_parent"
+=======
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+>>>>>>> 56c76dad03abb5c099f4acf446c25d9028652fe5
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             >
 
             <TextView
+<<<<<<< HEAD
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter name:"
+=======
+                android:layout_width="119dp"
+                android:layout_height="match_parent"
+                android:text="Name:"
+>>>>>>> 56c76dad03abb5c099f4acf446c25d9028652fe5
                 android:id="@+id/player_name_view"
                 android:textColor="#ffffff"
 
                 android:textSize="25sp"
                 android:textIsSelectable="false"
                 android:textAlignment="center"
+<<<<<<< HEAD
                 android:textStyle="bold" />
 
             <EditText
                 android:layout_weight="1"
                 android:layout_width="0dp"
+=======
+                android:textStyle="bold"
+                android:textAppearance="@color/abc_search_url_text_pressed" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="255dp"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+>>>>>>> 56c76dad03abb5c099f4acf446c25d9028652fe5
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Manish kumar"
                 android:ems="10"
                 android:id="@+id/player_name_field"
                 android:textColor="#ffffff"
@@ -85,8 +109,33 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="217dp"
         android:id="@+id/player_list_view"
         android:layout_marginTop="15dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:id="@+id/highScoreExitButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="startPlaying" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/submitHighScoreButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="submit" />
+    </RelativeLayout>
 
 </LinearLayout>
