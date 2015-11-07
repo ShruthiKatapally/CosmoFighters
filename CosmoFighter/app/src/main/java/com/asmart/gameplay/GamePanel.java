@@ -170,10 +170,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
                 if (debris.size() == 0) {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, HEIGHT / 2, 68, 72, gamePlayer.getScore(), 1));
                 }
                 else {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 68, 70, gamePlayer.getScore(), 1));
                 }
 
                 debrisStartingTime = System.nanoTime();
@@ -212,7 +212,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // For ammo
             long ammolap = (System.nanoTime() - ammoStartingTime) / 1000000;
 
-            if (ammolap > (2000 - gamePlayer.getScore() / 4)) {
+            if (ammolap > (ammoFrequency - gamePlayer.getScore() / 4)) {
                 if (ammos.size() == 0) {
                     ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
                 } else {
