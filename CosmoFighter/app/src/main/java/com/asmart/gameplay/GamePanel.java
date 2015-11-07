@@ -38,8 +38,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int levelNum;
     private Flag flag;
     private int trackPlayerX;
+    private long bulletStartingtime;
     private int healthFrequency;
     private int debrisFrequency;
+    private int bulletFrequency;
     private int ammoFrequency;
     private int debrisCoordX;
     private int debrisCoordY;
@@ -96,6 +98,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             debrisFrequency = 2000;
             healthFrequency = 20000;
             ammoFrequency = 1500;
+            bulletFrequency = 10;
             flaggingTime = 80;
         }
         if(levelNum==2)
@@ -132,6 +135,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //for bullets
         bullet = new ArrayList<>();
         bullettimer=0;
+        bulletStartingtime = System.nanoTime();
 
         // Health objects initiation
         powerUps = new ArrayList<>();
@@ -234,6 +238,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 debrisStartingTime = System.nanoTime();
             }
+
+
+            if(bullet.size()!=0) {
+                for (int i = 0; i < bullet.size(); i++)
+                    bullet.get(i).update();
+
+
+                for(Bullet b:bullet)
+                    for(Debris d:debris)
+                    {
+                        d.update();
+                        if(isCollision(d,b))
+                        {
+                            debris.remove(d);
+                            bullet.remove(b);
+
+                        }
+                    }
+            }
             for (int i = 0; i < debris.size(); i++) {
                 debris.get(i).update();
                 // when collision occurs decrement the player life by 1
@@ -277,20 +300,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 ammoStartingTime = System.nanoTime();
             }
+
             for (int i = 0; i < ammos.size(); i++) {
                 ammos.get(i).update();
                 // when collision occurs fire bullets
                 if (isCollision(ammos.get(i), gamePlayer)) {
                     ammos.remove(i);
                     gamePlayer.setScore(+50);
-                    bullet.add(0, new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY() - 30, 45, 15, 13));
-                    bullet.get(0).update();
-
-
+                    bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY(), 45, 15, 13));
                 }
-
-
-                if (ammos.get(i).getX() < -100) {
+                 if (ammos.get(i).getX() < -100) {
                     ammos.remove(i);
                     break;
                 }
@@ -298,11 +317,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-
-
-
-          }
         }
+    }
 
     public boolean isCollision(GameObject a, GameObject b) {
         return Rect.intersects(a.getRect(), b.getRect());
@@ -326,19 +342,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
 
             //for bullet
-            if(bullet.size()!=0)
+            for(Bullet b: bullet)
             {
-                bullettimer++;
-                bullet.get(0).draw(canvas);
-
-            }
-            if(bullettimer ==10){
-
-                if(bullet.size()!=0)
-                {
-                    bullet.remove(0);
-                    bullettimer =0;
-                }
+                b.draw(canvas);
             }
 
             //for Ammo
