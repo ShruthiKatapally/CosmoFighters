@@ -400,14 +400,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void startHighScoreActivity() {
         //Update the package and level in shared preferences
         SharedPreferences settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        int currentPackage = settings.getInt(context.getString(R.string.PACKAGE), 1);
+        int currentLevel = settings.getInt(context.getString(R.string.PACKAGE), 1);
         SharedPreferences.Editor edit = settings.edit();
         edit.putInt(context.getString(R.string.PACKAGE), 0);
         edit.putInt(context.getString(R.string.LEVEL), 0);
         edit.commit();
 
+        //Create a new intent for HighScoresActivity
         Intent intent = new Intent(this.context , HighScoresActivity.class);
         intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
         intent.putExtra(context.getString(R.string.FLAG_REACHED), isFlagReached);
+        intent.putExtra(context.getString(R.string.PACKAGE), currentPackage);
+        intent.putExtra(context.getString(R.string.LEVEL), currentLevel);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.context.startActivity(intent);
         Activity currentActivity = (Activity) context;

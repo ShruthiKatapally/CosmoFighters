@@ -82,5 +82,6 @@ public class SelectPackageActivity extends AppCompatActivity {
         edit.commit();
         intent.putExtra(getString(R.string.PACKAGE_NAME), message);
         startActivity(intent);
+        finish();
     }
 }

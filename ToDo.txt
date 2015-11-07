@@ -16,10 +16,7 @@ Destroying Debris -50pts
 should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
 
 TODO
-DONE - Lock levels initially
-DONE - Populate proper star images for packages based on score
-Populate proper star images for levels based on score
-Unlock levels and packages if flag reached
-Fix the high scores issue
+Partially Done - Populate proper star images for levels based on score (API > 17)
 Compute stars based on the score
-
+Unlock levels and packages if flag reached (DB Issue)
+Fix the high scores issue (DB Issue)

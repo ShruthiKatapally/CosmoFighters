@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.asmart.helpers.DatabaseHelper;
+import com.asmart.model.Packages;
+import com.asmart.model.PkgLvl;
 import com.asmart.model.Player;
 
 import java.util.List;
@@ -22,15 +24,41 @@ public class HighScoresActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int score = intent.getIntExtra(getString(R.string.GAME_SCORE), 0);
+        int currentPackage = intent.getIntExtra(getString(R.string.PACKAGE), 1);
+        int currentLevel = intent.getIntExtra(getString(R.string.LEVEL), 1);
+        boolean isFlag = intent.getBooleanExtra(getString(R.string.FLAG_REACHED), false);
         TextView txt = (TextView)findViewById(R.id.scoreView);
         txt.setText(String.valueOf(score));
 
         DatabaseHelper db = DatabaseHelper.getInstance(this);
-        List<String> players = db.getTopPlayers(5);
+
+        //Unlock the next level/package if the current level is completed
+        if(isFlag) {
+            if (currentLevel == 3) {
+                if(currentPackage != 3) {
+                    //Unlock the next package
+                    Packages pack = new Packages();
+                    pack.setPackageId(currentPackage + 1);
+                    pack.setPackageUnlocked(isFlag);
+                    db.updatePackage(pack);
+                }
+            }
+            else {
+                //Unlock the next level in current package
+                PkgLvl pack = new PkgLvl();
+                pack.setPackageId(currentPackage);
+                pack.setLevelId(currentLevel + 1);
+                pack.setIsUnlocked(isFlag);
+                db.updateLevel(pack);
+            }
+        }
+
+        //Display the high scores of the game
+        /*List<String> players = db.getTopPlayers(5);
         System.out.println("Players: " + players.size());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, players);
         ListView playersList = (ListView)findViewById(R.id.player_list_view);
-        playersList.setAdapter(adapter);
+        playersList.setAdapter(adapter);*/
     }
 
     @Override
