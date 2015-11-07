@@ -83,7 +83,9 @@ public class Debris extends GameObject
     public void draw(Canvas canvas)
     {
         try{canvas.drawBitmap(animation.getImage(),x,y,null);}
-        catch(Exception e) {}
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
