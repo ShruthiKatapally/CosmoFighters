@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.asmart.helpers.DatabaseHelper;
 import com.asmart.model.Player;
+
+import java.util.List;
 
 public class HighScoresActivity extends AppCompatActivity {
 
@@ -15,12 +19,17 @@ public class HighScoresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_scores);
-        //DatabaseHelper db = DatabaseHelper.getInstance(this);
 
         Intent intent = getIntent();
         int score = intent.getIntExtra(getString(R.string.GAME_SCORE), 0);
         TextView txt = (TextView)findViewById(R.id.scoreView);
         txt.setText(String.valueOf(score));
+
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        List<String> players = db.getTopPlayers(5);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, players);
+        ListView playersList = (ListView)findViewById(R.id.player_list_view);
+        playersList.setAdapter(adapter);
     }
 
     @Override

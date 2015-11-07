@@ -24,18 +24,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private GameBackground bg;
     private GamePlayer gamePlayer;
-    Paint paintLives;
     private int timer;
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
     private ArrayList<Debris> debris;
+    private ArrayList<Ammo> ammos;
     private ArrayList<Collision> collide;
     private Context context;
     private int levelNum;
     private int healthFrequency;
     private int debrisFrequency;
     private int ammoFrequency;
+    //Ammo related variables
+    private long ammoStartingTime;
+
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
@@ -95,13 +98,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             healthFrequency = 30000;
             ammoFrequency = 4000;
         }
-        paintLives= new Paint();
+
         //For Debris
         debris = new ArrayList<>();
         debrisStartingTime = System.nanoTime();
         collide = new ArrayList<>();
         thread = new MainThread(getHolder(), this);
         timer = 0;
+
+        //for Ammo
+        ammos = new ArrayList<>();
+        ammoStartingTime = System.nanoTime();
+
         // Health objects initiation
         powerUps = new ArrayList<>();
         healthHelperTime = System.nanoTime();
@@ -128,10 +136,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         if (gamePlayer.getPlaying()) {
             bg.update();
-            paintLives.setColor(Color.WHITE);
-            paintLives.setTextSize(15);
-            paintLives.setStyle(Paint.Style.FILL);
-
             gamePlayer.update();
 
             // For Health helpers
@@ -167,7 +171,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
                 if (debris.size() == 0) {
                     debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
-                } else {
+                }
+                else {
                     debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
                 }
 
@@ -179,7 +184,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (isCollision(debris.get(i), gamePlayer)) {
 
                     debris.remove(i);
-                    collide.add(0,new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
+                    collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
                     collide.get(0).update();
                     if(gamePlayer.getLives()>0) {
                         gamePlayer.decLives();
@@ -203,6 +208,35 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     break;
                 }
             }
+
+            // For ammo
+            long ammolap = (System.nanoTime() - ammoStartingTime) / 1000000;
+
+            if (ammolap > (2000 - gamePlayer.getScore() / 4)) {
+                if (ammos.size() == 0) {
+                    ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
+                } else {
+                    ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 70, 67, gamePlayer.getScore(), 1));
+                }
+
+                ammoStartingTime = System.nanoTime();
+            }
+            for (int i = 0; i < ammos.size(); i++) {
+                ammos.get(i).update();
+                // when collison occurs fire bullets
+
+
+                if (ammos.get(i).getX() < -100) {
+                    ammos.remove(i);
+                    break;
+                }
+            }
+
+
+
+
+
+
           }
         }
 
@@ -226,6 +260,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for (Debris m : debris) {
                 m.draw(canvas);
             }
+
+            //for Ammo
+            for(Ammo a : ammos) {
+                a.draw(canvas);
+            }
+
              for(Health h: powerUps){
                 h.draw(canvas);
              }

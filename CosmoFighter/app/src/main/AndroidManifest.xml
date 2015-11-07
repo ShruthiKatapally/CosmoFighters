@@ -15,6 +15,7 @@
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
         <activity
+            android:screenOrientation = "portrait"
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -24,14 +25,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation = "portrait"
             android:name=".AudioSettings"
             android:label="@string/title_activity_audio_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation = "portrait"
             android:name=".FbShare"
             android:label="@string/title_activity_fb_share"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation = "portrait"
             android:name=".HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -40,14 +44,17 @@
                 android:value="com.asmart.cosmofighter.MainActivity" />
         </activity>
         <activity
+            android:screenOrientation = "portrait"
             android:name=".LevelsActivity"
             android:label="@string/title_activity_levels"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation = "portrait"
             android:name=".SelectPackageActivity"
             android:label="@string/title_activity_select_package"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation = "portrait"
             android:name=".HighScoresActivity"
             android:label="@string/title_activity_high_scores"
             android:theme="@style/AppTheme.NoActionBar" >
