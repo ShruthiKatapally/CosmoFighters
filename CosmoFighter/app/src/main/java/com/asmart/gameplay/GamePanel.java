@@ -1,10 +1,8 @@
 package com.asmart.gameplay;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,14 +10,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
-
 import com.asmart.cosmofighter.HighScoresActivity;
 import com.asmart.cosmofighter.R;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,10 +37,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
 
-
-
-
-   public GamePanel(Context context) {
+    public GamePanel(Context context) {
         super(context);
         this.context = context;
         getHolder().addCallback(this);
@@ -81,14 +72,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
         paintLives= new Paint();
-        //for Debris
-        debris = new ArrayList<Debris>();
+        //For Debris
+        debris = new ArrayList<>();
         debrisStartingTime = System.nanoTime();
-        collide = new ArrayList<Collision>();
+        collide = new ArrayList<>();
         thread = new MainThread(getHolder(), this);
 
         // Health objects initiation
-        powerUps = new ArrayList<Health>();
+        powerUps = new ArrayList<>();
         healthHelperTime = System.nanoTime();
         thread.setRunning(true);
         thread.start();
@@ -98,7 +89,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (!gamePlayer.getPlaying()) {
-
                 gamePlayer.setPlaying(true);
             }
             return true;
@@ -111,9 +101,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return super.onTouchEvent(event);
     }
 
-
     public void update() {
-
         if (gamePlayer.getPlaying()) {
             bg.update();
             paintLives.setColor(Color.WHITE);
@@ -121,21 +109,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             paintLives.setStyle(Paint.Style.FILL);
 
             gamePlayer.update();
-            // for Health helpers
-            if ((System.nanoTime() - healthHelperTime)/1000000 > (50000 - gamePlayer.getScore() / 2)) {
 
+            // For Health helpers
+            if ((System.nanoTime() - healthHelperTime)/1000000 > (50000 - gamePlayer.getScore() / 2)) {
                 if (powerUps.size() == 0) {
                     System.out.println("Reaching making health helpers");
                     powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
                 } else {
                     powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
                 }
-
                 healthHelperTime = System.nanoTime();
             }
+
             for (int i = 0; i < powerUps.size(); i++) {
                 powerUps.get(i).update();
-                // when collison occurs decrement the player life by 1 and display collision effect
+                // When collision occurs decrement the player life by 1 and display collision effect
                 if (isCollision(powerUps.get(i), gamePlayer)) {
                     powerUps.remove(i);
                     gamePlayer.setLives(1);
@@ -146,9 +134,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     powerUps.remove(i);
                     break;
                 }
-
             }
-            // for Debris
+
+            // For Debris
             long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
 
             if (debrislap > (2000 - gamePlayer.getScore() / 4)) {
@@ -169,8 +157,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     collide.add(0,new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
                     collide.get(0).update();
                     if(gamePlayer.getLives()>0) {
-
-
                         gamePlayer.decLives();
                     }
 
@@ -181,6 +167,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                         intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         this.context.startActivity(intent);
+                        Activity currentActivity = (Activity) context;
+                        currentActivity.finish();
                         break;
                     }
                 }
@@ -194,11 +182,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     public boolean isCollision(GameObject a, GameObject b) {
-        
-        if (Rect.intersects(a.getRect(), b.getRect())) {
-            return true;
-        }
-        return false;
+        return Rect.intersects(a.getRect(), b.getRect());
     }
 
     @Override
@@ -243,4 +227,3 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawText("LIVES: " + gamePlayer.getLives(), 1000, HEIGHT-10, paint);
     }
 }
-

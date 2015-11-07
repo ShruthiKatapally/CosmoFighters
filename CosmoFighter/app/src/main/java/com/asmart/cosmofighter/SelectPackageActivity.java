@@ -38,6 +38,13 @@ public class SelectPackageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     //Opens the select levels screen when a package is selected
     public void selectPackage(View view){
         String message = getString(R.string.title_package1);
@@ -55,5 +62,6 @@ public class SelectPackageActivity extends AppCompatActivity {
         }
         intent.putExtra(getString(R.string.PACKAGE_NAME), message);
         startActivity(intent);
+        finish();
     }
 }

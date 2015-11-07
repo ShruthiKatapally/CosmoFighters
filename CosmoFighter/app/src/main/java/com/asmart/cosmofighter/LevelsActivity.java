@@ -20,9 +20,17 @@ public class LevelsActivity extends AppCompatActivity {
         txt.setText(message);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, SelectPackageActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void StartGame(View view) {
         Intent intent = new Intent(this, GameScreenActivity.class);
         startActivity(intent);
+        finish();
     }
 }
 

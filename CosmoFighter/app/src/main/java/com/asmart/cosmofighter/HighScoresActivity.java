@@ -23,6 +23,13 @@ public class HighScoresActivity extends AppCompatActivity {
         txt.setText(String.valueOf(score));
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void addPlayer(View view){
         EditText playerView = (EditText)findViewById(R.id.player_name_field);
         TextView scoreView = (TextView)findViewById(R.id.scoreView);
@@ -36,10 +43,12 @@ public class HighScoresActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SelectPackageActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void exitToHome(View view) {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
+        finish();
     }
 }

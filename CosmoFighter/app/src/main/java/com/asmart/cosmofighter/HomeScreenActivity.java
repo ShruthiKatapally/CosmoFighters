@@ -19,18 +19,21 @@ public class HomeScreenActivity extends AppCompatActivity {
     public void playGame(View view) {
         Intent intent = new Intent(this, SelectPackageActivity.class);
         startActivity(intent);
+        finish();
     }
 
     //Starts the view settings activity
     public void viewSettings(View view){
         Intent intent = new Intent(this, AudioSettings.class);
         startActivity(intent);
+        finish();
     }
 
     //Starts the facebook share activity
     public void fbShare(View view){
         Intent intent = new Intent(this, FbShare.class);
         startActivity(intent);
+        finish();
     }
 
     //Exits the game
@@ -41,5 +44,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 }

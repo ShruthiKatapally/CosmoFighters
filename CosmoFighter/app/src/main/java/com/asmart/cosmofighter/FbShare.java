@@ -54,6 +54,7 @@ public class FbShare extends FragmentActivity {
     public void startPlaying(View view) {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
