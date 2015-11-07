@@ -54,8 +54,10 @@
     <string name="FIRSTRUN">isFirstRun</string>
     <string name="PACKAGE">CurrentPackage</string>
     <string name="LEVEL">CurrentLevel</string>
+    <string name="PLAYER_ID">CurrentPlayerId</string>
     <string name="PACKAGE_NAME">Package_Name</string>
     <string name="GAME_SCORE">Game_Score</string>
+    <string name="FLAG_REACHED">Flag_Reached</string>
     <string name="DATABASE_NAME">cosmofighter</string>
 
 </resources>

@@ -50,6 +50,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
+
+    private boolean isFlagReached = false;
+
     public GamePanel(Context context) {
         super(context);
         this.context = context;
@@ -198,8 +201,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 // time to draw a flag on to the screen randomly.
                // System.out.println("Flag has been created!!!!");
-                flagCoordX = getWidth()-250;
-                flagCoordY = HEIGHT- 600;
+                flagCoordX = getWidth()-500;
+                flagCoordY = 0;
                 flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
                 flag.update();
             }
@@ -209,6 +212,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                // System.out.println("Flag is being updated!!!");
                 if(isCollision(gamePlayer,flag))
                 {
+                    isFlagReached = true;
                     gamePlayer.setPlaying(false);
                     startHighScoreActivity();
                 }
@@ -364,6 +368,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         Intent intent = new Intent(this.context , HighScoresActivity.class);
         intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
+        intent.putExtra(context.getString(R.string.FLAG_REACHED), isFlagReached);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.context.startActivity(intent);
         Activity currentActivity = (Activity) context;

@@ -22,6 +22,7 @@ public class InitialSetupHelper {
         edit.putBoolean(context.getString(R.string.MUSICON), true);
         edit.putBoolean(context.getString(R.string.SOUNDON), true);
         edit.putBoolean(context.getString(R.string.FIRSTRUN), false);
+        edit.putInt(context.getString(R.string.PLAYER_ID), 1);
         edit.commit();
 
         //Adds the default data to database

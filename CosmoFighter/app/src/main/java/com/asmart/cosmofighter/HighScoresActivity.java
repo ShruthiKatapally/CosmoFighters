@@ -27,6 +27,7 @@ public class HighScoresActivity extends AppCompatActivity {
 
         DatabaseHelper db = DatabaseHelper.getInstance(this);
         List<String> players = db.getTopPlayers(5);
+        System.out.println("Players: " + players.size());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, players);
         ListView playersList = (ListView)findViewById(R.id.player_list_view);
         playersList.setAdapter(adapter);
