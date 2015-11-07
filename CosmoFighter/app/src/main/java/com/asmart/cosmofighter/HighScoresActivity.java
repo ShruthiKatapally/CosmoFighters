@@ -30,7 +30,7 @@ public class HighScoresActivity extends AppCompatActivity {
         finish();
     }
 
-    public void addPlayer(View view){
+    public void addNewPlayer(View view) {
         EditText playerView = (EditText)findViewById(R.id.player_name_field);
         TextView scoreView = (TextView)findViewById(R.id.scoreView);
         String playerName = playerView.getText().toString();
@@ -40,13 +40,17 @@ public class HighScoresActivity extends AppCompatActivity {
         player.setPlayerName(playerName);
         player.setScore(score);
         db.addPlayer(player);
+    }
 
+    public void exitToPackages(View view){
+        addNewPlayer(view);
         Intent intent = new Intent(this, SelectPackageActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void exitToHome(View view) {
+        addNewPlayer(view);
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
         finish();

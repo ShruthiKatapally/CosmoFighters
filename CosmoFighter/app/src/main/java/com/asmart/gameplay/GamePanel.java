@@ -163,12 +163,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     if(gamePlayer.getLives() == 0)
                     {
                         gamePlayer.setPlaying(false);
-                        Intent intent = new Intent(this.context , HighScoresActivity.class);
-                        intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        this.context.startActivity(intent);
-                        Activity currentActivity = (Activity) context;
-                        currentActivity.finish();
+                        startHighScoreActivity();
                         break;
                     }
                 }
@@ -225,5 +220,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText("SCORE: " + gamePlayer.getScore(), 10, HEIGHT-10, paint);
         canvas.drawText("LIVES: " + gamePlayer.getLives(), 1000, HEIGHT-10, paint);
+    }
+
+    public void startHighScoreActivity() {
+        Intent intent = new Intent(this.context , HighScoresActivity.class);
+        intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.context.startActivity(intent);
+        Activity currentActivity = (Activity) context;
+        currentActivity.finish();
     }
 }

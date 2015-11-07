@@ -105,12 +105,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_submit"
+            android:text="@string/title_continue"
             android:id="@+id/submitHighScoreButton"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="addPlayer" />
+            android:onClick="exitToPackages" />
     </RelativeLayout>
 
 </LinearLayout>

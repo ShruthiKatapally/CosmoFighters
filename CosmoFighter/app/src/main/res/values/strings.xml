@@ -44,7 +44,7 @@
     <string name="title_player1">"Player 1"</string>
     <string name="title_high_scores">"Player High Scores"</string>
     <string name="title_exit1">"Exit"</string>
-    <string name="title_submit">"Submit"</string>
+    <string name="title_continue">"Continue"</string>
     <string name="title_gameScore">0</string>
 
     <!--Strings used as constants across applications-->
