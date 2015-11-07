@@ -4,11 +4,9 @@
 	1.5 bullets + debris -> debris vanishes.
 2. Store the levels and packages in shared preferences
 3. Manage scores at the end of the game
-4. Check if levels are unlocked. If not, lock them
-5. Include sounds in the game
-6. Fix music and audio switch based on preferences
-7. Include stars in packages and levels
-8. Include logging
+4. Include sounds in the game
+5. Fix music and audio switch based on preferences
+
 Android Play store
 audio and Music changes
 send score to fb
@@ -16,3 +14,12 @@ fire ammos and break debris
 instructions
 Destroying Debris -50pts             
 should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
+
+TODO
+DONE - Lock levels initially
+DONE - Populate proper star images for packages based on score
+Populate proper star images for levels based on score
+Unlock levels and packages if flag reached
+Fix the high scores issue
+Compute stars based on the score
+

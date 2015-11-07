@@ -178,7 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Gets the list of all packages from the database
+    //Gets the list of all levels from the database
     public List<PkgLvl> getAllLevels(int packageNum) {
         List<PkgLvl> packList = new ArrayList<>();
 

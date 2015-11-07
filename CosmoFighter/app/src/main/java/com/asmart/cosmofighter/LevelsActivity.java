@@ -31,15 +31,29 @@ public class LevelsActivity extends AppCompatActivity {
         //Checks if the levels are locked or unlocked and disables the buttons if the levels are locked
         Button btn;
         for(PkgLvl pack: packList) {
-            if(!pack.isUnlocked()) {
-                if(pack.getLevelId() == 2) {
-                    btn = (Button)findViewById(R.id.medium_button);
-                }
-                else {
-                    btn = (Button)findViewById(R.id.hard_button);
-                }
-                btn.setClickable(false);
+            if(pack.getLevelId() == 1) {
+                btn = (Button)findViewById(R.id.easy_button);
             }
+            else if (pack.getLevelId() == 2) {
+                btn = (Button)findViewById(R.id.medium_button);
+            }
+            else {
+                btn = (Button)findViewById(R.id.hard_button);
+            }
+            btn.setClickable(pack.isUnlocked());
+
+            //Set the count of stars based on the stars count
+            /*switch(pack.getStarsCount()) {
+                case 1:
+                    btn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.stars1, 0);
+                    break;
+                case 2:
+                    btn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.stars2, 0);
+                    break;
+                case 3:
+                    btn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.stars3, 0);
+                    break;
+            }*/
         }
     }
 
