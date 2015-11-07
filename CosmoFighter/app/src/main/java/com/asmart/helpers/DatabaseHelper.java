@@ -178,6 +178,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //Gets the list of all packages from the database
+    public List<PkgLvl> getAllLevels(int packageNum) {
+        List<PkgLvl> packList = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_PKGLVL + " WHERE " + COLUMN_PACKAGEID + " = " + packageNum;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery(query, null);
+
+        if(csr.moveToNext()) {
+            do {
+                PkgLvl pack = new PkgLvl();
+                pack.setPackageId(Integer.parseInt(csr.getString(0)));
+                pack.setLevelId(Integer.parseInt(csr.getString(1)));
+                pack.setStarsCount(Integer.parseInt(csr.getString(2)));
+                if (Integer.parseInt(csr.getString(3)) == 1) {
+                    pack.setIsUnlocked(true);
+                }
+                else {
+                    pack.setIsUnlocked(false);
+                }
+
+                packList.add(pack);
+            }while(csr.moveToNext());
+        }
+        csr.close();
+        db.close();
+
+        return packList;
+    }
+
     /**** Methods that handle players and score table   */
 
     // Adds a new player if the player does not exist in player table

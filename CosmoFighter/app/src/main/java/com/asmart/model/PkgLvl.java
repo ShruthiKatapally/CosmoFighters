@@ -6,6 +6,8 @@ public class PkgLvl {
     private int starsCount;
     private boolean isUnlocked;
 
+    public PkgLvl() {}
+
     public PkgLvl(int packageId, int levelId, int starsCount, boolean isUnlocked) {
         this.levelId = levelId;
         this.packageId = packageId;

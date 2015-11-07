@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import com.asmart.helpers.DatabaseHelper;
+import com.asmart.model.PkgLvl;
+import java.util.List;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -19,6 +23,24 @@ public class LevelsActivity extends AppCompatActivity {
         //Gets the name of the package selected and displays it on the screen
         TextView txt = (TextView)findViewById(R.id.textLevel);
         txt.setText(message);
+
+        //Gets the list of all the levels
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
+        List<PkgLvl> packList = db.getAllLevels(message.charAt(message.length() - 1));
+
+        //Checks if the levels are locked or unlocked and disables the buttons if the levels are locked
+        Button btn;
+        for(PkgLvl pack: packList) {
+            if(!pack.isUnlocked()) {
+                if(pack.getLevelId() == 2) {
+                    btn = (Button)findViewById(R.id.medium_button);
+                }
+                else {
+                    btn = (Button)findViewById(R.id.hard_button);
+                }
+                btn.setClickable(false);
+            }
+        }
     }
 
     @Override
