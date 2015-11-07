@@ -142,9 +142,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (debrislap > (2000 - gamePlayer.getScore() / 4)) {
                 if (debris.size() == 0) {
-                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, HEIGHT / 2, 67, 70, gamePlayer.getScore(), 1));
                 } else {
-                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 67, 70, gamePlayer.getScore(), 1));
                 }
 
                 debrisStartingTime = System.nanoTime();
