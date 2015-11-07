@@ -154,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PACKAGEUNLOCKED, pack.isPackageUnlocked() ? 1 : 0);
+        values.put(COLUMN_STARSCOUNT, pack.getStarsCount());
         db.update(TABLE_PACKAGES, values, COLUMN_PACKAGEID + " = ?", new String[]{Integer.toString(pack.getPackageId())});
         db.close();
     }
@@ -175,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ISUNLOCKED, lvl.isUnlocked() ? 1 : 0);
+        values.put(COLUMN_STARSCOUNT, lvl.getStarsCount());
         db.update(TABLE_PKGLVL, values, COLUMN_PACKAGEID + " = ? AND " + COLUMN_LEVELID + " = ? ",
                 new String[] {Integer.toString(lvl.getPackageId()), Integer.toString(lvl.getLevelId()) });
         db.close();

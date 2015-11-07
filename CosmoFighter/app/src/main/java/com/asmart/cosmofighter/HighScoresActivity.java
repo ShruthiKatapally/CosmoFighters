@@ -32,14 +32,42 @@ public class HighScoresActivity extends AppCompatActivity {
 
         DatabaseHelper db = DatabaseHelper.getInstance(this);
 
+        //Update the stars count based on the score
+        int stars = 0;
+        if(score > 950) {
+            stars = 3;
+        }
+        else if (score > 850) {
+            stars = 2;
+        }
+        else if (score > 500) {
+            stars = 1;
+        }
+
+        //Update the number of stars in current level
+        PkgLvl level = new PkgLvl();
+        level.setPackageId(currentPackage);
+        level.setLevelId(currentLevel);
+        level.setStarsCount(stars);
+        level.setIsUnlocked(isFlag);
+        db.updateLevel(level);
+
         //Unlock the next level/package if the current level is completed
         if(isFlag) {
+            //Update the number of stars for current package
+            Packages currpack = new Packages();
+            currpack.setPackageId(currentPackage);
+            currpack.setPackageUnlocked(true);
+            currpack.setStarsCount(currentLevel);
+            db.updatePackage(currpack);
+
             if (currentLevel == 3) {
                 if(currentPackage != 3) {
                     //Unlock the next package
                     Packages pack = new Packages();
                     pack.setPackageId(currentPackage + 1);
                     pack.setPackageUnlocked(isFlag);
+                    pack.setStarsCount(0);
                     db.updatePackage(pack);
                 }
             }
@@ -49,6 +77,7 @@ public class HighScoresActivity extends AppCompatActivity {
                 pack.setPackageId(currentPackage);
                 pack.setLevelId(currentLevel + 1);
                 pack.setIsUnlocked(isFlag);
+                pack.setStarsCount(0);
                 db.updateLevel(pack);
             }
         }
