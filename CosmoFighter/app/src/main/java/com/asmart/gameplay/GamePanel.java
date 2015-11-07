@@ -36,14 +36,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private long debrisStartingTime;
     private Random rand = new Random();
     private ArrayList<Debris> debris;
+    private ArrayList<Collision> collide;
     private Context context;
 
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
 
-    //Collision related variables
-    private Collision col;
+
+
 
    public GamePanel(Context context) {
         super(context);
@@ -83,7 +84,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //for Debris
         debris = new ArrayList<Debris>();
         debrisStartingTime = System.nanoTime();
-
+        collide = new ArrayList<Collision>();
         thread = new MainThread(getHolder(), this);
 
         // Health objects initiation
@@ -165,10 +166,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (isCollision(debris.get(i), gamePlayer)) {
 
                     debris.remove(i);
-
+                    collide.add(0,new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
+                    collide.get(0).update();
                     if(gamePlayer.getLives()>0) {
-                        col = new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25);
-                        col.update();
+
 
                         gamePlayer.decLives();
                     }
@@ -218,11 +219,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
              for(Health h: powerUps){
                 h.draw(canvas);
+             }
+            if(collide.size()!=0)
+            {
+                collide.get(0).draw(canvas);
+                collide.remove(0);
             }
-
             writeText(canvas);
 
-            col.draw(canvas);
+
            canvas.restoreToCount(savedState);
         }
     }
