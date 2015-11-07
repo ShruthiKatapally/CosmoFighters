@@ -1,10 +1,7 @@
 1. Main game logic
-	1.1 Change Debris
 	1.2 Place the flag after 7 loops.
-	1.3 Create Ammos
 	1.4 Ammo disapper -> Fire bullets
 	1.5 bullets + debris -> debris vanishes.
-	1.6 Display score and health
 2. Store the levels and packages in shared preferences
 3. Manage scores at the end of the game
 4. Check if levels are unlocked. If not, lock them
@@ -12,3 +9,16 @@
 6. Fix music and audio switch based on preferences
 7. Include stars in packages and levels
 8. Include logging
+
+
+Android Play store
+audio and Music changes
+send score to fb
+fire ammos and break debris
+instructions
+
+Grab helper - 50pts
+Destroying Debris -50pts
+should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
+
+obstacles in horizontal,vertical and diagonal direction depending on package and level
