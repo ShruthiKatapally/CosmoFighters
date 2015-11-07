@@ -29,22 +29,26 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
-
+    private int flaggingTime;
     private ArrayList<Debris> debris;
     private ArrayList<Ammo> ammos;
     private ArrayList<Collision> collide;
     private ArrayList<Bullet> bullet;
     private Context context;
     private int levelNum;
+    private Flag flag;
+    private int trackPlayerX;
     private int healthFrequency;
     private int debrisFrequency;
     private int ammoFrequency;
     private int debrisCoordX;
     private int debrisCoordY;
+    private int flagCoordX;
+    private int flagCoordY;
     private int packNum;
     //Ammo related variables
     private long ammoStartingTime;
-
+    private long gameStartTime;
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
@@ -82,6 +86,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+
+        gameStartTime = System.nanoTime();
         levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
         packNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
         if(levelNum==1)
@@ -90,6 +96,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             debrisFrequency = 2000;
             healthFrequency = 20000;
             ammoFrequency = 1500;
+            flaggingTime = 80;
         }
         if(levelNum==2)
         {
@@ -97,6 +104,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             debrisFrequency = 5000;
             healthFrequency = 50000;
             ammoFrequency = 2500;
+            flaggingTime = 100;
         }
         if(levelNum==3)
         {
@@ -104,6 +112,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             debrisFrequency = 8000;
             healthFrequency = 30000;
             ammoFrequency = 4000;
+            flaggingTime = 130;
         }
 
 
@@ -190,6 +199,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
             }
+            // Flagging time
+            if((( System.nanoTime() - gameStartTime)/1000000000>flaggingTime) &&flag==null){                               //
+
+                // time to draw a flag on to the screen randomly.
+               // System.out.println("Flag has been created!!!!");
+                flagCoordX = getWidth()-20;
+                flagCoordY = (int)getHeight()/2;
+                flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
+                flag.update();
+            }
+
+            if(flag!=null){                 // that means flag has been created
+                    flag.update();                        //now its time to see if it has collided with our fighter
+               // System.out.println("Flag is being updated!!!");
+                if(isCollision(gamePlayer,flag))
+                {
+                    gamePlayer.setPlaying(false);
+                    startHighScoreActivity();
+                }
+            }
+
 
             // For Debris
             long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
@@ -319,6 +349,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for(Health h: powerUps){
                 h.draw(canvas);
              }
+
+            if(flag!=null){
+                flag.draw(canvas);
+                System.out.println("drawing Flag");
+            }
             if(collide.size()!=0)
             {
                 timer++;
