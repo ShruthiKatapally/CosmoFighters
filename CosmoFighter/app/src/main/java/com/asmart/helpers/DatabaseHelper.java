@@ -177,11 +177,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**** Methods that handle players and score table   */
 
     // Adds a new player if the player does not exist in player table
-    public int addPlayer(Player player){
-        String query = "SELECT " + COLUMN_PLAYERID + " FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYERNAME + " = " + player.getPlayerName().trim();
+    public void addPlayer(Player player){
+        String query = "SELECT " + COLUMN_PLAYERID + " FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYERNAME + " =  \"" + player.getPlayerName().trim() + "\"";
+        int player_id = 1 ;
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
         if(csr.getColumnCount() == 0) {
+            csr.close();
             //Add a new player record
             ContentValues values = new ContentValues();
             values.put(COLUMN_PLAYERNAME,player.getPlayerName());
@@ -190,18 +193,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             csr = db.rawQuery(query, null);
         }
 
-        //Get the player id and update the score
-        int player_id = Integer.parseInt(csr.getString(0));
+        //Get the player id
+        if(csr.moveToNext()) {
+            player_id = Integer.parseInt(csr.getString(0));
+        }
+        csr.close();
+
+        //Insert the new high score for a player
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PLAYERID, player_id);
+        values.put(COLUMN_SCORE, player.getScore());
+        db.insert(TABLE_SCORES, null, values);
 
         db.close();
-        return player_id;
     }
 
     //Gets the list of players with high scores
     public List<Player> getTopPlayers(int num)
     {
         List<Player> players = new ArrayList<>();
-        String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY S.COLUMN_SCORE LIMIT "+Integer.toString(num);
+        String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY S.COLUMN_SCORE DESC LIMIT "+Integer.toString(num);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
         if(csr.moveToNext()) {
