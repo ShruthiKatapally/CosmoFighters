@@ -103,7 +103,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             healthFrequency = 30000;
             ammoFrequency = 4000;
         }
-        packNum = 3;
+
 
 
 
