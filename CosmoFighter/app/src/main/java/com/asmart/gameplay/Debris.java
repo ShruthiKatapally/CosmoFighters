@@ -62,18 +62,18 @@ public class Debris extends GameObject
     }
 
     public void update()
-    {
+    {   
         if(packNum==1) {
             x -= speed;
         }
         if(packNum==2)
         {
-            y+= (int)speed/3;
+            y+= speed/12;
         }
         if(packNum==3)
         {
             x-=speed;
-            y+=(int)speed/3;
+            y+=speed/12;
         }
 
         animation.update();
