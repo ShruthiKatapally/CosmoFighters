@@ -26,7 +26,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameBackground bg;
     private GamePlayer gamePlayer;
     Paint paintLives;
-
+    private int timer;
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
@@ -78,7 +78,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         debrisStartingTime = System.nanoTime();
         collide = new ArrayList<>();
         thread = new MainThread(getHolder(), this);
-
+        timer = 0;
         // Health objects initiation
         powerUps = new ArrayList<>();
         healthHelperTime = System.nanoTime();
@@ -202,8 +202,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
              }
             if(collide.size()!=0)
             {
+                timer++;
                 collide.get(0).draw(canvas);
-                collide.remove(0);
+
+            }
+            if(timer ==3){
+                timer =0;
+                if(collide.size()!=0)
+                {
+                    collide.remove(0);
+                }
             }
             writeText(canvas);
 
