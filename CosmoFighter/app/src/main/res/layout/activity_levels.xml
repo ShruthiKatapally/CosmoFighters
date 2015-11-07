@@ -76,7 +76,6 @@
                 android:visibility="visible"
                 android:contextClickable="false"
                 android:layout_centerVertical="true"
-
                 android:onClick="StartGame" />
 
             <Button
@@ -94,7 +93,7 @@
                 android:layout_alignEnd="@+id/easy_button"
                 android:layout_alignLeft="@+id/easy_button"
                 android:layout_alignStart="@+id/easy_button"
-                 />
+                android:onClick="StartGame" />
 
             <Button
                 android:drawableEnd="@drawable/stars0"
@@ -110,7 +109,8 @@
                 android:layout_marginTop="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"
+                android:onClick="StartGame"/>
 
         </LinearLayout>
     </RelativeLayout>

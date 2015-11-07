@@ -26,11 +26,14 @@ public class LevelsActivity extends AppCompatActivity {
 
         //Gets the list of all the levels
         DatabaseHelper db = DatabaseHelper.getInstance(this);
-        List<PkgLvl> packList = db.getAllLevels(message.charAt(message.length() - 1));
+        SharedPreferences settings = getSharedPreferences(getString(R.string.APP_PREFERENCES), 0);
+        int currentPackage = settings.getInt(getString(R.string.PACKAGE), 1);
+        List<PkgLvl> packList = db.getAllLevels(currentPackage);
 
         //Checks if the levels are locked or unlocked and disables the buttons if the levels are locked
         Button btn;
         for(PkgLvl pack: packList) {
+            System.out.println(pack.getLevelId() + "   " + pack.isUnlocked());
             if(pack.getLevelId() == 1) {
                 btn = (Button)findViewById(R.id.easy_button);
             }

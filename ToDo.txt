@@ -17,6 +17,4 @@ should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
 
 TODO
 Partially Done - Populate proper star images for levels based on score (API > 17)
-Compute stars based on the score(DB Issue)
-Unlock levels and packages if flag reached (DB Issue)
 Fix the high scores issue (DB Issue)
