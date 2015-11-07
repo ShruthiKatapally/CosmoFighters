@@ -155,9 +155,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
             for (int i = 0; i < debris.size(); i++) {
                 debris.get(i).update();
-                // when collison occurs decrement the player life by 1
+                // when collision occurs decrement the player life by 1
                 if (isCollision(debris.get(i), gamePlayer)) {
-
                     debris.remove(i);
                     collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
                     collide.get(0).update();
@@ -193,7 +192,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
             for (int i = 0; i < ammos.size(); i++) {
                 ammos.get(i).update();
-                // when collison occurs fire bullets
+                // when collision occurs fire bullets
 
 
                 if (ammos.get(i).getX() < -100) {
