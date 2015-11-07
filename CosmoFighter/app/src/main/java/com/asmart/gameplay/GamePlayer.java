@@ -83,6 +83,7 @@ public class GamePlayer extends GameObject {
             // call function to exit this activity and go to high scores activity.
         }
     }
+    public void setScore(int score){this.score+=score;}
     public void setUserX(float x){this.userX =x;}
     public void setUserY(float y){this.userY =y;}
     public void resetScore(){score =0;}

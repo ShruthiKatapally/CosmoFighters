@@ -9,16 +9,10 @@
 6. Fix music and audio switch based on preferences
 7. Include stars in packages and levels
 8. Include logging
-
-
 Android Play store
 audio and Music changes
 send score to fb
 fire ammos and break debris
 instructions
-
-Grab helper - 50pts
-Destroying Debris -50pts
+Destroying Debris -50pts             
 should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
-
-obstacles in horizontal,vertical and diagonal direction depending on package and level
