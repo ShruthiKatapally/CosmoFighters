@@ -93,7 +93,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //easy
             debrisFrequency = 2000;
             healthFrequency = 20000;
-            ammoFrequency = 1500;
+            ammoFrequency = 7000;
             flaggingTime = 80;
         }
         if(levelNum==2)
@@ -101,7 +101,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //medium
             debrisFrequency = 5000;
             healthFrequency = 50000;
-            ammoFrequency = 2500;
+            ammoFrequency = 10000;
             flaggingTime = 100;
         }
         if(levelNum==3)
@@ -109,7 +109,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //hard
             debrisFrequency = 8000;
             healthFrequency = 30000;
-            ammoFrequency = 4000;
+            ammoFrequency = 15000;
             flaggingTime = 130;
         }
 
@@ -198,8 +198,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 // time to draw a flag on to the screen randomly.
                // System.out.println("Flag has been created!!!!");
-                flagCoordX = getWidth()-20;
-                flagCoordY = (int)getHeight()/2;
+                flagCoordX = getWidth()-250;
+                flagCoordY = HEIGHT- 600;
                 flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
                 flag.update();
             }

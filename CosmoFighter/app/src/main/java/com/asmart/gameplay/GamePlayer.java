@@ -34,7 +34,6 @@ public class GamePlayer extends GameObject {
         startTime = System.nanoTime();
     }
 
-
     public void update()
     {
         long elapsed = (System.nanoTime() - startTime) / 1000000;
