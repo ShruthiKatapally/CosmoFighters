@@ -44,23 +44,23 @@ public class GamePlayer extends GameObject {
             startTime = System.nanoTime();
         }
         animation.update();
-        if (x<userX)
+        if (x < userX)
         {
-            x+= (userX-x)/8;
+            x += (userX-x)/8;
 
         }
-        if(x>userX)
+        if(x > userX)
         {
-            x-=(x+3 - userX)/8;
+            x -=(x - userX)/8;
         }
-        if (y<userY)
+        if (y < userY)
         {
-            y+=Math.abs(userY-y)/8;
+            y +=(userY-y)/8;
 
         }
-        if(y>userY)
+        if(y > userY)
         {
-            y-=(y+6-userY)/8;
+            y -=(y-userY)/8;
         }
 
     }
