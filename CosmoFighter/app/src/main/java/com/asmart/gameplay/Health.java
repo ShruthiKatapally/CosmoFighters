@@ -1,7 +1,13 @@
 package com.asmart.gameplay;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
+import com.asmart.cosmofighter.R;
+import com.asmart.helpers.InitialSetupHelper;
+
 /**
  * Created by Manish kumar on 11/4/2015.
  */
@@ -10,12 +16,29 @@ public class Health extends GameObject {
     //private Random rand = new Random();
     private Animation animation = new Animation();
     private int speed;
-    public Health(Bitmap res,int x,int y,int w, int h, int numFrames) {
+    private Context context;
+    public Health(Context context,Bitmap res,int x,int y,int w, int h, int numFrames) {
         super.x = x;
         super.y = y;
         width = w;
         height = h;
-        speed = 30;
+        this.context = context;
+        SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        //int packageNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
+        int levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
+        if(levelNum==1)
+        {
+            speed = 17;
+        }
+        if(levelNum==2)
+        {
+            speed = 24;
+        }
+        if(levelNum==3)
+        {
+            speed = 32;
+        }
+
         Bitmap[] image = new Bitmap[numFrames];
 
         spritesheet = res;

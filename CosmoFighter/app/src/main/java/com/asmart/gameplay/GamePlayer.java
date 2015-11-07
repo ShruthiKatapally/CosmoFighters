@@ -12,7 +12,6 @@ public class GamePlayer extends GameObject {
     private float userX;
     private float userY;
     private Bitmap spritesheet;
-
     public GamePlayer(Bitmap res, int w, int h, int numFrames){
         x = 100;
         y= GamePanel.HEIGHT / 2;

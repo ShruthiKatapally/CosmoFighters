@@ -1,7 +1,11 @@
 package com.asmart.gameplay;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
+import com.asmart.cosmofighter.R;
 
 import java.util.Random;
 
@@ -12,19 +16,38 @@ public class Debris extends GameObject
     private Bitmap spritesheet;
     private Random rand = new Random();
     private Animation animation = new Animation();
-
-    public Debris(Bitmap res,int x,int y,int w, int h, int s, int numFrames)
+    private Context context;
+    private int baseSpeed;
+    private int packNum;
+    public Debris(Context context,Bitmap res,int x,int y,int w, int h, int s, int numFrames)
     {
         super.x = x;
         super.y = y;
         width = w;
         height = h;
         score = s;
+        baseSpeed = 5;
+        this.context = context;
         // what speed a Debris should come in.
-        speed = 7 + (int)(rand.nextDouble()*score/30);
+        SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        packNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
+        int levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
+        if(levelNum==1)
+        {
+            baseSpeed = 6;
+        }
+        if(levelNum==2)
+        {
+            baseSpeed = 10;
+        }
+        if(levelNum==3)
+        {
+            baseSpeed = 15;
+        }
+        speed = baseSpeed + (int)(rand.nextDouble()*score/30);
 
-        if(speed > 40)
-            speed = 40;
+        if(speed > 40+baseSpeed)
+            speed = 40 + baseSpeed;
         Bitmap[] image = new Bitmap[numFrames];
 
         spritesheet = res;
@@ -40,7 +63,19 @@ public class Debris extends GameObject
 
     public void update()
     {
-        x-=speed;
+        if(packNum==1) {
+            x -= speed;
+        }
+        if(packNum==2)
+        {
+            y+= (int)speed/3;
+        }
+        if(packNum==3)
+        {
+            x-=speed;
+            y+=(int)speed/3;
+        }
+
         animation.update();
     }
 
