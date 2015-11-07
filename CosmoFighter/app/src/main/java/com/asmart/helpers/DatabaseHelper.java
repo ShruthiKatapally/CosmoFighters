@@ -2,6 +2,7 @@ package com.asmart.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper dbHelper = null;
 
     public static final int DB_VERSION = 1;
+    private Context context;
 
     //Player Table
     public static final String TABLE_PLAYER = "player";
@@ -50,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private DatabaseHelper(Context context) {
         super(context, context.getString(R.string.DATABASE_NAME), null, DB_VERSION);
+        this.context = context;
     }
 
     //Returns an instance of Database Helper class
@@ -64,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAYER + "(" +
-                COLUMN_PLAYERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_PLAYERID + " INTEGER PRIMARY KEY," +
                 COLUMN_PLAYERNAME + " TEXT UNIQUE NOT NULL" + ")";
 
         String CREATE_SCORES_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SCORES + "(" +
@@ -180,7 +183,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Adds a new player if the player does not exist in player table
     public void addPlayer(Player player){
         String query = "SELECT " + COLUMN_PLAYERID + " FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYERNAME + " =  \"" + player.getPlayerName().trim() + "\"";
-        int player_id = 1 ;
+        SharedPreferences settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        int player_id = settings.getInt(context.getString(R.string.PLAYER_ID), 1) ;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
@@ -188,17 +192,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             csr.close();
             //Add a new player record
             ContentValues values = new ContentValues();
-            values.put(COLUMN_PLAYERNAME,player.getPlayerName());
+            values.put(COLUMN_PLAYERID, player_id);
+            values.put(COLUMN_PLAYERNAME, player.getPlayerName());
             db.insert(TABLE_PLAYER, null, values);
+
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putInt(context.getString(R.string.PLAYER_ID), player_id + 1);
+            edit.commit();
+        }
+        else {
             //Get the player id
             csr = db.rawQuery(query, null);
+            if(csr.moveToNext()) {
+                player_id = Integer.parseInt(csr.getString(0));
+            }
+            csr.close();
         }
-
-        //Get the player id
-        if(csr.moveToNext()) {
-            player_id = Integer.parseInt(csr.getString(0));
-        }
-        csr.close();
 
         //Insert the new high score for a player
         ContentValues values = new ContentValues();
