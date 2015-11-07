@@ -28,6 +28,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
+
     private ArrayList<Debris> debris;
     private ArrayList<Ammo> ammos;
     private ArrayList<Collision> collide;
@@ -36,6 +37,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int healthFrequency;
     private int debrisFrequency;
     private int ammoFrequency;
+    private int debrisCoordX;
+    private int debrisCoordY;
+    private int packNum;
     //Ammo related variables
     private long ammoStartingTime;
 
@@ -77,6 +81,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
         levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
+        packNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
         if(levelNum==1)
         {
             //easy
@@ -98,6 +103,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             healthFrequency = 30000;
             ammoFrequency = 4000;
         }
+        packNum = 3;
+
+
 
         //For Debris
         debris = new ArrayList<>();
@@ -134,6 +142,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
+
+        if(packNum==1)
+        {
+            debrisCoordX = WIDTH + 10;
+            debrisCoordY =  (int) (rand.nextDouble() * (HEIGHT));
+        }
+        if(packNum==2 || packNum==3)
+        {
+            debrisCoordX = (int) (rand.nextDouble()*(WIDTH));
+            debrisCoordY =  -10;
+        }
         if (gamePlayer.getPlaying()) {
             bg.update();
             gamePlayer.update();
@@ -170,10 +189,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
                 if (debris.size() == 0) {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, HEIGHT / 2, 68, 72, gamePlayer.getScore(), 1));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 72, gamePlayer.getScore(), 1));
                 }
                 else {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 68, 70, gamePlayer.getScore(), 1));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 70, gamePlayer.getScore(), 1));
                 }
 
                 debrisStartingTime = System.nanoTime();
