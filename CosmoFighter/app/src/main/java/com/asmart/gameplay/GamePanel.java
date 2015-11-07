@@ -1,5 +1,4 @@
 package com.asmart.gameplay;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,16 +32,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<Debris> debris;
     private ArrayList<Collision> collide;
     private Context context;
-
+    private int levelNum;
+    private int healthFrequency;
+    private int debrisFrequency;
+    private int ammoFrequency;
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
-
     public GamePanel(Context context) {
         super(context);
         this.context = context;
         getHolder().addCallback(this);
-
         setFocusable(true);
     }
 
@@ -72,6 +72,29 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.testplayer), 95, 90, 3);
+        SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
+        if(levelNum==1)
+        {
+            //easy
+            debrisFrequency = 2000;
+            healthFrequency = 20000;
+            ammoFrequency = 1500;
+        }
+        if(levelNum==2)
+        {
+            //medium
+            debrisFrequency = 5000;
+            healthFrequency = 50000;
+            ammoFrequency = 2500;
+        }
+        if(levelNum==3)
+        {
+            //hard
+            debrisFrequency = 8000;
+            healthFrequency = 30000;
+            ammoFrequency = 4000;
+        }
         paintLives= new Paint();
         //For Debris
         debris = new ArrayList<>();
@@ -112,12 +135,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             gamePlayer.update();
 
             // For Health helpers
-            if ((System.nanoTime() - healthHelperTime)/1000000 > (50000 - gamePlayer.getScore() / 2)) {
+            if ((System.nanoTime() - healthHelperTime)/1000000 > (healthFrequency - gamePlayer.getScore() / 2)) {
                 if (powerUps.size() == 0) {
-                    System.out.println("Reaching making health helpers");
-                    powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                   // System.out.println("Reaching making health helpers");
+                    powerUps.add(new Health(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
                 } else {
-                    powerUps.add(new Health(BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                    powerUps.add(new Health(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
                 }
                 healthHelperTime = System.nanoTime();
             }
@@ -135,16 +158,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     powerUps.remove(i);
                     break;
                 }
+
             }
 
             // For Debris
             long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
 
-            if (debrislap > (2000 - gamePlayer.getScore() / 4)) {
+            if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
                 if (debris.size() == 0) {
-                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, HEIGHT / 2, 45, 15, gamePlayer.getScore(), 13));
                 } else {
-                    debris.add(new Debris(BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
+                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.missile), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 45, 15, gamePlayer.getScore(), 13));
                 }
 
                 debrisStartingTime = System.nanoTime();
@@ -170,6 +194,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
                 if (debris.get(i).getX() < -100) {
+                    debris.remove(i);
+                    break;
+                }
+
+                if (debris.get(i).getY() > GamePanel.HEIGHT) {
                     debris.remove(i);
                     break;
                 }
