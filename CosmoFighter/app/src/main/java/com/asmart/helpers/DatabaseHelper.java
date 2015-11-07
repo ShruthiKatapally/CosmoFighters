@@ -142,6 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while(csr.moveToNext());
         }
         csr.close();
+        db.close();
 
         return packList;
     }
@@ -209,21 +210,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Gets the list of players with high scores
-    public List<Player> getTopPlayers(int num)
+    public List<String> getTopPlayers(int num)
     {
-        List<Player> players = new ArrayList<>();
-        String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P.PLAYER_ID = S.PLAYER_ID ORDER BY S.COLUMN_SCORE DESC LIMIT "+Integer.toString(num);
+        List<String> players = new ArrayList<>();
+        String query = "SELECT P."+ COLUMN_PLAYERNAME +", S."+COLUMN_SCORE+" FROM " + TABLE_PLAYER + " P, " + TABLE_SCORES +" S WHERE P." + COLUMN_PLAYERID + " = S." + COLUMN_PLAYERID + " ORDER BY S." + COLUMN_SCORE + " DESC LIMIT "+Integer.toString(num);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
         if(csr.moveToNext()) {
             do {
-                Player player = new Player();
+                String player = String.format("%13s \t %8s", csr.getString(0), csr.getString(1));
+                System.out.println(player);
+                /*Player player = new Player();
                 player.setPlayerName(csr.getString(0));
-                player.setScore(Integer.parseInt(csr.getString(1)));
+                player.setScore(Integer.parseInt(csr.getString(1)));*/
                 players.add(player);
             }while(csr.moveToNext());
         }
         csr.close();
+        db.close();
         return players;
     }
 }

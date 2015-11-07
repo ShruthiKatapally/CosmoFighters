@@ -95,7 +95,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_exit1"
+            android:text="@string/title_home"
             android:id="@+id/highScoreExitButton"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
