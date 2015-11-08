@@ -1,11 +1,5 @@
 1. Main game logic
-	1.2 Place the flag after 7 loops.
-	1.4 Ammo disapper -> Fire bullets
 	1.5 bullets + debris -> debris vanishes.
-2. Include sounds in the game
 3. Fix music and audio switch based on preferences
-4. Add instructions
-5. Fire ammos and break debris
 6. Destroying Debris -50pts             
-7. Fix the high scores issue (DB Issue)
 8. SHow a button as disabled

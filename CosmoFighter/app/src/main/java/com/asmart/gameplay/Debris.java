@@ -44,10 +44,10 @@ public class Debris extends GameObject
         {
             baseSpeed =15 ;
         }
-        /*speed = baseSpeed + (int)(rand.nextDouble()*score/30);
+        speed = baseSpeed + (int)(rand.nextDouble()*score/30);
 
-        if(speed > 40+baseSpeed)
-            speed = 40 + baseSpeed; */
+        if(speed > 20+baseSpeed)
+            speed = 20 + baseSpeed;
         speed =baseSpeed;
         Bitmap[] image = new Bitmap[numFrames];
 

@@ -113,7 +113,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==1)
         {
             //easy
-            debrisFrequency = 2000;
+            debrisFrequency = 1000;
             healthFrequency = 20000;
             ammoFrequency = 7000;
             flaggingTime = 80;
@@ -121,7 +121,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==2)
         {
             //medium
-            debrisFrequency = 5000;
+            debrisFrequency = 700;
             healthFrequency = 50000;
             ammoFrequency = 10000;
             flaggingTime = 100;
@@ -129,7 +129,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==3)
         {
             //hard
-            debrisFrequency = 8000;
+            debrisFrequency = 800;
             healthFrequency = 30000;
             ammoFrequency = 15000;
             flaggingTime = 130;
@@ -240,7 +240,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // For Debris
         long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
 
-        if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
+        if (debrislap > (debrisFrequency - gamePlayer.getScore() / 8)) {
             if (debris.size() == 0) {
                 debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 72, gamePlayer.getScore(), 1));
             }
@@ -321,7 +321,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     void addAndUpdateAmmo(){
         long ammoLap = (System.nanoTime() - ammoStartingTime) / 1000000;
 
-        if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 4)) {
+        if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 5)) {
             if (ammos.size() == 0) {
                 ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
             } else {
@@ -363,7 +363,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
     void addAndupdateCoins(){
-        if ((System.nanoTime() - coinHelperTime)/1000000 > (1000)) {
+        if ((System.nanoTime() - coinHelperTime)/10000000 > (1700)) {
             if (coins.size() == 0) {
                 // System.out.println("Reaching making health helpers");
                 coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 50, 49, 1));
