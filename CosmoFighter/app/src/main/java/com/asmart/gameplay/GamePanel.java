@@ -49,6 +49,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int flagCoordX;
     private int flagCoordY;
     private int packNum;
+    private boolean bulletfiring;
+    int bulletcount;
     //Ammo related variables
     private long ammoStartingTime;
     private long gameStartTime;
@@ -164,193 +166,251 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return super.onTouchEvent(event);
     }
 
-    public void update() {
+    public void updateHealthHelper(){
 
-        if(packNum==1)
-        {
-            debrisCoordX = WIDTH + 10;
-            debrisCoordY =  (int) (rand.nextDouble() * (HEIGHT));
+        // For Health helpers
+        if ((System.nanoTime() - healthHelperTime)/1000000 > (healthFrequency - gamePlayer.getScore() / 2)) {
+            if (powerUps.size() == 0) {
+                // System.out.println("Reaching making health helpers");
+                powerUps.add(new Health(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+            } else {
+                powerUps.add(new Health(this.context, BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+            }
+            healthHelperTime = System.nanoTime();
         }
-        if(packNum==2 || packNum==3)
-        {
-            debrisCoordX = (int) (rand.nextDouble()*(WIDTH));
-            debrisCoordY =  -10;
+
+
+        for (int i = 0; i < powerUps.size(); i++) {
+            powerUps.get(i).update();
+            // When collision occurs decrement the player life by 1 and display collision effect
+
+            if (isCollision(powerUps.get(i), gamePlayer)) {
+                powerUps.remove(i);
+                gamePlayer.setScore(50);
+                gamePlayer.setLives(1);
+                break;
+            }
+
+            if (powerUps.get(i).getX() < -100) {
+                powerUps.remove(i);
+                break;
+            }
+
         }
-        if (gamePlayer.getPlaying()) {
-            bg.update();
-            gamePlayer.update();
+    }
 
-            // For Health helpers
-            if ((System.nanoTime() - healthHelperTime)/1000000 > (healthFrequency - gamePlayer.getScore() / 2)) {
-                if (powerUps.size() == 0) {
-                   // System.out.println("Reaching making health helpers");
-                    powerUps.add(new Health(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
-                } else {
-                    powerUps.add(new Health(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.ic_health), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
-                }
-                healthHelperTime = System.nanoTime();
+    void updateFlag(){
+        // Flagging time
+        if((( System.nanoTime() - gameStartTime)/1000000000>flaggingTime) &&flag==null){                               //
+
+            // time to draw a flag on to the screen randomly.
+            // System.out.println("Flag has been created!!!!");
+            flagCoordX = getWidth()-500;
+            flagCoordY = 0;
+            flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
+            flag.update();
+        }
+
+        if(flag!=null){                 // that means flag has been created
+            flag.update();                        //now its time to see if it has collided with our fighter
+            // System.out.println("Flag is being updated!!!");
+            if(isCollision(gamePlayer,flag))
+            {
+                isFlagReached = true;
+                gamePlayer.setPlaying(false);
+                startHighScoreActivity();
+            }
+        }
+
+
+
+    }
+    void addNewDebris(){
+        // For Debris
+        long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
+
+        if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
+            if (debris.size() == 0) {
+                debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 72, gamePlayer.getScore(), 1));
+            }
+            else {
+                debris.add(new Debris(this.context, BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 70, gamePlayer.getScore(), 1));
             }
 
-            for (int i = 0; i < powerUps.size(); i++) {
-                powerUps.get(i).update();
-                // When collision occurs decrement the player life by 1 and display collision effect
-                if (isCollision(powerUps.get(i), gamePlayer)) {
-                    powerUps.remove(i);
-                    gamePlayer.setScore(50);
-                    gamePlayer.setLives(1);
-                    break;
-                }
 
-                if (powerUps.get(i).getX() < -100) {
-                    powerUps.remove(i);
-                    break;
+            debrisStartingTime = System.nanoTime();
+        }
+    }
+
+
+    void removeCollidedDebrisAndBullet(){
+
+
+        //update bullet
+        for(Bullet b: bullet){
+            b.update();
+            boolean collided = false;
+            for(Debris d: debris) {
+
+                if (isCollision(b, d)) {
+                    collided = true;
+                    bullet.remove(b);
+                    debris.remove(d);
                 }
 
             }
-            // Flagging time
-            if((( System.nanoTime() - gameStartTime)/1000000000>flaggingTime) &&flag==null){                               //
 
-                // time to draw a flag on to the screen randomly.
-               // System.out.println("Flag has been created!!!!");
-                flagCoordX = getWidth()-500;
-                flagCoordY = 0;
-                flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
-                flag.update();
-            }
+        }
 
-            if(flag!=null){                 // that means flag has been created
-                flag.update();                        //now its time to see if it has collided with our fighter
-                // System.out.println("Flag is being updated!!!");
-                if(isCollision(gamePlayer,flag))
+    }
+
+    void updateDebris(){
+
+        System.out.println("Deris size  ..." + debris.size());
+        for (int i = 0; i < debris.size(); i++) {
+
+            debris.get(i).update();
+
+            // when collision occurs decrement the player life by 1
+
+            if (isCollision(debris.get(i), gamePlayer)) {
+                debris.remove(i);
+                collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
+                collide.get(0).update();
+                if(gamePlayer.getLives()>0) {
+                    gamePlayer.decLives();
+                    gamePlayer.setScore(-50);
+                }
+
+                if(gamePlayer.getLives() == 0)
                 {
-                    isFlagReached = true;
                     gamePlayer.setPlaying(false);
                     startHighScoreActivity();
-                }
-            }
-
-
-            // For Debris
-            long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
-
-            if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
-                if (debris.size() == 0) {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 72, gamePlayer.getScore(), 1));
-                }
-                else {
-                    debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 70, gamePlayer.getScore(), 1));
-                }
-
-                debrisStartingTime = System.nanoTime();
-            }
-
-
-            if(bullet.size()!=0) {
-                for (int i = 0; i < bullet.size(); i++)
-                    bullet.get(i).update();
-
-
-                for(Bullet b:bullet)
-                    for(Debris d:debris)
-                    {
-                        d.update();
-                        if(isCollision(d,b))
-                        {
-                            debris.remove(d);
-                            bullet.remove(b);
-
-                        }
-                    }
-            }
-            for (int i = 0; i < debris.size(); i++) {
-                debris.get(i).update();
-                // when collision occurs decrement the player life by 1
-                if (isCollision(debris.get(i), gamePlayer)) {
-                    debris.remove(i);
-                    collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
-                    collide.get(0).update();
-                    if(gamePlayer.getLives()>0) {
-                        gamePlayer.decLives();
-                        gamePlayer.setScore(-50);
-                    }
-
-                    if(gamePlayer.getLives() == 0)
-                    {
-                        gamePlayer.setPlaying(false);
-                        startHighScoreActivity();
-                        break;
-                    }
-                }
-
-                if (debris.get(i).getX() < -100) {
-                    debris.remove(i);
-                    break;
-                }
-
-                if (debris.get(i).getY() > GamePanel.HEIGHT) {
-                    debris.remove(i);
                     break;
                 }
             }
 
-            // For ammo
-            long ammolap = (System.nanoTime() - ammoStartingTime) / 1000000;
-
-            if (ammolap > (ammoFrequency - gamePlayer.getScore() / 4)) {
-                if (ammos.size() == 0) {
-                    ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
-                } else {
-                    ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 70, 67, gamePlayer.getScore(), 1));
-                }
-
-                ammoStartingTime = System.nanoTime();
+            if (debris.get(i).getX() < -100) {
+                debris.remove(i);
+                break;
             }
 
-            for (int i = 0; i < ammos.size(); i++) {
-                ammos.get(i).update();
-                // when collision occurs fire bullets
-                if (isCollision(ammos.get(i), gamePlayer)) {
-                    ammos.remove(i);
-                    gamePlayer.setScore(+50);
-                    bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY(), 45, 15, 13));
-                }
-                 if (ammos.get(i).getX() < -100) {
-                    ammos.remove(i);
-                    break;
-                }
+            if (debris.get(i).getY() > GamePanel.HEIGHT) {
+                debris.remove(i);
+                break;
             }
-
-            if ((System.nanoTime() - coinHelperTime)/1000000 > (1000)) {
-                if (coins.size() == 0) {
-                    // System.out.println("Reaching making health helpers");
-                    coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
-                } else {
-                    coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
-                }
-                coinHelperTime = System.nanoTime();
-            }
-
-            for (int i = 0; i < coins.size(); i++) {
-                coins.get(i).update();
-                // When collision occurs decrement the player life by 1 and display collision effect
-                if (isCollision(coins.get(i), gamePlayer)) {
-                    coins.remove(i);
-                    gamePlayer.setScore(50);
-                    
-                    break;
-                }
-
-                if (coins.get(i).getX() < -100) {
-                    coins.remove(i);
-                    break;
-                }
-
-            }
-
 
 
         }
     }
+
+    void addAndUpdateAmmo(){
+        long ammoLap = (System.nanoTime() - ammoStartingTime) / 1000000;
+
+        if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 4)) {
+            if (ammos.size() == 0) {
+                ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
+            } else {
+                ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 70, 67, gamePlayer.getScore(), 1));
+            }
+
+            ammoStartingTime = System.nanoTime();
+        }
+
+        for (int i = 0; i < ammos.size(); i++) {
+            ammos.get(i).update();
+            // when collision occurs fire bullets
+            if (isCollision(ammos.get(i), gamePlayer)) {
+                ammos.remove(i);
+                gamePlayer.setScore(+50);
+                bullet.clear();
+                bulletcount =0;
+                bulletfiring = true;
+            }
+            if (ammos.get(i).getX() < -100) {
+                ammos.remove(i);
+                break;
+            }
+        }
+    }
+
+
+
+    void fireBullets(){
+
+
+        if(bulletcount < 50 && bulletfiring == true)
+        {
+             bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY()+gamePlayer.getHeight()/2 ,45, 15, 13));
+            //bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.debris), gamePlayer.getX(), gamePlayer.getY(), 68, 72, 1));
+            bulletcount++;
+
+        }
+    }
+    void addAndupdateCoins(){
+        if ((System.nanoTime() - coinHelperTime)/1000000 > (1000)) {
+            if (coins.size() == 0) {
+                // System.out.println("Reaching making health helpers");
+                coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 50, 49, 1));
+            } else {
+                coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 50, 49, 1));
+            }
+            coinHelperTime = System.nanoTime();
+        }
+
+        for (int i = 0; i < coins.size(); i++) {
+            coins.get(i).update();
+            // When collision occurs decrement the player life by 1 and display collision effect
+            if (isCollision(coins.get(i), gamePlayer)) {
+                coins.remove(i);
+                gamePlayer.setScore(50);
+
+                break;
+            }
+
+            if (coins.get(i).getX() < -100) {
+                coins.remove(i);
+                break;
+            }
+
+        }
+
+    }
+    public void update() {
+
+        if (packNum == 1) {
+            debrisCoordX = WIDTH + 10;
+            debrisCoordY = (int) (rand.nextDouble() * (HEIGHT));
+        }
+        if (packNum == 2 || packNum == 3) {
+            debrisCoordX = (int) (rand.nextDouble() * (WIDTH));
+            debrisCoordY = -10;
+        }
+
+
+        if (gamePlayer.getPlaying()) {
+            bg.update();
+            gamePlayer.update();
+
+
+            updateHealthHelper();
+
+            updateFlag();
+
+            addAndupdateCoins();
+            addNewDebris();
+
+
+           removeCollidedDebrisAndBullet();
+
+            updateDebris();
+            addAndUpdateAmmo();
+            fireBullets();
+        }
+    }
+
+
+
 
 
     public boolean isCollision(GameObject a, GameObject b) {
@@ -371,21 +431,29 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             gamePlayer.draw(canvas);
 
             // for Debris
+
             for (Debris m : debris) {
                 m.draw(canvas);
             }
 
-            //for bullet
-            for(Bullet b: bullet)
-            {
+
+
+            for(Bullet b:bullet){
+
                 b.draw(canvas);
+
             }
+
+
 
             //for Ammo
             for(Ammo a : ammos) {
                 a.draw(canvas);
             }
 
+            for( Coins c : coins){
+                c.draw(canvas);
+            }
             for(Health h: powerUps){
                 h.draw(canvas);
              }

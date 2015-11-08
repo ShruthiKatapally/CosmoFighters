@@ -36,7 +36,7 @@ public class Bullet extends GameObject {
         this.height = h;
         Bitmap[] image = new Bitmap[numFrames];
         spritesheet = res;
-        bulletspeed = 100;
+        bulletspeed = 50;
 
         for(int i = 0; i < image.length; i++)
         {

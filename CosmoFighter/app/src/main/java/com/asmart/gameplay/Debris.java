@@ -33,7 +33,7 @@ public class Debris extends GameObject
         packNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
         int levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
         if(levelNum==1)
-        {
+        {  //base speed = 6
             baseSpeed = 6;
         }
         if(levelNum==2)
@@ -42,12 +42,13 @@ public class Debris extends GameObject
         }
         if(levelNum==3)
         {
-            baseSpeed = 15;
+            baseSpeed =15 ;
         }
-        speed = baseSpeed + (int)(rand.nextDouble()*score/30);
+        /*speed = baseSpeed + (int)(rand.nextDouble()*score/30);
 
         if(speed > 40+baseSpeed)
-            speed = 40 + baseSpeed;
+            speed = 40 + baseSpeed; */
+        speed =baseSpeed;
         Bitmap[] image = new Bitmap[numFrames];
 
         spritesheet = res;
