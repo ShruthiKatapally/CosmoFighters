@@ -9,6 +9,9 @@ public class MusicHelper {
 
     private static MusicHelper mh;
     public MediaPlayer bgm;
+    public MediaPlayer coinMusic;
+    public MediaPlayer explosionMusic;
+    public MediaPlayer ammoMusic;
     public Context context;
 
     private MusicHelper(Context context)
@@ -49,4 +52,27 @@ public class MusicHelper {
         }
     }
 
+    //Play the music when coin is collected
+    public void playCoinMusic() {
+        if(coinMusic == null) {
+            coinMusic = MediaPlayer.create(context, R.raw.coin);
+        }
+        coinMusic.start();
+    }
+
+    //Play the explosion music
+    public void playExplosionMusic() {
+        if(explosionMusic == null) {
+            explosionMusic = MediaPlayer.create(context, R.raw.explosion);
+        }
+        explosionMusic.start();
+    }
+
+    //Play the music for health
+    public void playAmmoMusic() {
+        if(ammoMusic == null) {
+            ammoMusic = MediaPlayer.create(context, R.raw.bullet);
+        }
+        ammoMusic.start();
+    }
 }

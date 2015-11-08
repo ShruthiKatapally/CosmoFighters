@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.asmart.cosmofighter.HighScoresActivity;
 import com.asmart.cosmofighter.R;
+import com.asmart.helpers.MusicHelper;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,10 +28,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GamePlayer gamePlayer;
     private int timer;
     private int bullettimer;
+
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
     private int flaggingTime;
+
     private ArrayList<Debris> debris;
     private ArrayList<Ammo> ammos;
     private ArrayList<Collision> collide;
@@ -51,9 +55,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int packNum;
     private boolean bulletfiring;
     int bulletcount;
+
     //Ammo related variables
     private long ammoStartingTime;
     private long gameStartTime;
+
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
@@ -61,11 +67,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private boolean isFlagReached = false;
     private long coinHelperTime;
 
+    SharedPreferences settings;
+    private MusicHelper mh;
+
     public GamePanel(Context context) {
         super(context);
         this.context = context;
         getHolder().addCallback(this);
         setFocusable(true);
+        settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        mh = MusicHelper.getInstance(context);
     }
 
     @Override
@@ -274,6 +285,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // when collision occurs decrement the player life by 1
 
             if (isCollision(debris.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playExplosionMusic();
+                }
                 debris.remove(i);
                 collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
                 collide.get(0).update();
@@ -321,6 +335,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             ammos.get(i).update();
             // when collision occurs fire bullets
             if (isCollision(ammos.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playAmmoMusic();
+                }
                 ammos.remove(i);
                 gamePlayer.setScore(+50);
                 bullet.clear();
@@ -337,8 +354,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
     void fireBullets(){
-
-
         if(bulletcount < 50 && bulletfiring == true)
         {
              bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY()+gamePlayer.getHeight()/2 ,45, 15, 13));
@@ -362,9 +377,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             coins.get(i).update();
             // When collision occurs decrement the player life by 1 and display collision effect
             if (isCollision(coins.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playCoinMusic();
+                }
                 coins.remove(i);
                 gamePlayer.setScore(50);
-
                 break;
             }
 
@@ -497,7 +514,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void startHighScoreActivity() {
         //Update the package and level in shared preferences
-        SharedPreferences settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
         int currentPackage = settings.getInt(context.getString(R.string.PACKAGE), 1);
         int currentLevel = settings.getInt(context.getString(R.string.LEVEL), 1);
         int currPackStars = settings.getInt(context.getString(R.string.PACKAGE_STARS), 0);
