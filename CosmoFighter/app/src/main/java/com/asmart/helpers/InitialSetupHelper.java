@@ -63,10 +63,10 @@ public class InitialSetupHelper {
         for(int i = 1; i <= 3; i++ ) {
             for(int j = 1; j <=3; j++) {
                 if (j == 1) {
-                    pkg = new PkgLvl(i, j, 3, true);
+                    pkg = new PkgLvl(i, j, 0, true);
                 }
                 else {
-                    pkg = new PkgLvl(i, j, 3, false);
+                    pkg = new PkgLvl(i, j, 0, false);
                 }
                 db.addPkgLvl(pkg);
             }

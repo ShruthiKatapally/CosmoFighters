@@ -2,24 +2,10 @@
 	1.2 Place the flag after 7 loops.
 	1.4 Ammo disapper -> Fire bullets
 	1.5 bullets + debris -> debris vanishes.
-2. Store the levels and packages in shared preferences
-3. Manage scores at the end of the game
-4. Include sounds in the game
-5. Fix music and audio switch based on preferences
-
-Android Play store
-audio and Music changes
-send score to fb
-fire ammos and break debris
-instructions
-Destroying Debris -50pts             
-should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
-
-TODO
-DONE - Lock levels initially
-DONE - Populate proper star images for packages based on score
-Populate proper star images for levels based on score
-Unlock levels and packages if flag reached
-Fix the high scores issue
-Compute stars based on the score
-
+2. Include sounds in the game
+3. Fix music and audio switch based on preferences
+4. Add instructions
+5. Fire ammos and break debris
+6. Destroying Debris -50pts             
+7. Fix the high scores issue (DB Issue)
+8. SHow a button as disabled

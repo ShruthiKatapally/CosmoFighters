@@ -14,11 +14,14 @@ import java.util.List;
 
 public class SelectPackageActivity extends AppCompatActivity {
 
+    private int[] stars;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_package);
 
+        stars = new int[3];
         //Gets the list of all the packages
         DatabaseHelper db = DatabaseHelper.getInstance(this);
         List<Packages> packList = db.getAllPackages();
@@ -30,14 +33,17 @@ public class SelectPackageActivity extends AppCompatActivity {
         for(Packages pack: packList) {
             //Get access to the images button and the stars image
             if(pack.getPackageName().equals(getString(R.string.title_package1))) {
+                stars[0] = pack.getStarsCount();
                 starsImg = (ImageView)findViewById(R.id.imgPack1Stars);
                 img = (ImageButton)findViewById(R.id.pack1_btn);
             }
             else if (pack.getPackageName().equals(getString(R.string.title_package2))) {
+                stars[1] = pack.getStarsCount();
                 starsImg = (ImageView)findViewById(R.id.imgPack2Stars);
                 img = (ImageButton)findViewById(R.id.pack2_btn);
             }
             else {
+                stars[2] = pack.getStarsCount();
                 starsImg = (ImageView)findViewById(R.id.imgPack3Stars);
                 img = (ImageButton)findViewById(R.id.pack3_btn);
             }
@@ -69,18 +75,22 @@ public class SelectPackageActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.pack1_btn:
                 edit.putInt(getString(R.string.PACKAGE), 1);
+                edit.putInt(getString(R.string.PACKAGE_STARS), stars[0]);
                 message = getString(R.string.title_package1);
                 break;
             case R.id.pack2_btn:
                 edit.putInt(getString(R.string.PACKAGE), 2);
+                edit.putInt(getString(R.string.PACKAGE_STARS), stars[1]);
                 message = getString(R.string.title_package2);
                 break;
             case R.id.pack3_btn:
                 edit.putInt(getString(R.string.PACKAGE), 3);
+                edit.putInt(getString(R.string.PACKAGE_STARS), stars[2]);
                 message = getString(R.string.title_package3);
         }
         edit.commit();
         intent.putExtra(getString(R.string.PACKAGE_NAME), message);
         startActivity(intent);
+        finish();
     }
 }
