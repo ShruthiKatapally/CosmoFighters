@@ -37,7 +37,7 @@ public class HighScoresActivity extends AppCompatActivity {
         //Update the stars count based on the score
         int stars = 0;
         if(score > 1050) {
-            stars = 3;
+            stars = isFlag? 3 : 2;
         }
         else if (score > 950) {
             stars = 2;
@@ -94,12 +94,12 @@ public class HighScoresActivity extends AppCompatActivity {
         }
 
         //Display the high scores of the game
-        /*List<String> players = db.getTopPlayers(5);
-        System.out.println("Players: " + players.size());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, players);
+        List<String> players = db.getTopPlayers(5);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.high_scores_list_view, players);
         ListView playersList = (ListView)findViewById(R.id.player_list_view);
-        playersList.setAdapter(adapter);*/
+        playersList.setAdapter(adapter);
     }
+
 
     @Override
     public void onBackPressed() {

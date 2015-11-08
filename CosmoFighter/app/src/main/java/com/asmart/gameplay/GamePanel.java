@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.asmart.cosmofighter.HighScoresActivity;
 import com.asmart.cosmofighter.R;
+import com.asmart.helpers.MusicHelper;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,10 +28,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GamePlayer gamePlayer;
     private int timer;
     private int bullettimer;
+
     // Debris related variables
     private long debrisStartingTime;
     private Random rand = new Random();
     private int flaggingTime;
+
     private ArrayList<Debris> debris;
     private ArrayList<Ammo> ammos;
     private ArrayList<Collision> collide;
@@ -51,9 +55,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int packNum;
     private boolean bulletfiring;
     int bulletcount;
+
     //Ammo related variables
     private long ammoStartingTime;
     private long gameStartTime;
+
     //Health related variables
     private ArrayList<Health> powerUps;
     private long healthHelperTime;
@@ -61,11 +67,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private boolean isFlagReached = false;
     private long coinHelperTime;
 
+    SharedPreferences settings;
+    private MusicHelper mh;
+
     public GamePanel(Context context) {
         super(context);
         this.context = context;
         getHolder().addCallback(this);
         setFocusable(true);
+        settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        mh = MusicHelper.getInstance(context);
     }
 
     @Override
@@ -102,7 +113,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==1)
         {
             //easy
-            debrisFrequency = 2000;
+            debrisFrequency = 700;
             healthFrequency = 20000;
             ammoFrequency = 7000;
             flaggingTime = 80;
@@ -110,7 +121,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==2)
         {
             //medium
-            debrisFrequency = 5000;
+            debrisFrequency = 400;
             healthFrequency = 50000;
             ammoFrequency = 10000;
             flaggingTime = 100;
@@ -118,7 +129,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(levelNum==3)
         {
             //hard
-            debrisFrequency = 8000;
+            debrisFrequency = 300;
             healthFrequency = 30000;
             ammoFrequency = 15000;
             flaggingTime = 130;
@@ -229,7 +240,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // For Debris
         long debrislap = (System.nanoTime() - debrisStartingTime) / 1000000;
 
-        if (debrislap > (debrisFrequency - gamePlayer.getScore() / 4)) {
+        if (debrislap > (debrisFrequency - gamePlayer.getScore() / 8)) {
             if (debris.size() == 0) {
                 debris.add(new Debris(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.debris), debrisCoordX, debrisCoordY, 68, 72, gamePlayer.getScore(), 1));
             }
@@ -242,13 +253,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-boolean isshot(Debris d, Bullet b){
-
-    if( d.getX()-2 *d.getWidth() <= b.getX() && b.getX() <= d.getX()+2*d.getWidth()){
-            return true;
-    }
-    return false;
-}
     void removeCollidedDebrisAndBullet(){
 
 
@@ -281,6 +285,9 @@ boolean isshot(Debris d, Bullet b){
             // when collision occurs decrement the player life by 1
 
             if (isCollision(debris.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playExplosionMusic();
+                }
                 debris.remove(i);
                 collide.add(0, new Collision(BitmapFactory.decodeResource(getResources(), R.drawable.collision), gamePlayer.getX(), gamePlayer.getY() - 30, 100, 100, 25));
                 collide.get(0).update();
@@ -314,7 +321,7 @@ boolean isshot(Debris d, Bullet b){
     void addAndUpdateAmmo(){
         long ammoLap = (System.nanoTime() - ammoStartingTime) / 1000000;
 
-        if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 4)) {
+        if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 5)) {
             if (ammos.size() == 0) {
                 ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
             } else {
@@ -328,6 +335,9 @@ boolean isshot(Debris d, Bullet b){
             ammos.get(i).update();
             // when collision occurs fire bullets
             if (isCollision(ammos.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playAmmoMusic();
+                }
                 ammos.remove(i);
                 gamePlayer.setScore(+50);
                 bullet.clear();
@@ -344,8 +354,6 @@ boolean isshot(Debris d, Bullet b){
 
 
     void fireBullets(){
-
-
         if(bulletcount < 120 && bulletfiring == true)
         {
              bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY()+gamePlayer.getHeight()/2 ,45, 15, 13));
@@ -356,7 +364,7 @@ boolean isshot(Debris d, Bullet b){
         }
     }
     void addAndupdateCoins(){
-        if ((System.nanoTime() - coinHelperTime)/1000000 > (1000)) {
+        if ((System.nanoTime() - coinHelperTime)/10000000 > (1700)) {
             if (coins.size() == 0) {
                 // System.out.println("Reaching making health helpers");
                 coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 50, 49, 1));
@@ -370,9 +378,11 @@ boolean isshot(Debris d, Bullet b){
             coins.get(i).update();
             // When collision occurs decrement the player life by 1 and display collision effect
             if (isCollision(coins.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playCoinMusic();
+                }
                 coins.remove(i);
                 gamePlayer.setScore(50);
-
                 break;
             }
 
@@ -505,7 +515,6 @@ boolean isshot(Debris d, Bullet b){
 
     public void startHighScoreActivity() {
         //Update the package and level in shared preferences
-        SharedPreferences settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
         int currentPackage = settings.getInt(context.getString(R.string.PACKAGE), 1);
         int currentLevel = settings.getInt(context.getString(R.string.LEVEL), 1);
         int currPackStars = settings.getInt(context.getString(R.string.PACKAGE_STARS), 0);

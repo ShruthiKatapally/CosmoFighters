@@ -63,6 +63,23 @@ public class AudioSettings extends AppCompatActivity {
                 edit.commit();
             }
         });
+
+        //Stop or start music based on selection
+        audioswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //Stop the music if the switch is turned off and save the preferences
+                if (!isChecked) {
+                    edit.putBoolean(getString(R.string.SOUNDON), false);
+                }
+                //Start the music if the switch is turned on and save the preferences
+                else {
+                    edit.putBoolean(getString(R.string.SOUNDON), true);
+                }
+                //Save the changes
+                edit.commit();
+            }
+        });
     }
 
     @Override
