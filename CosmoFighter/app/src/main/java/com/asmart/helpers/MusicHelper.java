@@ -12,6 +12,7 @@ public class MusicHelper {
     public MediaPlayer coinMusic;
     public MediaPlayer explosionMusic;
     public MediaPlayer ammoMusic;
+    public MediaPlayer healthMusic;
     public Context context;
 
     private MusicHelper(Context context)
@@ -68,11 +69,19 @@ public class MusicHelper {
         explosionMusic.start();
     }
 
-    //Play the music for health
+    //Play the music for ammo
     public void playAmmoMusic() {
         if(ammoMusic == null) {
             ammoMusic = MediaPlayer.create(context, R.raw.bullet);
         }
         ammoMusic.start();
+    }
+
+    //Play the music for health
+    public void playHealthMusic() {
+        if(healthMusic == null) {
+            healthMusic = MediaPlayer.create(context, R.raw.health);
+        }
+        healthMusic.start();
     }
 }

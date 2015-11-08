@@ -196,6 +196,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // When collision occurs decrement the player life by 1 and display collision effect
 
             if (isCollision(powerUps.get(i), gamePlayer)) {
+                if(settings.getBoolean(context.getString(R.string.SOUNDON), false)) {
+                    mh.playHealthMusic();
+                }
                 powerUps.remove(i);
                 gamePlayer.setScore(50);
                 gamePlayer.setLives(1);
