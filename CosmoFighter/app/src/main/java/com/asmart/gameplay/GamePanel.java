@@ -100,7 +100,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //easy
             debrisFrequency = 2000;
             healthFrequency = 20000;
-
             ammoFrequency = 7000;
             flaggingTime = 80;
         }
@@ -120,9 +119,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             ammoFrequency = 15000;
             flaggingTime = 130;
         }
-
-
-
 
         //For Debris
         debris = new ArrayList<>();
@@ -218,8 +214,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
 
             if(flag!=null){                 // that means flag has been created
-                    flag.update();                        //now its time to see if it has collided with our fighter
-               // System.out.println("Flag is being updated!!!");
+                flag.update();                        //now its time to see if it has collided with our fighter
+                // System.out.println("Flag is being updated!!!");
                 if(isCollision(gamePlayer,flag))
                 {
                     isFlagReached = true;
@@ -401,7 +397,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //Update the package and level in shared preferences
         SharedPreferences settings = context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
         int currentPackage = settings.getInt(context.getString(R.string.PACKAGE), 1);
-        int currentLevel = settings.getInt(context.getString(R.string.PACKAGE), 1);
+        int currentLevel = settings.getInt(context.getString(R.string.LEVEL), 1);
+        int currPackStars = settings.getInt(context.getString(R.string.PACKAGE_STARS), 0);
+        int currLvlStars = settings.getInt(context.getString(R.string.LEVEL_STARS), 0);
         SharedPreferences.Editor edit = settings.edit();
         edit.putInt(context.getString(R.string.PACKAGE), 0);
         edit.putInt(context.getString(R.string.LEVEL), 0);
@@ -412,7 +410,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         intent.putExtra(context.getString(R.string.GAME_SCORE), gamePlayer.getScore());
         intent.putExtra(context.getString(R.string.FLAG_REACHED), isFlagReached);
         intent.putExtra(context.getString(R.string.PACKAGE), currentPackage);
+        intent.putExtra(context.getString(R.string.PACKAGE_STARS), currPackStars);
         intent.putExtra(context.getString(R.string.LEVEL), currentLevel);
+        intent.putExtra(context.getString(R.string.LEVEL_STARS), currLvlStars);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.context.startActivity(intent);
         Activity currentActivity = (Activity) context;

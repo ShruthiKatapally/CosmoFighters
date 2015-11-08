@@ -25,7 +25,9 @@ public class HighScoresActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int score = intent.getIntExtra(getString(R.string.GAME_SCORE), 0);
         int currentPackage = intent.getIntExtra(getString(R.string.PACKAGE), 1);
+        int currPackStars = intent.getIntExtra(getString(R.string.PACKAGE_STARS), 1);
         int currentLevel = intent.getIntExtra(getString(R.string.LEVEL), 1);
+        int currtLvlStars = intent.getIntExtra(getString(R.string.LEVEL_STARS), 1);
         boolean isFlag = intent.getBooleanExtra(getString(R.string.FLAG_REACHED), false);
         TextView txt = (TextView)findViewById(R.id.scoreView);
         txt.setText(String.valueOf(score));
@@ -34,14 +36,18 @@ public class HighScoresActivity extends AppCompatActivity {
 
         //Update the stars count based on the score
         int stars = 0;
-        if(score > 950) {
+        if(score > 1050) {
             stars = 3;
         }
-        else if (score > 850) {
+        else if (score > 950) {
             stars = 2;
         }
-        else if (score > 500) {
+        else if (score > 700) {
             stars = 1;
+        }
+
+        if(currtLvlStars > stars) {
+            stars = currtLvlStars;
         }
 
         //Update the number of stars in current level
@@ -58,7 +64,12 @@ public class HighScoresActivity extends AppCompatActivity {
             Packages currpack = new Packages();
             currpack.setPackageId(currentPackage);
             currpack.setPackageUnlocked(true);
-            currpack.setStarsCount(currentLevel);
+            if(currPackStars > currentLevel) {
+                currpack.setStarsCount(currPackStars);
+            }
+            else {
+                currpack.setStarsCount(currentLevel);
+            }
             db.updatePackage(currpack);
 
             if (currentLevel == 3) {
@@ -66,7 +77,7 @@ public class HighScoresActivity extends AppCompatActivity {
                     //Unlock the next package
                     Packages pack = new Packages();
                     pack.setPackageId(currentPackage + 1);
-                    pack.setPackageUnlocked(isFlag);
+                    pack.setPackageUnlocked(true);
                     pack.setStarsCount(0);
                     db.updatePackage(pack);
                 }
@@ -76,7 +87,7 @@ public class HighScoresActivity extends AppCompatActivity {
                 PkgLvl pack = new PkgLvl();
                 pack.setPackageId(currentPackage);
                 pack.setLevelId(currentLevel + 1);
-                pack.setIsUnlocked(isFlag);
+                pack.setIsUnlocked(true);
                 pack.setStarsCount(0);
                 db.updateLevel(pack);
             }

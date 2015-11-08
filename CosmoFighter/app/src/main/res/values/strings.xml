@@ -53,6 +53,8 @@
     <string name="SOUNDON">isSoundOn</string>
     <string name="FIRSTRUN">isFirstRun</string>
     <string name="PACKAGE">CurrentPackage</string>
+    <string name="PACKAGE_STARS">StarsInPackage</string>
+    <string name="LEVEL_STARS">StarsInLevel</string>
     <string name="LEVEL">CurrentLevel</string>
     <string name="PLAYER_ID">CurrentPlayerId</string>
     <string name="PACKAGE_NAME">Package_Name</string>

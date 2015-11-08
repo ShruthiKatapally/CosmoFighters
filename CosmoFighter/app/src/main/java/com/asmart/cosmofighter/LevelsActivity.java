@@ -14,6 +14,8 @@ import java.util.List;
 
 public class LevelsActivity extends AppCompatActivity {
 
+    private int[] stars;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class LevelsActivity extends AppCompatActivity {
         TextView txt = (TextView)findViewById(R.id.textLevel);
         txt.setText(message);
 
+        stars = new int[3];
         //Gets the list of all the levels
         DatabaseHelper db = DatabaseHelper.getInstance(this);
         SharedPreferences settings = getSharedPreferences(getString(R.string.APP_PREFERENCES), 0);
@@ -37,14 +40,17 @@ public class LevelsActivity extends AppCompatActivity {
         for(PkgLvl pack: packList) {
             System.out.println(pack.getLevelId() + "   " + pack.isUnlocked());
             if(pack.getLevelId() == 1) {
+                stars[0] = pack.getStarsCount();
                 btn = (Button)findViewById(R.id.easy_button);
                 img = (ImageView)findViewById(R.id.imgLvl1Stars);
             }
             else if (pack.getLevelId() == 2) {
+                stars[1] = pack.getStarsCount();
                 btn = (Button)findViewById(R.id.medium_button);
                 img = (ImageView)findViewById(R.id.imgLvl2Stars);
             }
             else {
+                stars[2] = pack.getStarsCount();
                 btn = (Button)findViewById(R.id.hard_button);
                 img = (ImageView)findViewById(R.id.imgLvl3Stars);
             }
@@ -80,11 +86,14 @@ public class LevelsActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.easy_button:
                 edit.putInt(getString(R.string.LEVEL), 1);
+                edit.putInt(getString(R.string.LEVEL_STARS), stars[0]);
                 break;
             case R.id.medium_button:
+                edit.putInt(getString(R.string.LEVEL_STARS), stars[1]);
                 edit.putInt(getString(R.string.LEVEL), 2);
                 break;
             case R.id.hard_button:
+                edit.putInt(getString(R.string.LEVEL_STARS), stars[2]);
                 edit.putInt(getString(R.string.LEVEL), 3);
                 break;
         }
