@@ -25,7 +25,7 @@
             android:layout_alignParentEnd="true" />
 
         <LinearLayout
-            android:layout_width="275dp"
+            android:layout_width="350dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentBottom="true"
@@ -58,59 +58,91 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </RelativeLayout>
 
-            <Button
-                android:drawableEnd="@drawable/stars0"
-                android:drawableRight="@drawable/stars0"
+            <LinearLayout
+                android:id="@+id/easy_layout"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:text="@string/title_easy"
-                android:id="@+id/easy_button"
-                android:background="@drawable/roundedbutton"
-                android:textSize="30sp"
-                android:layout_marginTop="25dp"
-                android:paddingEnd="0dp"
-                android:paddingStart="0dp"
-                android:visibility="visible"
-                android:contextClickable="false"
-                android:layout_centerVertical="true"
-                android:onClick="StartGame" />
+                android:layout_height="117dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <Button
+                    android:layout_width="145dp"
+                    android:layout_height="66dp"
+                    android:text="@string/title_easy"
+                    android:id="@+id/easy_button"
+                    android:background="@drawable/roundedbutton"
+                    android:textSize="30sp"
+                    android:layout_marginTop="25dp"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="0dp"
+                    android:visibility="visible"
+                    android:contextClickable="false"
+                    android:onClick="StartGame" />
 
-            <Button
-                android:drawableEnd="@drawable/stars0"
-                android:drawableRight="@drawable/stars0"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:text="@string/title_medium"
-                android:id="@+id/medium_button"
-                android:background="@drawable/roundedbutton"
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/easy_button"
-                android:textSize="30sp"
-                android:layout_alignRight="@+id/easy_button"
-                android:layout_alignEnd="@+id/easy_button"
-                android:layout_alignLeft="@+id/easy_button"
-                android:layout_alignStart="@+id/easy_button"
-                android:onClick="StartGame" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/imgLvl1Stars"
+                    android:src="@drawable/stars0" />
+            </LinearLayout>
 
-            <Button
-                android:drawableEnd="@drawable/stars0"
-                android:drawableRight="@drawable/stars0"
+            <LinearLayout
+                android:id="@+id/medium_layout"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:text="@string/title_hard"
-                android:id="@+id/hard_button"
-                android:background="@drawable/roundedbutton"
-                android:layout_alignLeft="@+id/medium_button"
-                android:layout_alignStart="@+id/medium_button"
-                android:textSize="30sp"
-                android:layout_marginTop="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:onClick="StartGame"/>
+                android:layout_height="117dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <Button
+                    android:layout_width="145dp"
+                    android:layout_height="66dp"
+                    android:text="@string/title_medium"
+                    android:id="@+id/medium_button"
+                    android:background="@drawable/roundedbutton"
+                    android:textSize="30sp"
+                    android:layout_marginTop="25dp"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="0dp"
+                    android:visibility="visible"
+                    android:contextClickable="false"
+                    android:onClick="StartGame" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/imgLvl2Stars"
+                    android:src="@drawable/stars0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hard_layout"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <Button
+                    android:layout_width="145dp"
+                    android:layout_height="66dp"
+                    android:text="@string/title_hard"
+                    android:id="@+id/hard_button"
+                    android:background="@drawable/roundedbutton"
+                    android:textSize="30sp"
+                    android:layout_marginTop="25dp"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="0dp"
+                    android:visibility="visible"
+                    android:contextClickable="false"
+                    android:onClick="StartGame" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/imgLvl3Stars"
+                    android:src="@drawable/stars0" />
+            </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>

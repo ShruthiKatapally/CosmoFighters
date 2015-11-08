@@ -49,7 +49,7 @@ public class HighScoresActivity extends AppCompatActivity {
         level.setPackageId(currentPackage);
         level.setLevelId(currentLevel);
         level.setStarsCount(stars);
-        level.setIsUnlocked(isFlag);
+        level.setIsUnlocked(true);
         db.updateLevel(level);
 
         //Unlock the next level/package if the current level is completed

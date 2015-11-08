@@ -16,5 +16,5 @@ Destroying Debris -50pts
 should be able to run in 512mb RAM, 1GHz processor, GPU, WVGA Screen
 
 TODO
-Partially Done - Populate proper star images for levels based on score (API > 17)
 Fix the high scores issue (DB Issue)
+Medium to hard is not unlocked
