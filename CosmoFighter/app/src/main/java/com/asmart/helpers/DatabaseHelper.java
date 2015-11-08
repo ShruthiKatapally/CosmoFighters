@@ -14,9 +14,7 @@ import com.asmart.model.PkgLvl;
 import com.asmart.model.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper dbHelper = null;
@@ -25,16 +23,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
 
     //Player Table
-    public static final String TABLE_PLAYER = "player";
+    public static final String TABLE_PLAYER = "cf_player";
     public static final String COLUMN_PLAYERID = "player_id";
     public static final String COLUMN_PLAYERNAME = "player_name";
 
     //Scores Table
-    public static final String TABLE_SCORES = "scores";
+    public static final String TABLE_SCORES = "cf_scores";
     public static final String COLUMN_SCORE = "score";
 
     //Packages Table
-    public static final String TABLE_PACKAGES = "packages";
+    public static final String TABLE_PACKAGES = "cf_packages";
     public static final String COLUMN_PACKAGEID = "package_id";
     public static final String COLUMN_PACKAGENAME = "package_name";
     public static final String COLUMN_PACKAGEUNLOCKED = "package_unlocked";
@@ -42,12 +40,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LEVELSUNLOCKED = "levels_unlocked";
 
     //Levels Table
-    public static final String TABLE_LEVELS = "levels";
+    public static final String TABLE_LEVELS = "cf_levels";
     public static final String COLUMN_LEVELID = "level_id";
     public static final String COLUMN_LEVELNAME = "level_name";
 
     //PkgLvl Table
-    public static final String TABLE_PKGLVL = "pkglvl";
+    public static final String TABLE_PKGLVL = "cf_pkglvl";
     public static final String COLUMN_ISUNLOCKED = "isUnlocked";
 
     private DatabaseHelper(Context context) {
@@ -237,8 +235,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery(query, null);
-        if(csr.getColumnCount() == 0) {
+        if(csr.moveToNext()) {
+            player_id = Integer.parseInt(csr.getString(0));
             csr.close();
+        }
+        else {
             //Add a new player record
             ContentValues values = new ContentValues();
             values.put(COLUMN_PLAYERID, player_id);
@@ -248,14 +249,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SharedPreferences.Editor edit = settings.edit();
             edit.putInt(context.getString(R.string.PLAYER_ID), player_id + 1);
             edit.commit();
-        }
-        else {
-            //Get the player id
-            csr = db.rawQuery(query, null);
-            if(csr.moveToNext()) {
-                player_id = Integer.parseInt(csr.getString(0));
-            }
-            csr.close();
         }
 
         //Insert the new high score for a player
@@ -277,7 +270,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(csr.moveToNext()) {
             do {
                 String player = String.format("%13s \t %8s", csr.getString(0), csr.getString(1));
-                System.out.println(player);
                 /*Player player = new Player();
                 player.setPlayerName(csr.getString(0));
                 player.setScore(Integer.parseInt(csr.getString(1)));*/
