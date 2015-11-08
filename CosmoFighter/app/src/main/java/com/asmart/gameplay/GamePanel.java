@@ -43,6 +43,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int debrisFrequency;
     private int bulletFrequency;
     private int ammoFrequency;
+    private ArrayList<Coins> coins;
     private int debrisCoordX;
     private int debrisCoordY;
     private int flagCoordX;
@@ -56,6 +57,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private long healthHelperTime;
 
     private boolean isFlagReached = false;
+    private long coinHelperTime;
 
     public GamePanel(Context context) {
         super(context);
@@ -143,6 +145,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // Health objects initiation
         powerUps = new ArrayList<>();
         healthHelperTime = System.nanoTime();
+        
+        coins = new ArrayList<>();
+        
         thread.setRunning(true);
         thread.start();
     }
@@ -319,14 +324,43 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
 
+            if ((System.nanoTime() - coinHelperTime)/1000000 > (1000)) {
+                if (coins.size() == 0) {
+                    // System.out.println("Reaching making health helpers");
+                    coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                } else {
+                    coins.add(new Coins(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.bonus), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 100, 100, 1));
+                }
+                coinHelperTime = System.nanoTime();
+            }
+
+            for (int i = 0; i < coins.size(); i++) {
+                coins.get(i).update();
+                // When collision occurs decrement the player life by 1 and display collision effect
+                if (isCollision(coins.get(i), gamePlayer)) {
+                    coins.remove(i);
+                    gamePlayer.setScore(50);
+                    
+                    break;
+                }
+
+                if (coins.get(i).getX() < -100) {
+                    coins.remove(i);
+                    break;
+                }
+
+            }
+
 
 
         }
     }
 
+
     public boolean isCollision(GameObject a, GameObject b) {
         return Rect.intersects(a.getRect(), b.getRect());
     }
+
 
     @Override
     public void draw(Canvas canvas) {
