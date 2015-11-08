@@ -242,7 +242,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+boolean isshot(Debris d, Bullet b){
 
+    if( d.getX()-2 *d.getWidth() <= b.getX() && b.getX() <= d.getX()+2*d.getWidth()){
+            return true;
+    }
+    return false;
+}
     void removeCollidedDebrisAndBullet(){
 
 
@@ -252,7 +258,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             boolean collided = false;
             for(Debris d: debris) {
 
-                if (isCollision(b, d)) {
+                //gamePlayer.setPlaying(false);
+                if (isCollision(d,b)) {
                     collided = true;
                     bullet.remove(b);
                     debris.remove(d);
@@ -339,9 +346,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     void fireBullets(){
 
 
-        if(bulletcount < 50 && bulletfiring == true)
+        if(bulletcount < 120 && bulletfiring == true)
         {
              bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.bullet), gamePlayer.getX(), gamePlayer.getY()+gamePlayer.getHeight()/2 ,45, 15, 13));
+
             //bullet.add(new Bullet(BitmapFactory.decodeResource(getResources(), R.drawable.debris), gamePlayer.getX(), gamePlayer.getY(), 68, 72, 1));
             bulletcount++;
 

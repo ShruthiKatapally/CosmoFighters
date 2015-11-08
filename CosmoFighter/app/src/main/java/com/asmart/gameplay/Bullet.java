@@ -11,8 +11,6 @@ import java.util.Random;
  */
 public class Bullet extends GameObject {
     public Context context;
-    private int x;
-    private int y;
     private int width;
     private int height;
 
@@ -30,8 +28,8 @@ public class Bullet extends GameObject {
 
 
     public Bullet(Bitmap res, int x, int y, int w, int h, int numFrames) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.width = w;
         this.height = h;
         Bitmap[] image = new Bitmap[numFrames];
@@ -44,7 +42,7 @@ public class Bullet extends GameObject {
         }
 
         animation.setFrames(image);
-        animation.setDelay(100 - bulletspeed);
+        animation.setDelay(1000 - bulletspeed);
     }
 
     public void draw(Canvas canvas) {
