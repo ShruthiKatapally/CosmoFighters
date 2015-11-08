@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
             mh.startMusic();
         }
 
-        if(mh.getmusicstatus() == true)
-            mh.startMusic();
-        else
-            mh.stopMusic();
        /* long startTime = System.nanoTime();
         while ((startTime - System.nanoTime())/1000000 > -12)
         {
@@ -70,21 +66,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onPause() {
-        if (this.isFinishing()){ //basically BACK was pressed from this activity
-            mh.stopMusic();
-            }
-        Context context = getApplicationContext();
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-        if (!taskInfo.isEmpty()) {
-            ComponentName topActivity = taskInfo.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                mh.stopMusic();
-                 }
-        }
-        super.onPause();
-    }
 
 }

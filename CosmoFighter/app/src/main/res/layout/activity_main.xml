@@ -12,7 +12,6 @@
         android:textSize="50sp"
         android:textColor="#eaa52d"
         android:id="@+id/app_name"
-        android:layout_marginTop="112dp"
         android:textStyle="bold"
         android:singleLine="false"
         android:gravity="center"
@@ -26,10 +25,9 @@
         android:id="@+id/play_btn"
         android:textSize="30sp"
         android:background="@drawable/roundedbutton"
-        android:layout_below="@+id/app_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp"
-        android:onClick="startPlaying" />
+        android:onClick="startPlaying"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
