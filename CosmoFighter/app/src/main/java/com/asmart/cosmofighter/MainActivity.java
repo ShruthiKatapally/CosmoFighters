@@ -1,5 +1,8 @@
 package com.asmart.cosmofighter;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +11,8 @@ import android.view.Menu;
 import android.view.View;
 import com.asmart.helpers.InitialSetupHelper;
 import com.asmart.helpers.MusicHelper;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         if(settings.getBoolean(getString(R.string.MUSICON),true)){
             mh.startMusic();
         }
+
+        if(mh.getmusicstatus() == true)
+            mh.startMusic();
+        else
+            mh.stopMusic();
        /* long startTime = System.nanoTime();
         while ((startTime - System.nanoTime())/1000000 > -12)
         {
@@ -37,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);   */
+
+
+
     }
 
     @Override
@@ -51,4 +64,27 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
     }
+
+    public void instructions(View view){
+        Intent intent = new Intent(this,Instructions.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        if (this.isFinishing()){ //basically BACK was pressed from this activity
+            mh.stopMusic();
+            }
+        Context context = getApplicationContext();
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+        if (!taskInfo.isEmpty()) {
+            ComponentName topActivity = taskInfo.get(0).topActivity;
+            if (!topActivity.getPackageName().equals(context.getPackageName())) {
+                mh.stopMusic();
+                 }
+        }
+        super.onPause();
+    }
+
 }

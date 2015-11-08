@@ -12,6 +12,13 @@
 
     <!--Strings used in main activity-->
     <string name="app_name">Cosmo Fighter</string>
+    <string name="title_instructions_button">Instructions</string>
+
+    <!--String used in Instructions activity-->
+    <string name="title_instruc_text"> Tap to move fighter. Escape from Debris and reach the final Flag.
+                                       Collect Lives to increase life count.Collect coins to increase the score by 50. Colliding with a Debris will decrease the score by 50.
+                                       Play a level to unlock the next series. Selection of packages changes directions of obstacles. </string>
+
 
     <!--Strings used in home screen activity -->
     <string name="title_start_playing">"  Start Playing  "</string>
@@ -59,5 +66,6 @@
     <string name="GAME_SCORE">Game_Score</string>
     <string name="FLAG_REACHED">Flag_Reached</string>
     <string name="DATABASE_NAME">cosmofighter</string>
+    <string name="title_activity_instructions">Instructions</string>
 
 </resources>
