@@ -13,8 +13,8 @@ public class Flag extends GameObject {
     private Context context;
     public Flag(Context context,Bitmap res,int x,int y,int w, int h,int numFrames){
         speed = 0;              // flag is located at fixed position
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         width  = w;
         height = h;
         spritesheet = res;

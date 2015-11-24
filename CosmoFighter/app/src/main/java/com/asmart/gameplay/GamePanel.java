@@ -110,29 +110,29 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         gameStartTime = System.nanoTime();
         levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
         packNum = settings.getInt(this.context.getString(R.string.PACKAGE), 1);
-        if(levelNum==1)
-        {
-            //easy
-            debrisFrequency = 700;
-            healthFrequency = 20000;
-            ammoFrequency = 7000;
-            flaggingTime = 80;
-        }
-        if(levelNum==2)
-        {
-            //medium
-            debrisFrequency = 400;
-            healthFrequency = 50000;
-            ammoFrequency = 10000;
-            flaggingTime = 100;
-        }
-        if(levelNum==3)
-        {
-            //hard
-            debrisFrequency = 300;
-            healthFrequency = 30000;
-            ammoFrequency = 15000;
-            flaggingTime = 130;
+
+        switch(levelNum) {
+            case 1: {    //easy
+                debrisFrequency = 700;
+                healthFrequency = 20000;
+                ammoFrequency = 7000;
+                flaggingTime = 80;
+                break;
+            }
+            case 2: {//medium
+                debrisFrequency = 400;
+                healthFrequency = 50000;
+                ammoFrequency = 10000;
+                flaggingTime = 100;
+                break;
+            }
+            case 3: {//hard
+                debrisFrequency = 300;
+                healthFrequency = 30000;
+                ammoFrequency = 15000;
+                flaggingTime = 130;
+                break;
+            }
         }
 
         //For Debris
@@ -219,8 +219,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             // time to draw a flag on to the screen randomly.
             // System.out.println("Flag has been created!!!!");
-            flagCoordX = getWidth()-500;
-            flagCoordY = 0;
+            flagCoordX = GamePanel.WIDTH - 500;
+            flagCoordY = 50;
             flag = new Flag(this.context,BitmapFactory.decodeResource(getResources(), R.drawable.flag),flagCoordX,flagCoordY, 220, 190, 1);
             flag.update();
         }
@@ -258,22 +258,24 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     void removeCollidedDebrisAndBullet(){
 
-
+        boolean collided;
         //update bullet
         for(Bullet b: bullet){
             b.update();
-            boolean collided = false;
+            collided = false;
             for(Debris d: debris) {
 
                 //gamePlayer.setPlaying(false);
                 if (isCollision(d,b)) {
                     collided = true;
-                    bullet.remove(b);
                     debris.remove(d);
+                    break;
                 }
-
             }
-
+            if(collided) {
+                bullet.remove(b);
+                break;
+            }
         }
 
     }
@@ -346,7 +348,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 bullet.clear();
                 bulletcount =0;
                 bulletfiring = true;
+                break;
             }
+
             if (ammos.get(i).getX() < -100) {
                 ammos.remove(i);
                 break;
@@ -408,22 +412,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             debrisCoordY = -10;
         }
 
-
         if (gamePlayer.getPlaying()) {
             bg.update();
             gamePlayer.update();
 
-
             updateHealthHelper();
-
             updateFlag();
-
             addAndupdateCoins();
             addNewDebris();
-
-
            removeCollidedDebrisAndBullet();
-
             updateDebris();
             addAndUpdateAmmo();
             fireBullets();

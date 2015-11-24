@@ -9,9 +9,9 @@ import android.graphics.Canvas;
  */
 public class Collision extends GameObject {
     public Context context;
-    private int x;
+
     private static Collision col;
-    private int y;
+
     private int row;
     private int width;
     private int height;
@@ -36,8 +36,8 @@ public class Collision extends GameObject {
 
     public Collision(Bitmap res,int x,int y,int w,int h,int numFrames)
     {
-        this.x=x;
-        this.y=y;
+        super.x=x;
+        super.y=y;
         this.width=w;
         this.height=h;
         Bitmap[] image = new Bitmap[numFrames];
