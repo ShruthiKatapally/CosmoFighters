@@ -72,12 +72,14 @@
     <string name="PREVIOUS_SCREEN">PreviousScreen</string>
     <string name="title_activity_instructions">Instructions</string>
     <string name="FIGHTER_NAME">FighterName</string>
+    <string name="ic_fighter0_HEIGHT">90</string>
+    <string name="ic_fighter0_WIDTH">96</string>
     <string name="ic_fighter1_HEIGHT">90</string>
     <string name="ic_fighter1_WIDTH">110</string>
-    <string name="ic_fighter2_HEIGHT">90</string>
-    <string name="ic_fighter2_WIDTH">109</string>
+    <string name="ic_fighter2_HEIGHT">96</string>
+    <string name="ic_fighter2_WIDTH">126</string>
     <string name="ic_fighter3_HEIGHT">90</string>
-    <string name="ic_fighter3_WIDTH">110</string>
+    <string name="ic_fighter3_WIDTH">113</string>
     <string name="title_activity_select_fighter">select_fighter</string>
 
 </resources>
