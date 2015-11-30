@@ -5,9 +5,6 @@ import android.graphics.Canvas;
 
 import java.util.Random;
 
-/**
- * Created by Shruthi on 11/6/2015.
- */
 public class Ammo extends GameObject {
     private int ammospeed;
     private int score;

@@ -149,7 +149,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             case 3: {//hard
                 debrisFrequency = 300;
                 healthFrequency = 30000;
-                ammoFrequency = 15000;
+                ammoFrequency = 7000;
                 flaggingTime = 130;
                 break;
             }
@@ -348,7 +348,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (ammoLap > (ammoFrequency - gamePlayer.getScore() / 5)) {
             if (ammos.size() == 0) {
-                ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, HEIGHT / 2, 70, 67, gamePlayer.getScore(), 1));
+                ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10,(int) (rand.nextDouble() * (HEIGHT)), 70, 67, gamePlayer.getScore(), 1));
             } else {
                 ammos.add(new Ammo(BitmapFactory.decodeResource(getResources(), R.drawable.ammo), WIDTH + 10, (int) (rand.nextDouble() * (HEIGHT)), 70, 67, gamePlayer.getScore(), 1));
             }
