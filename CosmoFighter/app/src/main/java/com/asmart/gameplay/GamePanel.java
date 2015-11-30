@@ -103,7 +103,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
+        bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.mainbackground1));
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
         String fighterName = settings.getString(this.context.getString(R.string.FIGHTER_NAME), "ic_fighter0");
 
