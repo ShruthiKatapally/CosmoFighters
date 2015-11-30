@@ -23,6 +23,7 @@ public class InitialSetupHelper {
         edit.putBoolean(context.getString(R.string.SOUNDON), true);
         edit.putBoolean(context.getString(R.string.FIRSTRUN), false);
         edit.putInt(context.getString(R.string.PLAYER_ID), 1);
+        edit.putString(context.getString(R.string.FIGHTER_NAME), "ic_fighter2");
         edit.commit();
 
         //Adds the default data to database

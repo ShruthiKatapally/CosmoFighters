@@ -104,8 +104,26 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
-        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), 110, 90, 3, this.context);
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
+        String fighterName = settings.getString(this.context.getString(R.string.FIGHTER_NAME), "ic_fighter1");
+        int playerHeight  = 0 ;
+        int playerWidth = 0;
+        if( fighterName.equals("ic_fighter1")) {
+             playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter1_HEIGHT));
+             playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter1_WIDTH));
+        }else if (fighterName.equals("ic_fighter2")){
+
+            playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter2_HEIGHT));
+            playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter2_WIDTH));
+
+        }else if(fighterName.equals("ic_fighter3")){
+
+            playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter3_HEIGHT));
+            playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter3_WIDTH));
+        }
+        System.out.println("Fighter details: *****************************"+ fighterName +" "+playerWidth + "   "+ playerHeight+"*********");
+
+        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), playerWidth,playerHeight, 3, this.context);
 
         gameStartTime = System.nanoTime();
         levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
