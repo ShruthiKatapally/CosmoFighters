@@ -1,7 +1,11 @@
 package com.asmart.gameplay;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class GamePlayer extends GameObject {
     private int score;
@@ -12,16 +16,35 @@ public class GamePlayer extends GameObject {
     private float userX;
     private float userY;
     private Bitmap spritesheet;
-    public GamePlayer(Bitmap res, int w, int h, int numFrames){
-        x = 100;
-        y= GamePanel.HEIGHT / 2;
 
+    private int screenWidth;
+    private int screenHeight;
+    public GamePlayer(Bitmap res, int w, int h, int numFrames,Context context){
+        x = 100;
+
+        y= GamePanel.HEIGHT / 2;
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenWidth = size.x;
+        screenHeight = size.y;
+        // for older android versions...
+        screenWidth = display.getWidth();
+        screenHeight  = display.getHeight();
         score=0;
         height = h;
         width = w;
         lives =5;
-        userX = x;
-        userY = y;
+        if(x>=screenWidth)
+            userX = screenWidth - 10;
+        else
+            userX = x;
+
+        if(y>=screenHeight)
+            userY = screenHeight - 5;
+        else
+            userY = y;
         Bitmap [] image = new Bitmap[numFrames];
         spritesheet = res;
         for (int i=0; i<image.length; i++)
@@ -45,12 +68,12 @@ public class GamePlayer extends GameObject {
         animation.update();
         if (x < userX)
         {
-            x += (userX-x)/8;
+            x += (userX-x)/12;
 
         }
         if(x > userX)
         {
-            x -=(x - userX)/8;
+            x -=(x - userX)/12;
         }
         if (y < userY)
         {
@@ -61,6 +84,17 @@ public class GamePlayer extends GameObject {
         {
             y -=(y-userY)/8;
         }
+
+        if(y> 3/4.0 *screenHeight + height) {
+
+            y = (int)((3/4.0)*screenHeight)+height - 10;
+        }
+        if(x>3/4.0 *screenWidth - 20) {
+            x = (int)(3/4.0 *screenWidth )+10;
+
+        }
+        System.out.println(""+screenWidth);
+
 
     }
 
@@ -78,9 +112,7 @@ public class GamePlayer extends GameObject {
         if(this.lives>0){
             this.lives-=1;
         }
-        else{
-            // call function to exit this activity and go to high scores activity.
-        }
+
     }
     public void setScore(int score){
         this.score+=score;

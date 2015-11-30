@@ -104,7 +104,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
-        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), 110, 90, 3);
+        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), 110, 90, 3, this.context);
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
 
         gameStartTime = System.nanoTime();
