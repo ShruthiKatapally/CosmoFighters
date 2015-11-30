@@ -42,6 +42,7 @@
     <!--Strings used in Audio settings screen -->
     <string name="title_musiclbl">"   Music   "</string>
     <string name="title_audiolbl">"   Audio   "</string>
+    <string name="title_select_fighter">"   Select Fighter   "</string>
 
     <!--Strings used for sharing activity-->
     <string name="title_fbshare_login">"  Back  "</string>
@@ -76,5 +77,6 @@
     <string name="ic_fighter2_WIDTH">109</string>
     <string name="ic_fighter3_HEIGHT">90</string>
     <string name="ic_fighter3_WIDTH">110</string>
+    <string name="title_activity_select_fighter">select_fighter</string>
 
 </resources>
