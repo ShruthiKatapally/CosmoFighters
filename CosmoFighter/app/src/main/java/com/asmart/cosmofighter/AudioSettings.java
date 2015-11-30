@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import com.asmart.helpers.MusicHelper;
@@ -80,6 +81,11 @@ public class AudioSettings extends AppCompatActivity {
                 edit.commit();
             }
         });
+    }
+
+    public void selectplayerfighter(View view) {
+        Intent intent = new Intent(this, select_fighter.class);
+        startActivity(intent);
     }
 
     @Override

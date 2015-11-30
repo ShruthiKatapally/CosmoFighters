@@ -25,9 +25,11 @@
         android:textColor="#eaa52d"
         android:textStyle="bold"
         android:textSize="40sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        tools:ignore="NewApi" />
+        tools:ignore="NewApi"
+        android:layout_below="@+id/select_fighter_btn"
+        android:layout_alignLeft="@+id/audio_switch"
+        android:layout_alignStart="@+id/audio_switch"
+        android:layout_marginTop="49dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,11 +55,19 @@
         android:textStyle="bold"
         android:textColor="#eaa52d"
         android:textSize="40sp"
-        android:layout_below="@+id/music_switch"
-        android:layout_alignLeft="@+id/music_switch"
-        android:layout_alignStart="@+id/music_switch"
         tools:ignore="NewApi"
-        />
+        android:layout_below="@+id/music_switch"
+        android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_select_fighter"
+        android:id="@+id/select_fighter_btn"
+        android:textSize="30sp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="selectplayerfighter"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
