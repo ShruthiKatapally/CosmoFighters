@@ -79,7 +79,8 @@ public class LevelsActivity extends AppCompatActivity {
     }
 
     public void StartGame(View view) {
-        Intent intent = new Intent(this, GameScreenActivity.class);
+        Intent intent = new Intent(this, SelectFighter.class);
+        intent.putExtra(getString(R.string.PREVIOUS_SCREEN), "levels");
         startActivity(intent);
         SharedPreferences settings = getSharedPreferences(getString(R.string.APP_PREFERENCES), 0);
         SharedPreferences.Editor edit = settings.edit();

@@ -83,9 +83,11 @@ public class AudioSettings extends AppCompatActivity {
         });
     }
 
-    public void selectplayerfighter(View view) {
-        Intent intent = new Intent(this, select_fighter.class);
+    public void selectFighter(View view) {
+        Intent intent = new Intent(this, SelectFighter.class);
+        intent.putExtra(getString(R.string.PREVIOUS_SCREEN), "settings");
         startActivity(intent);
+        finish();
     }
 
     @Override

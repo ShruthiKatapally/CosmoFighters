@@ -26,7 +26,8 @@
         android:layout_marginTop="75dp"
         android:src="@drawable/fighter_1"
         android:layout_below="@+id/audio_view"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="setFighter" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:layout_below="@+id/imageButton"
         android:layout_alignLeft="@+id/imageButton3"
         android:layout_alignStart="@+id/imageButton3"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:onClick="setFighter" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -46,6 +48,7 @@
         android:layout_alignLeft="@+id/imageButton"
         android:layout_alignStart="@+id/imageButton"
         android:layout_marginTop="49dp"
-        android:src="@drawable/fighter_3" />
+        android:src="@drawable/fighter_3"
+        android:onClick="setFighter" />
 
 </RelativeLayout>

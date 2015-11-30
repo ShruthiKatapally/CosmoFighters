@@ -69,6 +69,7 @@
     <string name="GAME_SCORE">Game_Score</string>
     <string name="FLAG_REACHED">Flag_Reached</string>
     <string name="DATABASE_NAME">cosmofighter</string>
+    <string name="PREVIOUS_SCREEN">PreviousScreen</string>
     <string name="title_activity_instructions">Instructions</string>
     <string name="FIGHTER_NAME">FighterName</string>
     <string name="ic_fighter1_HEIGHT">90</string>
