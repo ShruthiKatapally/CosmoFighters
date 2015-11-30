@@ -35,8 +35,8 @@ public class InitialSetupHelper {
     //Inserts the packages and their corresponding values to the database in initial run
     public void addDefaultPackages() {
         Packages pack1 = new Packages(1, context.getString(R.string.title_package1), true, 0, 0);
-        Packages pack2 = new Packages(2, context.getString(R.string.title_package2), false, 0, 0);
-        Packages pack3 = new Packages(3, context.getString(R.string.title_package3), false, 0, 0);
+        Packages pack2 = new Packages(2, context.getString(R.string.title_package2), true, 0, 0);
+        Packages pack3 = new Packages(3, context.getString(R.string.title_package3), true, 0, 0);
 
         DatabaseHelper db = DatabaseHelper.getInstance(context);
         db.addPackage(pack1);
