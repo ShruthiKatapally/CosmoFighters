@@ -105,25 +105,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new GameBackground(BitmapFactory.decodeResource(getResources(), R.drawable.space));
         SharedPreferences settings =context.getSharedPreferences(context.getString(R.string.APP_PREFERENCES), 0);
-        String fighterName = settings.getString(this.context.getString(R.string.FIGHTER_NAME), "ic_fighter1");
-        int playerHeight  = 0 ;
-        int playerWidth = 0;
-        if( fighterName.equals("ic_fighter1")) {
-             playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter1_HEIGHT));
-             playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter1_WIDTH));
-        }else if (fighterName.equals("ic_fighter2")){
+        String fighterName = settings.getString(this.context.getString(R.string.FIGHTER_NAME), "ic_fighter0");
 
-            playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter2_HEIGHT));
-            playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter2_WIDTH));
+        if( fighterName.equals("ic_fighter0")) {
+             int playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter0_HEIGHT));
+             int playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter0_WIDTH));
+            gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter0), playerWidth,playerHeight, 3, this.context);
+        }else if (fighterName.equals("ic_fighter1")){
 
-        }else if(fighterName.equals("ic_fighter3")){
+           int playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter1_HEIGHT));
+            int playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter1_WIDTH));
+            gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), playerWidth,playerHeight, 3, this.context);
 
-            playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter3_HEIGHT));
-            playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter3_WIDTH));
+        }else if(fighterName.equals("ic_fighter2")){
+
+            int playerHeight = Integer.valueOf(this.context.getString(R.string.ic_fighter2_HEIGHT));
+            int playerWidth = Integer.valueOf(this.context.getString(R.string.ic_fighter2_WIDTH));
+            gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter2), playerWidth,playerHeight, 3, this.context);
         }
-        System.out.println("Fighter details: *****************************"+ fighterName +" "+playerWidth + "   "+ playerHeight+"*********");
 
-        gamePlayer = new GamePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_fighter1), playerWidth,playerHeight, 3, this.context);
+
+
 
         gameStartTime = System.nanoTime();
         levelNum = settings.getInt(this.context.getString(R.string.LEVEL), 1);
