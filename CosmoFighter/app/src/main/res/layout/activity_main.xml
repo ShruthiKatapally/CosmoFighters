@@ -26,8 +26,9 @@
         android:textSize="30sp"
         android:background="@drawable/roundedbutton"
         android:onClick="startPlaying"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp" />
 
     <Button
         android:layout_width="wrap_content"

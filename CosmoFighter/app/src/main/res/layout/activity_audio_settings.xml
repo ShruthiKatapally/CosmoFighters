@@ -26,10 +26,10 @@
         android:textStyle="bold"
         android:textSize="40sp"
         tools:ignore="NewApi"
-        android:layout_below="@+id/select_fighter_btn"
-        android:layout_alignLeft="@+id/audio_switch"
-        android:layout_alignStart="@+id/audio_switch"
-        android:layout_marginTop="49dp" />
+        android:layout_marginTop="61dp"
+        android:layout_below="@+id/audio_textView"
+        android:layout_alignRight="@+id/audio_switch"
+        android:layout_alignEnd="@+id/audio_switch" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,11 +39,9 @@
         android:id="@+id/audio_view"
         android:textColor="#eaa52d"
         android:textSize="50sp"
-        android:layout_below="@+id/audio_textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
         android:textStyle="bold"
-        />
+        android:layout_alignBottom="@+id/audio_textView"
+        android:layout_centerHorizontal="true" />
 
 
     <android.widget.Switch
@@ -56,10 +54,10 @@
         android:textColor="#eaa52d"
         android:textSize="40sp"
         tools:ignore="NewApi"
-        android:layout_below="@+id/music_switch"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_select_fighter"
@@ -68,6 +66,6 @@
         android:background="@drawable/roundedbutton"
         android:onClick="selectFighter"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
 </RelativeLayout>

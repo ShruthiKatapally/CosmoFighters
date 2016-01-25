@@ -1,5 +1,6 @@
 package com.asmart.cosmofighter;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import com.asmart.helpers.MusicHelper;
 
+@TargetApi(14)
 public class AudioSettings extends AppCompatActivity {
 
     private MusicHelper mh;
@@ -31,20 +33,20 @@ public class AudioSettings extends AppCompatActivity {
         edit = settings.edit();
 
         //Turn the music switch on/off based on the App preferences
-       /*if(settings.getBoolean(getString(R.string.MUSICON), true)) {
+       if(settings.getBoolean(getString(R.string.MUSICON), true)) {
             musicswitch.setChecked(true);
        }
        else {
             musicswitch.setChecked(false);
-       }*/
+       }
 
         //Turn the game sounds switch on/off based on the App preferences
-        /*if(settings.getBoolean(getString(R.string.SOUNDON), true)) {
-            audioswitch.setEnabled(true);
+        if(settings.getBoolean(getString(R.string.SOUNDON), true)) {
+            audioswitch.setChecked(true);
         }
         else {
-            audioswitch.setEnabled(false);
-        }*/
+            audioswitch.setChecked(false);
+        }
 
         //Stop or start music based on selection
         musicswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -46,7 +46,7 @@
 
     <!--Strings used for sharing activity-->
     <string name="title_fbshare_login">"  Back  "</string>
-    <string name ="app_id">1635261726728001</string>           <!-- app id to connect ot facebook-->
+    <string name ="app_id">265909843440725</string>           <!-- app id to connect ot facebook-->
 
     <!--Strings used in high scores screen-->
     <string name="title_player1">"Player 1"</string>
